@@ -1,0 +1,24 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "create api for good food project",
+  "main": "serveur.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obaconnais/good_food_2.0.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/obaconnais/good_food_2.0/issues"
+  },
+  "homepage": "https://github.com/obaconnais/good_food_2.0#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.2",
+    "nodemon": "^2.0.15"
+  }
+}
