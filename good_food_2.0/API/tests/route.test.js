@@ -15,8 +15,8 @@ afterAll(async ()=> await db.closeDatabase())
     const UserComplet = new user({lastname,forname,mail,address})
 
     it('first user', async () => {
-        User.createUser(UserComplet)        
+        await User.createUser(UserComplet)        
         let existeUser = await User.findUser(UserComplet)
-        // expect(existeUser.lastname).toBe(UserComplet.lastname)
+        expect(existeUser).toBe(UserComplet)
     }) 
 })

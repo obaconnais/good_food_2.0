@@ -19,7 +19,9 @@ module.exports.findUser = async (user)=>{
         //testing if user not exist
         if(!existingUser)
             return (null,console.log(`user ${user.lastname} ${user.forname} doesn't exist`))
-        else
-            return (user,console.log(`user ${user.lastname} ${user.forname} exist`))
+        else{
+            console.log(`user ${user.lastname} ${user.forname} exist`)
+            return user
+        }
     }catch(err){}
 }
