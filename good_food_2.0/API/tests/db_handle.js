@@ -1,14 +1,19 @@
+/*************************************************/
+/************* mocked db  config *****************/
+/*************************************************/
+//library for ODM
 const mongoose = require('mongoose')
+//library for mocked mongodb server
 const {MongoMemoryServer} = require('mongodb-memory-server')
 
+//mocked db
 let mongod
 
-//conect to db
+//to connect to db
 module.exports.connect = async () => {
-
     mongod = await MongoMemoryServer.create()
     const uri = mongod.getUri()
-    
+    //connect option
     const mongooseOpt = {
         useNewUrlParser: true, 
         useUnifiedTopology: true,
@@ -17,14 +22,14 @@ module.exports.connect = async () => {
     await mongoose.connect(uri, mongooseOpt)
 }
 
-//dosconnected db
+//to disconnected db
 module.exports.closeDatabase = async () => {
     await mongoose.connection.dropDatabase()
     await mongoose.connection.close()
     await mongod.stop()
 }
 
-//clear the database 
+//to clear the database 
 module.exports.clearDatabase = async() => {
     const collections = mongoose.connection.collection
     for(const key in collections){

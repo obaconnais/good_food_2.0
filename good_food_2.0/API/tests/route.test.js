@@ -1,12 +1,12 @@
 const user = require('../model/user')
 const User = require("../controller/user")
-const db = require("./db_config")
+const db = require("./db_handle")
 
-describe('test',()=>{
+describe('mongo db connection',()=>{
 
-beforeAll(async () =>  db.connect())
-afterEach(async () => db.clearDatabase())
-afterAll(async ()=> db.closeDatabase())
+beforeAll(async () =>  await db.connect())
+afterEach(async () => await db.clearDatabase())
+afterAll(async ()=> await db.closeDatabase())
 
     let lastname = "BACONNAIS"
     let forname = "Olivier"
@@ -15,6 +15,8 @@ afterAll(async ()=> db.closeDatabase())
     const UserComplet = new user({lastname,forname,mail,address})
 
     it('first user', async () => {
-        let existeUser = User.createUser(UserComplet)
+        User.createUser(UserComplet)        
+        let existeUser = await User.findUser(UserComplet)
+        // expect(existeUser.lastname).toBe(UserComplet.lastname)
     }) 
 })
