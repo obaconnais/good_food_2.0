@@ -1,20 +1,9 @@
 const User = require("../model/user")
 
-module.exports = async function createUser(lastname, forname, mail, address){
+module.exports.createUser = async (user) => {
     try{
-        const existingUser = await User.findOne({lastname})
+        const existingUser = await User.findOne(user)
         if(existingUser) throw new Error(`user ${lastname} already exist`)
-
-        const newUser = new User({
-            lastname,
-            forname,
-            mail,
-            address
-        })
-        await newUser.save()
-
-        return {
-            userId: newUser._id
-        }
+        await User.create(user)
     }catch(err){throw err}
 }
