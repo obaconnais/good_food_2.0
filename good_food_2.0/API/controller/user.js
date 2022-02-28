@@ -15,7 +15,6 @@ module.exports.createUser = async (user) => {
             console.log(`user ${user.lastname} ${user.forname} already exist`)
             return false
         }
-        
         else{
             //create user in the db
             await User.create(user).then(()=>{
@@ -28,7 +27,7 @@ module.exports.createUser = async (user) => {
     }catch(err){throw err}
 }
 
-module.exports.findUser = async (user)=>{
+module.exports.findUser = async (user) => {
     try{
         //testing if user is null
         if(user == null){
@@ -49,9 +48,10 @@ module.exports.findUser = async (user)=>{
     }catch(err){}
 }
 
-module.exports.deleteUser = async(user)=>{
+module.exports.deleteUser = async (user) => {
     try{
-        User.deleteOne(user)
+        await User.deleteOne(user)
         console.log(`user ${user.lastname} ${user.forname} deleted`)
+
     }catch(err){}
 }
