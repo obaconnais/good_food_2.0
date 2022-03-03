@@ -52,6 +52,29 @@ module.exports.deleteUser = async (user) => {
     try{
         await User.deleteOne(user)
         console.log(`user ${user.lastname} ${user.forname} deleted`)
-
     }catch(err){}
+}
+
+module.exports.setUser = async ({lastname,forname,mail,address},user) => {
+    try{
+        user.lastname = lastname
+        user.forname = forname
+        user.mail = mail
+        user.address = address
+        await user.save()
+    }catch(err){}       
+}
+
+module.exports.setUserLastname = async ({lastname}, user)=>{
+    try{
+        user.lastname = lastname
+        await user.save()
+    }catch(err){}   
+}
+
+module.exports.setUserForname = async ({forname}, user)=>{
+    try{
+        user.forname = forname
+        await user.save()
+    }catch(err){}   
 }

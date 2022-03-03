@@ -96,4 +96,34 @@ afterAll(async ()=> await db.closeDatabase())
         let deletedUser = await User.findUser(userDeleted)
         expect(deletedUser).toBe(null)
     })
+
+    it('modify user with all field', async ()=>{
+        let userToBeModified = new user({lastname: "Bon", forname: "Jean", mail:"jean.bon@gmail.com",address:"1 rue de la boucherie 75600 PORCLAND"})
+        await User.createUser(userToBeModified)
+        await User.setUser({lastname: "Victor",forname:"Hugo",mail:"victor.huguo@gmail.com",address:"140 grande Rue 25000 Besançon"},userToBeModified)
+        userToBeModified.lastname = "Victor"
+        userToBeModified.forname = "Hugo"
+        userToBeModified.mail = "victor.huguo@gmail.com"
+        userToBeModified.address = "140 grande Rue 25000 Besançon"
+        let userModified = await User.findUser(userToBeModified)
+        expect(userModified).toBe(userToBeModified)
+    })
+
+    it('modify user with some field', async ()=>{
+        let userToBeModified = new user({lastname: "Bon", forname: "Jean", mail:"jean.bon@gmail.com",address:"1 rue de la boucherie 75600 PORCLAND"})
+        await User.createUser(userToBeModified)
+        await User.setUserLastname({lastname: "Victor"}, userToBeModified)
+        userToBeModified.lastname = "Victor"
+        let userModified = await User.findUser(userToBeModified)
+        expect(userModified).toBe(userToBeModified)
+    })
+
+    it('modify user with some field', async ()=>{
+        let userToBeModified = new user({lastname: "Bon", forname: "Jean", mail:"jean.bon@gmail.com",address:"1 rue de la boucherie 75600 PORCLAND"})
+        await User.createUser(userToBeModified)
+        await User.setUserLastname({forname: "Victor"}, userToBeModified)
+        userToBeModified.forname = "Victor"
+        let userModified = await User.findUser(userToBeModified)
+        expect(userModified).toBe(userToBeModified)
+    })
 })
