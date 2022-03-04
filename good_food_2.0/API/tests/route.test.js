@@ -109,21 +109,28 @@ afterAll(async ()=> await db.closeDatabase())
         expect(userModified).toBe(userToBeModified)
     })
 
-    it('modify user with some field', async ()=>{
+    it('modify user with field', async ()=>{
+        //test the lastname field
         let userToBeModified = new user({lastname: "Bon", forname: "Jean", mail:"jean.bon@gmail.com",address:"1 rue de la boucherie 75600 PORCLAND"})
         await User.createUser(userToBeModified)
         await User.setUserLastname({lastname: "Victor"}, userToBeModified)
         userToBeModified.lastname = "Victor"
         let userModified = await User.findUser(userToBeModified)
         expect(userModified).toBe(userToBeModified)
-    })
-
-    it('modify user with some field', async ()=>{
-        let userToBeModified = new user({lastname: "Bon", forname: "Jean", mail:"jean.bon@gmail.com",address:"1 rue de la boucherie 75600 PORCLAND"})
-        await User.createUser(userToBeModified)
-        await User.setUserLastname({forname: "Victor"}, userToBeModified)
-        userToBeModified.forname = "Victor"
-        let userModified = await User.findUser(userToBeModified)
+        //test the forname field
+        await User.setUserForname({forname: "Hugo"}, userToBeModified)
+        userToBeModified.forname = "Hugo"
+        userModified = await User.findUser(userToBeModified)
+        expect(userModified).toBe(userToBeModified)
+        //test the mail field
+        await User.setUserMail({mail: "victor.hugo@gmail.com"}, userToBeModified)
+        userToBeModified.mail = "victor.hugo@gmail.com"
+        userModified = await User.findUser(userToBeModified)
+        expect(userModified).toBe(userToBeModified)
+        //test the address field
+        await User.setUserAddress({address: "140 grande rue 25000 Besançon"}, userToBeModified)
+        userToBeModified.address = "140 grande rue 25000 Besançon"
+        userModified = await User.findUser(userToBeModified)
         expect(userModified).toBe(userToBeModified)
     })
 })

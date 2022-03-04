@@ -78,3 +78,17 @@ module.exports.setUserForname = async ({forname}, user)=>{
         await user.save()
     }catch(err){}   
 }
+
+module.exports.setUserMail = async ({mail}, user)=>{
+    try{
+        user.mail = mail
+        await user.save()
+    }catch(err){}   
+}
+
+module.exports.setUserAddress = async ({address}, user)=>{
+    try{
+        user.address = address
+        await user.save()
+    }catch(err){}   
+}
