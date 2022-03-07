@@ -23,7 +23,7 @@ module.exports.createUser = async (req,res) => {
     }catch(err){throw err}
 }
 
-module.exports.findUser = async (user) => {
+module.exports.findUser = async (req, res) => {
     try{
         //testing if user is null
         if(user == null){
