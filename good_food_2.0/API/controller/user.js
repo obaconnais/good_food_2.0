@@ -23,25 +23,25 @@ module.exports.createUser = async (req,res) => {
     }catch(err){throw err}
 }
 
-module.exports.findUser = async (req, res) => {
+module.exports.getUser = async (req, res) => {
     try{
+        let {mail} = req.body
         //testing if user is null
-        if(user == null){
-            console.log(`user is null, cannot find it`)
-            return null
-        }
-        const existingUser = await User.findOne(user)
-        
+        if(!mail){
+            return res.status(400).json(`missing data, expected an id`)
+        } 
+        const existingUser = await User.findOne({mail:mail})
+
         //testing if user not exist
         if(!existingUser){
-            console.log(`user ${user.lastname} ${user.forname} doesn't exist`)
-            return null
+            return res.status(404).json({message:`user with  mail ${mail} doesn't exist`})
         }  
         else{
-            console.log(`user ${user.lastname} ${user.forname} exist`)
-            return user
+            return res.json({data: existingUser})
         }
-    }catch(err){}
+    }catch(err){
+        return res.status(500).json({message:`Database error`})
+    }
 }
 
 module.exports.deleteUser = async (user) => {

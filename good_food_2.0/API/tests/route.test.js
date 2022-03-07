@@ -12,7 +12,7 @@ afterAll(async ()=> await db.closeDatabase())
     let mail= "vincent.ime@gmail.com"
     let address = "1 rue de l'épilation 58170 Poil"
 
-    it('create user and find user normally', async () => {
+    it('create user normally', async () => {
         let req = httpMock.createRequest({body:{lastname,forname,mail,address}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
@@ -23,7 +23,7 @@ afterAll(async ()=> await db.closeDatabase())
         expect(status).toBe("")
     })
 
-    it('create user without lastname', async () => {
+    it('create user without lastname field', async () => {
         let req = httpMock.createRequest({body:{lastname: null,forname,mail,address}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
@@ -34,7 +34,7 @@ afterAll(async ()=> await db.closeDatabase())
         expect(status).toBe(400)
     }) 
     
-    it('create user without forname', async () => {
+    it('create user without forname field', async () => {
         let req = httpMock.createRequest({body:{lastname,forname:null,mail,address}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
@@ -45,42 +45,60 @@ afterAll(async ()=> await db.closeDatabase())
         expect(status).toBe(400)
     }) 
     
-    it('create user without mail', async () => {
-        let UserUncomplet = new user({lastname,forname,mail:null,address})
-        let createUser = await User.createUser(UserUncomplet)        
-        expect(createUser).toBe(false)
-        //check if function create work normally
-        let existeUser = await User.findUser(UserUncomplet)
-        //check if user was created in the database
-        expect(existeUser).toBe(null)
+    it('create user without mail field', async () => {
+        let req = httpMock.createRequest({body:{lastname,forname,mail:null,address}})
+        let res = httpMock.createResponse()
+        await user.createUser(req,res)
+        //useful to get 
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`at least on field are missing`)
+        expect(status).toBe(400)
     }) 
     
-    // it('create user without needed fields', async () => {
-    //     let UserUncomplet = new user({lastname:null,forname:null,mail:null,address})
-    //     let createUser = await User.createUser(UserUncomplet)
-    //     //check if function create work normally
-    //     expect(createUser).toBe(false)       
-    //     let existeUser = await User.findUser(UserUncomplet)
-    //     //check if user was created in the database
-    //     expect(existeUser).toBe(null)
-    // }) 
+    it('create user without address field', async () => {
+        let req = httpMock.createRequest({body:{lastname,forname,mail,address:null}})
+        let res = httpMock.createResponse()
+        await user.createUser(req,res)
+        //useful to get 
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`at least on field are missing`)
+        expect(status).toBe(400)
+    }) 
 
-    // it('create user who are already created', async () => {
-    //     let UserComplet = new user({lastname,forname,mail,address})
-    //     let createUser = await User.createUser(UserComplet)
-    //     //testing if user was created
-    //     expect(createUser).toBe(true)
-    //     let alreadyCreatedUser = await User.createUser(UserComplet)
-    //     //testing if function work normally
-    //     expect(alreadyCreatedUser).toBe(false)
-    // } )
+    it('create user without needed fields', async () => {
+        let req = httpMock.createRequest({body:{lastname:null,forname:null,mail:null,address:null}})
+        let res = httpMock.createResponse()
+        await user.createUser(req,res)
+        //useful to get 
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`at least on field are missing`)
+        expect(status).toBe(400)
+    }) 
     
-    // it ('find user but don\'t exist', async () =>{
-    //     let UserComplet = new user({lastname,forname,mail,address})
-    //     let findUser = await User.findUser(UserComplet)
-    //     //testing function findUser work normally
-    //     expect(findUser).toBe(null)
-    // })
+    it('create user who are already created', async () => {
+        let req = httpMock.createRequest({body:{lastname,forname,mail,address}})
+        let res = httpMock.createResponse()
+        let res2 = httpMock.createResponse()
+        await user.createUser(req,res)
+        await user.createUser(req,res2)
+        let data = res2._getJSONData()
+        let status = res2._getStatusCode()
+        expect(data.message).toBe(`the user ${lastname} ${forname} already exist`)
+        expect(status).toBe(409)
+    } )
+    
+    it ('find user but don\'t exist', async () =>{
+        let req = httpMock.createRequest({body:{mail}})
+        let res = httpMock.createResponse()
+        await user.getUser(req,res)
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`user with  mail ${mail} doesn't exist`)
+        expect(status).toBe(404)
+    })
     
     // it('find user but user is null', async () => { 
     //     let nul = null
