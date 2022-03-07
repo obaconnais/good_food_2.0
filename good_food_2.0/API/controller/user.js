@@ -1,29 +1,25 @@
 const User = require("../model/user")
 
-module.exports.createUser = async (user) => {
+module.exports.createUser = async (req,res) => {
     try{
+        const {lastname,forname,mail,address} = req.body
+        
         //testing if needed informations about user are not null
-        if(user.lastname == null || user.forname == null || user.mail == null){
-            console.log(`user must have lastname, forname and email`)
-            return false
+        if(!lastname || !forname || !mail || !address){
+            return res.status(400).json({message:`at least on field are missing`})
         }
 
-        const existingUser = await User.findOne(user)
+        const existingUser = await User.findOne({mail: mail})
         
         //testing if user not exist
         if(existingUser){
-            console.log(`user ${user.lastname} ${user.forname} already exist`)
-            return false
+           return res.status(409).json({message:`the user ${lastname} ${forname} already exist`})
         }
         else{
             //create user in the db
-            await User.create(user).then(()=>{
-                console.log(`the user ${user.lastname} ${user.forname} created successfully`)
-            })
-            return true
+            await User.create({lastname,forname,mail,address})
+            return res.status('').json({message:`the user ${lastname} ${forname} created successfully`})
         }
-
-        
     }catch(err){throw err}
 }
 
