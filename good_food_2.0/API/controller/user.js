@@ -27,16 +27,16 @@ module.exports.createUser = async (req,res) => {
 
 module.exports.getUser = async (req, res) => {
     try{
-        let {mail} = req.body
+        let {_id} = req.body
         //testing if user is null
-        if(!mail){
-            return res.status(400).json({message:`Missing data, expected a mail`})
+        if(!_id){
+            return res.status(400).json({message:`Missing data, expected an _id`})
         } 
-        const existingUser = await user.findOne({mail:mail})
+        const existingUser = await user.findOne({_id:_id})
 
         //testing if user not exist
         if(!existingUser){
-            return res.status(404).json({message:`user with  mail ${mail} doesn't exist`})
+            return res.status(404).json({message:`user with  id ${_id} doesn't exist`})
         }  
         else{
             return res.status(200).json({data: existingUser})
