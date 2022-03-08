@@ -18,9 +18,11 @@ module.exports.createUser = async (req,res) => {
         else{
             //create user in the db
             await User.create({lastname,forname,mail,address})
-            return res.status('').json({message:`the user ${lastname} ${forname} created successfully`})
+            return res.status(204).json({message:`the user ${lastname} ${forname} created successfully`})
         }
-    }catch(err){throw err}
+    }catch(err){
+        return res.status(500).json({message:`Database error`})
+    }
 }
 
 module.exports.getUser = async (req, res) => {
@@ -28,7 +30,7 @@ module.exports.getUser = async (req, res) => {
         let {mail} = req.body
         //testing if user is null
         if(!mail){
-            return res.status(400).json({message:`missing data, expected a mail`})
+            return res.status(400).json({message:`Missing data, expected a mail`})
         } 
         const existingUser = await User.findOne({mail:mail})
 
@@ -37,54 +39,41 @@ module.exports.getUser = async (req, res) => {
             return res.status(404).json({message:`user with  mail ${mail} doesn't exist`})
         }  
         else{
-            return res.json({data: existingUser})
+            return res.status(200).json({data: existingUser})
         }
     }catch(err){
         return res.status(500).json({message:`Database error`})
     }
 }
 
-module.exports.deleteUser = async (user) => {
+module.exports.deleteUser = async (req,res) => {
     try{
-        await User.deleteOne(user)
-        console.log(`user ${user.lastname} ${user.forname} deleted`)
-    }catch(err){}
+        let {mail} = req.body
+        if(!mail)
+            return res.status(400).json({message:`Missing data, expected a mail`})    
+        else{
+            await User.deleteOne({mail: mail})
+            return res.status(204).json({message: `user with mail ${mail} deleted successfully`})
+        }
+    }catch(err){
+        return res.status(500).json({message:`Database error`})
+    }
 }
 
-module.exports.setUser = async ({lastname,forname,mail,address},user) => {
+module.exports.setUser = async (req, res) => {
     try{
-        user.lastname = lastname
-        user.forname = forname
-        user.mail = mail
-        user.address = address
-        await user.save()
+        let {lastname,forname,mail,address}=req.body
+        let existingUser = User.findOne({mail})
+        if(lastname)
+            existingUser.lastname = lastname
+        if(forname)
+            existingUser.forname = forname
+        if(mail)
+            existingUser.mail = mail
+        if(address)
+            existingUser.address =mail
+        existingUser.setUpdate({lastname,forname,mail,address})
+        return res.status(204).json({message:`user ${lastname} ${forname} modified successfully`})
     }catch(err){}       
-}
 
-module.exports.setUserLastname = async ({lastname}, user)=>{
-    try{
-        user.lastname = lastname
-        await user.save()
-    }catch(err){}   
-}
-
-module.exports.setUserForname = async ({forname}, user)=>{
-    try{
-        user.forname = forname
-        await user.save()
-    }catch(err){}   
-}
-
-module.exports.setUserMail = async ({mail}, user)=>{
-    try{
-        user.mail = mail
-        await user.save()
-    }catch(err){}   
-}
-
-module.exports.setUserAddress = async ({address}, user)=>{
-    try{
-        user.address = address
-        await user.save()
-    }catch(err){}   
 }

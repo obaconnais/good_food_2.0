@@ -15,5 +15,7 @@ let router = express.Router()
 /***********************************************/
 router.put('',userCtrl.createUser)
 
+router.get('/mail', userCtrl.getUser)
+
 
 module.exports = router
