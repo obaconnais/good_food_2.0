@@ -100,12 +100,15 @@ afterAll(async ()=> await db.closeDatabase())
         expect(status).toBe(404)
     })
     
-    // it('find user but user is null', async () => { 
-    //     let nul = null
-    //     let nulUser = await User.findUser(nul)
-    //     //testing function findUser work normally
-    //     expect(nulUser).toBe(null)
-    // }) 
+    it('find user but user is null', async () => { 
+        let req = httpMock.createRequest({body:{mail:null}})
+        let res = httpMock.createResponse()
+        await user.getUser(req,res)
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`missing data, expected a mail`)
+        expect(status).toBe(400)
+    }) 
     
     // it('delete a user', async () => {
     //     let userDeleted = new user({lastname,forname,mail,address})

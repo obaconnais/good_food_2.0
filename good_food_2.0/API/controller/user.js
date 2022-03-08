@@ -28,7 +28,7 @@ module.exports.getUser = async (req, res) => {
         let {mail} = req.body
         //testing if user is null
         if(!mail){
-            return res.status(400).json(`missing data, expected an id`)
+            return res.status(400).json({message:`missing data, expected a mail`})
         } 
         const existingUser = await User.findOne({mail:mail})
 
