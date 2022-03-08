@@ -78,7 +78,7 @@ afterAll(async ()=> await db.closeDatabase())
         expect(status).toBe(400)
     }) 
     
-    it('create user who are already created', async () => {
+    it('create user which are already created', async () => {
         let req = httpMock.createRequest({body:{lastname,forname,mail,address}})
         let res = httpMock.createResponse()
         let res2 = httpMock.createResponse()
@@ -88,25 +88,52 @@ afterAll(async ()=> await db.closeDatabase())
         let status = res2._getStatusCode()
         expect(data.message).toBe(`the user ${lastname} ${forname} already exist`)
         expect(status).toBe(409)
-    } )
+    })
     
-    it ('get user but don\'t exist', async () =>{
-        let req = httpMock.createRequest({body:{mail}})
+    it('get user normally', async ()=> {
+        //Create a new user
+        let reqCreate = httpMock.createRequest({body:{lastname, forname, mail, address}})
+        let resCreate = httpMock.createResponse()
+        await user.createUser(reqCreate,resCreate)
+        
+        //Pick up id from this user
+        let reqId = httpMock.createRequest({body:{mail: mail}})
+        let resId = httpMock.createResponse()
+        await user.getUserId(reqId, resId)
+        let id = resId._getJSONData().data
+        
+        //Search with this id
+        let reqGet = httpMock.createRequest({body:{_id:id}})
+        let resGet = httpMock.createResponse()
+        await user.getUser(reqGet, resGet)
+        let dataGet = resGet._getJSONData()
+        let statusGet = resGet._getStatusCode()
+        expect(statusGet).toBe(200)
+        expect(dataGet.data._id).toBe(id)
+        expect(dataGet.data.lastname).toBe(lastname)
+        expect(dataGet.data.forname).toBe(forname)
+        expect(dataGet.data.mail).toBe(mail)
+        expect(dataGet.data.address).toBe(address)
+    })
+
+    it('get user but don\'t exist', async () =>{
+        let _id = "62275094792e16d60e3247f2"
+        let req = httpMock.createRequest({body:{_id: _id}})
         let res = httpMock.createResponse()
         await user.getUser(req,res)
         let data = res._getJSONData()
         let status = res._getStatusCode()
-        expect(data.message).toBe(`user with  mail ${mail} doesn't exist`)
+        expect(data.message).toBe(`user with id ${_id} doesn't exist`)
         expect(status).toBe(404)
     })
     
     it('get user but user is null', async () => { 
-        let req = httpMock.createRequest({body:{mail:null}})
+        let req = httpMock.createRequest({body:{_id:null}})
         let res = httpMock.createResponse()
         await user.getUser(req,res)
         let data = res._getJSONData()
         let status = res._getStatusCode()
-        expect(data.message).toBe(`Missing data, expected a mail`)
+        expect(data.message).toBe(`Missing data, expected an _id`)
         expect(status).toBe(400)
     }) 
     
@@ -174,7 +201,7 @@ afterAll(async ()=> await db.closeDatabase())
         expect(dataSet.message).toBe(`user ${lastnameSet} ${fornameSet} modified successfully`)
         
         //Check if user have been modified in mocked DB
-        let reqGet = httpMock.createRequest({body:{mail:mailSet}})
+        let reqGet = httpMock.createRequest({body:{_id:_id}})
         let resGet = httpMock.createResponse()
         await user.getUser(reqGet, resGet)
         let dataResult = resGet._getJSONData()

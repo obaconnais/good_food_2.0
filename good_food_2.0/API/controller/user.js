@@ -36,7 +36,7 @@ module.exports.getUser = async (req, res) => {
 
         //testing if user not exist
         if(!existingUser){
-            return res.status(404).json({message:`user with  id ${_id} doesn't exist`})
+            return res.status(404).json({message:`user with id ${_id} doesn't exist`})
         }  
         else{
             return res.status(200).json({data: existingUser})
