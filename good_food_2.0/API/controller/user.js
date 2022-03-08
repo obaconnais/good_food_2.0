@@ -1,4 +1,4 @@
-const User = require("../model/user")
+const user = require("../model/user")
 
 module.exports.createUser = async (req,res) => {
     try{
@@ -9,7 +9,7 @@ module.exports.createUser = async (req,res) => {
             return res.status(400).json({message:`at least on field are missing`})
         }
 
-        const existingUser = await User.findOne({mail: mail})
+        const existingUser = await user.findOne({mail: mail})
         
         //testing if user not exist
         if(existingUser){
@@ -17,7 +17,7 @@ module.exports.createUser = async (req,res) => {
         }
         else{
             //create user in the db
-            await User.create({lastname,forname,mail,address})
+            await user.create({lastname,forname,mail,address})
             return res.status(204).json({message:`the user ${lastname} ${forname} created successfully`})
         }
     }catch(err){
@@ -32,7 +32,7 @@ module.exports.getUser = async (req, res) => {
         if(!mail){
             return res.status(400).json({message:`Missing data, expected a mail`})
         } 
-        const existingUser = await User.findOne({mail:mail})
+        const existingUser = await user.findOne({mail:mail})
 
         //testing if user not exist
         if(!existingUser){
@@ -46,14 +46,21 @@ module.exports.getUser = async (req, res) => {
     }
 }
 
+//@toFix develop many test code/ not done actually
+module.exports.getUserId = async (req, res) => {
+    let{mail} = req.body
+    let doc = await user.findOne({mail: mail})
+    return res.status(200).json({data: doc._id})
+}   
+
 module.exports.deleteUser = async (req,res) => {
     try{
-        let {mail} = req.body
-        if(!mail)
-            return res.status(400).json({message:`Missing data, expected a mail`})    
+        let {_id} = req.body
+        if(!_id)
+            return res.status(400).json({message:`Missing data, expected an id`})    
         else{
-            await User.deleteOne({mail: mail})
-            return res.status(204).json({message: `user with mail ${mail} deleted successfully`})
+            await user.deleteOne({_id: _id})
+            return res.status(204).json({message: `user with id ${_id} deleted successfully`})
         }
     }catch(err){
         return res.status(500).json({message:`Database error`})
@@ -62,18 +69,13 @@ module.exports.deleteUser = async (req,res) => {
 
 module.exports.setUser = async (req, res) => {
     try{
-        let {lastname,forname,mail,address}=req.body
-        let existingUser = User.findOne({mail})
-        if(lastname)
-            existingUser.lastname = lastname
-        if(forname)
-            existingUser.forname = forname
-        if(mail)
-            existingUser.mail = mail
-        if(address)
-            existingUser.address =mail
-        existingUser.setUpdate({lastname,forname,mail,address})
+        let {_id,lastname,forname,mail,address}=req.body
+        if(!lastname || !forname || !mail || ! address)
+            return res.status(404).json({message:`Missing data`})
+        let filter = {_id: _id} 
+        await user.findOneAndUpdate(filter,{lastname: lastname, forname:forname, mail: mail, address:address}, {new: true})
         return res.status(204).json({message:`user ${lastname} ${forname} modified successfully`})
-    }catch(err){}       
-
+    }catch(err){
+        return res.status(500).json({message:`Database error`})
+    }       
 }
