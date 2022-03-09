@@ -70,11 +70,24 @@ module.exports.deleteUser = async (req,res) => {
 module.exports.setUser = async (req, res) => {
     try{
         let {_id,lastname,forname,mail,address}=req.body
-        if(!lastname || !forname || !mail || ! address)
-            return res.status(404).json({message:`Missing data`})
-        let filter = {_id: _id} 
-        await user.findOneAndUpdate(filter,{lastname: lastname, forname:forname, mail: mail, address:address}, {new: true})
-        return res.status(204).json({message:`user ${lastname} ${forname} modified successfully`})
+        let userGet = await user.findOne({_id:_id})
+        if(lastname){
+            userGet.lastname = lastname
+            await userGet.save()
+        }
+        if(forname){
+            userGet.forname = forname
+            await userGet.save()
+        }
+        if(mail){
+            userGet.mail = mail
+            await userGet.save()
+        }
+        if(address){
+            userGet.address = address
+            await userGet.save()
+        }
+        return  res.status(204).json({message:`User with id ${_id} updated successfully`})
     }catch(err){
         return res.status(500).json({message:`Database error`})
     }       

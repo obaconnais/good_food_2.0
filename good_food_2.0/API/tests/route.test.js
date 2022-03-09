@@ -2,7 +2,7 @@ const db = require("./db_handle")
 const httpMock = require('node-mocks-http');
 const user = require("../controller/user");
 
-describe('mongo db connection',()=>{
+describe('mongodb response and connexion',()=>{
 
 beforeAll(async () =>  await db.connect())
 afterEach(async () => await db.clearDatabase())
@@ -169,11 +169,11 @@ afterAll(async ()=> await db.closeDatabase())
         expect(status).toBe(400)
     })
 
-    it('modify user with all field', async ()=>{
+    it('modify user with different field', async ()=>{
         //Data set useful for setting user
-        let lastnameSet = "de Lamartine"
+        let lastnameSet = "deLamartine"
         let fornameSet = "Alphonse"
-        let mailSet = `${lastnameSet}.${fornameSet}@gmail.com`
+        let mailSet = `${lastnameSet.toLowerCase()}.${fornameSet.toLowerCase}@gmail.com`
         let addressSet = "24 avenue de la rouerie 59380 BERGUES"
 
         //Create user which will be modified soon
@@ -192,49 +192,58 @@ afterAll(async ()=> await db.closeDatabase())
         let _id = resId._getJSONData().data
         
         //Modify user with new values in mocked DB
-        let reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: fornameSet,mail: mailSet,address: addressSet}})
+        //do it with one field
+        let reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: null,mail: null,address: null}})
         let resSet = httpMock.createResponse()
         await user.setUser(reqSet,resSet)
-        let statusSet = resSet._getStatusCode()
-        expect(statusSet).toBe(204)
-        let dataSet = resSet._getJSONData()
-        expect(dataSet.message).toBe(`user ${lastnameSet} ${fornameSet} modified successfully`)
-        
-        //Check if user have been modified in mocked DB
         let reqGet = httpMock.createRequest({body:{_id:_id}})
         let resGet = httpMock.createResponse()
-        await user.getUser(reqGet, resGet)
-        let dataResult = resGet._getJSONData()
-        expect(dataResult.data.lastname).toBe(`${lastnameSet}`)
-        expect(dataResult.data.forname).toBe(`${fornameSet}`)
-        expect(dataResult.data.address).toBe(`${addressSet}`)
-        expect(dataResult.data.mail).toBe(`${mailSet}`)
-        let statusGet = resGet._getStatusCode()
-        expect(statusGet).toBe(200)
+        await user.getUser(reqGet,resGet)
+        dataUser = resGet._getJSONData()
+        expect(dataUser.data._id).toBe(_id)
+        expect(dataUser.data.lastname).toBe(lastnameSet)
+        expect(dataUser.data.forname).toBe(forname)
+        expect(dataUser.data.mail).toBe(mail)
+        expect(dataUser.data.address).toBe(address)
+        //do it with two fields
+        reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: fornameSet,mail: null,address: null}})
+        resSet = httpMock.createResponse()
+        await user.setUser(reqSet,resSet)
+        reqGet = httpMock.createRequest({body:{_id:_id}})
+        resGet = httpMock.createResponse()
+        await user.getUser(reqGet,resGet)
+        dataUser = resGet._getJSONData()
+        expect(dataUser.data._id).toBe(_id)
+        expect(dataUser.data.lastname).toBe(lastnameSet)
+        expect(dataUser.data.forname).toBe(fornameSet)
+        expect(dataUser.data.mail).toBe(mail)
+        expect(dataUser.data.address).toBe(address)
+        //do it with three fields
+        reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: fornameSet,mail: mailSet,address: null}})
+        resSet = httpMock.createResponse()
+        await user.setUser(reqSet,resSet)
+        reqGet = httpMock.createRequest({body:{_id:_id}})
+        resGet = httpMock.createResponse()
+        await user.getUser(reqGet,resGet)
+        dataUser = resGet._getJSONData()
+        expect(dataUser.data._id).toBe(_id)
+        expect(dataUser.data.lastname).toBe(lastnameSet)
+        expect(dataUser.data.forname).toBe(fornameSet)
+        expect(dataUser.data.mail).toBe(mailSet)
+        expect(dataUser.data.address).toBe(address)
+        //do it with four fields
+        reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: fornameSet,mail: mailSet,address: addressSet}})
+        resSet = httpMock.createResponse()
+        await user.setUser(reqSet,resSet)
+        reqGet = httpMock.createRequest({body:{_id:_id}})
+        resGet = httpMock.createResponse()
+        await user.getUser(reqGet,resGet)
+        dataUser = resGet._getJSONData()
+        expect(dataUser.data._id).toBe(_id)
+        expect(dataUser.data.lastname).toBe(lastnameSet)
+        expect(dataUser.data.forname).toBe(fornameSet)
+        expect(dataUser.data.mail).toBe(mailSet)
+        expect(dataUser.data.address).toBe(addressSet)
     })
 
-    // it('modify user with field', async ()=>{
-    //     //test the lastname field
-    //     let userToBeModified = new user({lastname: "Bon", forname: "Jean", mail:"jean.bon@gmail.com",address:"1 rue de la boucherie 75600 PORCLAND"})
-    //     await User.createUser(userToBeModified)
-    //     await User.setUserLastname({lastname: "Victor"}, userToBeModified)
-    //     userToBeModified.lastname = "Victor"
-    //     let userModified = await User.findUser(userToBeModified)
-    //     expect(userModified).toBe(userToBeModified)
-    //     //test the forname field
-    //     await User.setUserForname({forname: "Hugo"}, userToBeModified)
-    //     userToBeModified.forname = "Hugo"
-    //     userModified = await User.findUser(userToBeModified)
-    //     expect(userModified).toBe(userToBeModified)
-    //     //test the mail field
-    //     await User.setUserMail({mail: "victor.hugo@gmail.com"}, userToBeModified)
-    //     userToBeModified.mail = "victor.hugo@gmail.com"
-    //     userModified = await User.findUser(userToBeModified)
-    //     expect(userModified).toBe(userToBeModified)
-    //     //test the address field
-    //     await User.setUserAddress({address: "140 grande rue 25000 Besançon"}, userToBeModified)
-    //     userToBeModified.address = "140 grande rue 25000 Besançon"
-    //     userModified = await User.findUser(userToBeModified)
-    //     expect(userModified).toBe(userToBeModified)
-    // })
 })
