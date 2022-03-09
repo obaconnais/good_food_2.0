@@ -245,5 +245,4 @@ afterAll(async ()=> await db.closeDatabase())
         expect(dataUser.data.mail).toBe(mailSet)
         expect(dataUser.data.address).toBe(addressSet)
     })
-
 })

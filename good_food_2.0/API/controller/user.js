@@ -83,7 +83,7 @@ module.exports.deleteUser = async (req,res) => {
             return res.status(400).json({message:`Missing data, expected an id`})    
         else{
             await user.deleteOne({_id: _id})
-            return res.status(204).json({message: `user with id ${_id} deleted successfully`})
+            return res.status(200).json({message: `user with id ${_id} deleted successfully`})
         }
     }catch(err){
         return res.status(500).json({message:`Database error`})
@@ -113,7 +113,7 @@ module.exports.setUser = async (req, res) => {
             userGet.address = address
             await userGet.save()
         }
-        return  res.status(204).json({message:`User with id ${_id} updated successfully`})
+        return  res.status(200).json({message:`User with id ${_id} updated successfully`})
     }catch(err){
         return res.status(500).json({message:`Database error`})
     }       
