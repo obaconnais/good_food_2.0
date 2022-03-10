@@ -1,8 +1,5 @@
 const user = require("../model/user")
 
-/**
- * allow to create user with request received from front. 
- */
 module.exports.createUser = async (req,res) => {
     try{
         const {lastname,forname,mail,address} = req.body
@@ -28,10 +25,6 @@ module.exports.createUser = async (req,res) => {
     }
 }
 
-/**
- * allow to get user with request received from front. Filter based on the id
- * methode return the user
- */
 module.exports.getUser = async (req, res) => {
     try{
         let {_id} = req.body
@@ -53,29 +46,13 @@ module.exports.getUser = async (req, res) => {
     }
 }
 
-/**
- * allow to get user id with request received from front. Filter based on the mail. 
- * methode return the user
- */
+//@toFix develop many test code/ not done actually
 module.exports.getUserId = async (req, res) => {
-    try{
-        let{mail} = req.body
-        if(!mail)
-            return res.status(400).json({message: `Missing field to search the user`})
-        let document = await user.findOne({mail: mail})
-
-        if(!document){
-            return res.status(404).json({message:`user with mail ${mail} doesn't exist`})
-        }  
-        return res.status(200).json({data: doc._id})
-    }catch(err){
-        return res.status(500).json({message:`Database error`})
-    }
+    let{mail} = req.body
+    let doc = await user.findOne({mail: mail})
+    return res.status(200).json({data: doc._id})
 }   
 
-/**
- * allow to delete user with request received from front. 
- */
 module.exports.deleteUser = async (req,res) => {
     try{
         let {_id} = req.body
@@ -90,9 +67,6 @@ module.exports.deleteUser = async (req,res) => {
     }
 }
 
-/**
- * allow to set user with request received from front. 
- */
 module.exports.setUser = async (req, res) => {
     try{
         let {_id,lastname,forname,mail,address}=req.body

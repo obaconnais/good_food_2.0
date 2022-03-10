@@ -4,9 +4,9 @@ const user = require("../controller/user");
 
 describe('mongodb response and connexion',()=>{
 
-beforeAll(async () =>  await db.connect())
-afterEach(async () => await db.clearDatabase())
-afterAll(async ()=> await db.closeDatabase())
+    beforeAll(async () =>  await db.connect())
+    afterEach(async () => await db.clearDatabase())
+    afterAll(async ()=> await db.closeDatabase())
     let lastname = "IME"
     let forname = "Vincent"
     let mail= "vincent.ime@gmail.com"
@@ -153,7 +153,7 @@ afterAll(async ()=> await db.closeDatabase())
         let data = resDelete._getJSONData()
         let status = resDelete._getStatusCode()
         expect(data.message).toBe(`user with id ${_id.data} deleted successfully`)
-        expect(status).toBe(204)
+        expect(status).toBe(200)
     })
     
     it('delete a user, but null', async () => {
