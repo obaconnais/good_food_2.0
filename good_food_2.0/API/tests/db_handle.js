@@ -11,6 +11,7 @@ let mongod
 
 //to connect to db
 module.exports.connect = async () => {
+    await mongoose.disconnect() 
     mongod = await MongoMemoryServer.create()
     const uri = mongod.getUri()
     //connect option
@@ -18,7 +19,6 @@ module.exports.connect = async () => {
         useNewUrlParser: true, 
         useUnifiedTopology: true,
     }
-    
     await mongoose.connect(uri, mongooseOpt)
 }
 

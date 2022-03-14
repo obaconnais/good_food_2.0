@@ -1,15 +1,24 @@
 const db = require("./db_handle")
 const httpMock = require('node-mocks-http');
 const user = require("../controller/user");
+/**
+ * before each test, connect to the mocked database
+ */
+beforeAll(async () => {await db.connect()})
+/**
+ * after each test,clear all date which present in the mocked database
+ */
+afterEach(async () => {await db.clearDatabase()})
+/**
+ * after tests passed, disconnect and close the mocked database
+ */
+afterAll(async () => {await db.closeDatabase()})
 
 describe('mongodb response and connexion',()=>{
 
-    beforeAll(async () =>  await db.connect())
-    afterEach(async () => await db.clearDatabase())
-    afterAll(async ()=> await db.closeDatabase())
     let lastname = "IME"
     let forname = "Vincent"
-    let mail= "vincent.ime@gmail.com"
+    let mail= " gmail.com"
     let address = "1 rue de l'épilation 58170 Poil"
 
     it('create user normally', async () => {
@@ -20,7 +29,7 @@ describe('mongodb response and connexion',()=>{
         let data = res._getJSONData()
         let status = res._getStatusCode()
         expect(data.message).toBe(`the user ${lastname} ${forname} created successfully`)
-        expect(status).toBe(204)
+        expect(status).toBe(200)
     })
 
     it('create user without lastname field', async () => {
@@ -183,7 +192,7 @@ describe('mongodb response and connexion',()=>{
         let message = resCreate._getJSONData()
         expect(message.message).toBe(`the user ${lastname} ${forname} created successfully`)
         let status = resCreate._getStatusCode()
-        expect(status).toBe(204)
+        expect(status).toBe(200)
         
         //Pick up Id from the user
         let reqId = httpMock.createRequest({body:{mail: mail}})

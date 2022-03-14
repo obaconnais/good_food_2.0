@@ -18,7 +18,7 @@ module.exports.createUser = async (req,res) => {
         else{
             //create user in the db
             await user.create({lastname,forname,mail,address})
-            return res.status(204).json({message:`the user ${lastname} ${forname} created successfully`})
+            return res.status(200).json({message:`the user ${lastname} ${forname} created successfully`})
         }
     }catch(err){
         return res.status(500).json({message:`Database error`})

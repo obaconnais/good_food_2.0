@@ -1,15 +1,13 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
-const userCtrl = require("./controller/user")
 const express = require("express")
+const userCtrl = require("../controller/user")
 
 /***********************************************/
 /******** definition of request on API *********/
 /***********************************************/
 let router = express.Router()
-
-
 /***********************************************/
 /*********** routage de la ressource ***********/
 /***********************************************/
@@ -21,7 +19,7 @@ router.put('',userCtrl.createUser)
 /**
 * route to get the user_Id thanks to its mail 
 */
-router.get('/:mail', userCtrl.getUserId)
+router.get('/mail', userCtrl.getUserId)
 
 /**
 * route to get a user thanks to its id
