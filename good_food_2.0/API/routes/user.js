@@ -8,8 +8,9 @@ const userCtrl = require("../controller/user")
 /******** definition of request on API *********/
 /***********************************************/
 let router = express.Router()
+
 /***********************************************/
-/*********** routage de la ressource ***********/
+/*************** route resources ***************/
 /***********************************************/
 /**
 * route to create a user

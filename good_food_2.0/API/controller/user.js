@@ -71,6 +71,9 @@ module.exports.setUser = async (req, res) => {
     try{
         let {_id,lastname,forname,mail,address}=req.body
         let userGet = await user.findOne({_id:_id})
+        if(!_id){
+            return res.status(400).json({message: `user with id ${_id} doesn't exist`})
+        }
         if(lastname){
             userGet.lastname = lastname
             await userGet.save()
