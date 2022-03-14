@@ -38,16 +38,6 @@ let userSet = new userModels({
     address: "14 rue de l'Homme révolté 12345 LA CHUTE"
 })
 
-describe('Test global path', () => {
-    
-        it('test path \"get/\"', async () => {
-            const res = await request(app)
-                            .get('/')
-            expect(res.text).toBe("server is online")
-        })
-
-})
-
 describe('Test every path for /user end-point', () => {
 
     it('test path put \"/user/\"', async ()=> {
