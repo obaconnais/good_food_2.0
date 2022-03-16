@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "node-mocks-http": "^1.11.0",
-    "supertest": "^6.2.2",
-    "setupFilesAfterEnv": "./setup.js"
+    "supertest": "^6.2.2"
+  
   }
 }

@@ -96,7 +96,7 @@ describe('mongodb response and connexion',()=>{
         let data = res2._getJSONData()
         let status = res2._getStatusCode()
         expect(data.message).toBe(`the user ${lastname} ${forname} already exist`)
-        expect(status).toBe(409)
+        expect(status).toBe(400)
     })
     
     it('get user normally', async ()=> {

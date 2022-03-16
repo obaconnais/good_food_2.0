@@ -13,7 +13,7 @@ module.exports.createUser = async (req,res) => {
         
         //testing if user not exist
         if(existingUser){
-           return res.status(409).json({message:`the user ${lastname} ${forname} already exist`})
+           return res.status(400).json({message:`the user ${lastname} ${forname} already exist`})
         }
         else{
             //create user in the db

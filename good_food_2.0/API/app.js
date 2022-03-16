@@ -12,13 +12,18 @@ let app = express()
 /*******************************************/
 app.use(express.json());
 app.use(cors())
-// app.use(express.urlencoded({extended:true}));
-// app.use(cors());
+app.use(express.urlencoded({extended:true}));
 
+/**
+ * global route
+ */
 app.get('/',(req,res)=>{
     res.send("server is online")
 })
 
+/**
+ * route for user
+ */
 app.use('/user',userRouter)
 
 module.exports = app
