@@ -14,7 +14,7 @@ afterEach(async () => {await db.clearDatabase()})
  */
 afterAll(async () => {await db.closeDatabase()})
 
-describe('mongodb response and connexion',()=>{
+describe('mongodb user response and connexion',()=>{
 
     let lastname = "IME"
     let forname = "Vincent"
