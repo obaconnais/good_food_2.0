@@ -14,9 +14,11 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors());
 
 const user_router = require('./routes/user')
+const user_router = require('./routes/recipe')
 app.get('/',(req,res)=>"")
 
 app.get('user',(req,res)=>user_router)
+app.get('recipe',(req,res)=>recipe_router)
 
 const port = 5000
 const server = app.listen(port, ()=>console.log(`server is listening on port ${port}`))
