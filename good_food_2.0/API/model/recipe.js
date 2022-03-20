@@ -6,9 +6,9 @@ const userShema = new Schema(
         name: String,
         ingredients: {
             name: String,
-            quantity: int
+            quantity: Number
         }
     }
 )
 
-module.exports = mongoose.model('Recipe', userShema)
+module.exports = mongoose.model('Recipe', recipeShema)
