@@ -1,6 +1,7 @@
 const db = require("./db_handle")
 const httpMock = require('node-mocks-http');
 const user = require("../controller/user");
+const userModel = require("../model/user")
 /**
  * before each test, connect to the mocked database
  */
