@@ -16,7 +16,6 @@ app.use(cors());
 const user_router = require('./routes/user')(app)
 
 app.get('/',(req,res)=>"")
-app.get('user',(req,res)=>user_router)
 
 db.connect()
 
