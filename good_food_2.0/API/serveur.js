@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors());
 
 const user_router = require('./routes/user')(app)
+const restaurant_router = require('./routes/restaurant')(app)
 
 app.get('/',(req,res)=>"")
 
