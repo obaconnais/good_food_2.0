@@ -1,7 +1,7 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
-const userCtrl = require("./controller/user")
+const userCtrl = require("../controler/user")
 const express = require("express")
 
 /***********************************************/

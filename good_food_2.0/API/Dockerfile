@@ -1,10 +1,9 @@
-FROM FROM node:10
+FROM node:16
 
-WORKDIR /server
+WORKDIR /API
 
 COPY . .
-COPY package.json
 
 RUN npm install
-EXPOSE 8080
-CMD ["nodemon", "serveur.js"]
+EXPOSE 5000
+CMD "[nodemon", "serveur.js"]
