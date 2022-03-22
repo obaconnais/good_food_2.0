@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const restaurantShema = new Schema(
+const restaurantSchema = new Schema(
     {
         name: {
             type: String,
             required: [true, 'Required field'],
-            match: /^[a-zA-Z\d 'éèêëîïàâùûôçœ]$/         
+            match: /^[a-zA-Z\d 'éèêëîïàâùûôçœ]+$/         
         }, 
         address: {
             type: String,
@@ -34,4 +34,4 @@ const restaurantShema = new Schema(
     }
 )
 
-module.exports = mongoose.model('Restaurant', restaurantShema)
+module.exports = mongoose.model('Restaurant', restaurantSchema)
