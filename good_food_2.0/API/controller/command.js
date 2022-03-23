@@ -66,7 +66,16 @@ module.exports.getCommandId = async (req, res) => {
  */
 module.exports.deleteCommand = async (req,res) => {
     try{
-
+        const {_id} =req.body
+        if(!_id)
+            return res.status(400).json({message: "id are missing"})
+        
+        let findCommand = await command.findOne({_id})
+        
+        if(!findCommand)
+            return res.status(400).json({message:"command are not exist"})
+        
+        return res.status(201).json({message: `command with id ${_id} deleted successfully`})
     }catch(err){
         return res.status(500).json({message:`Database error`})
     }
