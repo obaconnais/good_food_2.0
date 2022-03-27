@@ -2,6 +2,8 @@ const db = require("./db_handle")
 const httpMock = require('node-mocks-http')
 const command = require("../controller/command")
 const commandModel = require("../model/commmand")
+const commmand = require("../model/commmand")
+
 /**
  * before each test, connect to the mocked database
  */
@@ -186,7 +188,7 @@ describe('mongodb command response and connexion', ()=>{
         expect(statusFind).toBe(200)
     })
 
-    it('get a command but field are missing', async () =>{
+    it('get a command but field are missing', async () => {
         //initiate test
         let reqOrigin = httpMock.createRequest({body: commandMocked})
         let resOrigin = httpMock.createResponse()
@@ -285,6 +287,26 @@ describe('mongodb command response and connexion', ()=>{
         commandMocked.state = "delivered"     
     })
 
+    it('get a command but not found', async () => {
+        let fakeCommand =  new commandModel({
+            kind  : 'delivery', 
+            restaurant : '\'auberge aux grive',
+            paymentMethod : 'money', 
+            date : new Date('March 18, 2022 18:58:00'),
+            product : ['poire belle hélène', 'profiterolle', 'creme brulé'],
+            price: 54, 
+            currency: 'Livre',
+            state: 'ready'
+        })
+        let req = httpMock.createRequest({body: fakeCommand})
+        let res = httpMock.createResponse()
+        await command.getCommand(req,res)
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`command not found`)
+        expect(status).toBe(400)
+    })
+
     it('delete a command normally', async () => {
         let reqOrigin = httpMock.createRequest({body: commandMocked})
         let resOrigin = httpMock.createResponse()
@@ -313,5 +335,112 @@ describe('mongodb command response and connexion', ()=>{
         let statusDelete = resDelete._getStatusCode()
         expect(dataDelete.message).toBe(`command with id ${dataFind.data._id} deleted successfully`)
         expect(statusDelete).toBe(201)
+    })
+
+    it('set a command', async () => {
+        let reqOrign = httpMock.createRequest({body: commandMocked})
+        let resOrigin = httpMock.createResponse()
+        await command.createCommand(reqOrign, resOrigin)
+        let dataOrigin = resOrigin._getJSONData()
+        let statusOrigin = resOrigin._getStatusCode()
+        expect(dataOrigin.message).toBe(`command created`)
+        expect(statusOrigin).toBe(201)
+        let reqGet = httpMock.createRequest({body: commandMocked})
+        let resGet = httpMock.createResponse()
+        await command.getCommand(reqGet,resGet)
+        let dataGet = resGet._getJSONData()
+        let statusGet = resGet._getStatusCode()
+        expect(statusGet).toBe(200)
+        //test field kind
+        dataGet.data.kind = "on premise"
+        let reqSet = httpMock.createRequest({body: dataGet.data})
+        let resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet )
+        let dataSet = resSet._getJSONData()
+        let statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        expect(statusSet).toBe(200)
+        //rest field restaurant
+        dataGet.data.restaurant = "You sushi"
+        reqSet = httpMock.createRequest({body: dataGet.data})
+        resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        dataSet = resSet._getJSONData()
+        statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        //rest field paymentMethod
+        dataGet.data.paymentMethod = "cash"
+        reqSet = httpMock.createRequest({body: dataGet.data})
+        resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        dataSet = resSet._getJSONData()
+        statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        //rest field date
+        dataGet.data.date = new Date("March 26, 2022 18:58:00")
+        reqSet = httpMock.createRequest({body: dataGet.data})
+        resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        dataSet = resSet._getJSONData()
+        statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        //rest field products
+        dataGet.data.products = ["sushi", "bol de soupe", "bière","glace"]
+        reqSet = httpMock.createRequest({body: dataGet.data})
+        resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        dataSet = resSet._getJSONData()
+        statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        //rest field price
+        dataGet.data.price = 50
+        reqSet = httpMock.createRequest({body: dataGet.data})
+        resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        dataSet = resSet._getJSONData()
+        statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        //rest field currency
+        dataGet.data.currency = 'Livre'
+        reqSet = httpMock.createRequest({body: dataGet.data})
+        resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        dataSet = resSet._getJSONData()
+        statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        //rest field state
+        dataGet.data.state = 'in progress'
+        reqSet = httpMock.createRequest({body: dataGet.data})
+        resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        dataSet = resSet._getJSONData()
+        statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe('Command setted successfully')
+        let reqIssue = httpMock.createRequest({body: dataGet.data})
+        let resIssue = httpMock.createResponse()
+        await command.getCommand(reqIssue, resIssue)
+        let dataIssus = resIssue._getJSONData()
+        let statusIssus = resIssue._getStatusCode()
+        expect(statusIssus).toBe(200)
+        expect(dataIssus.data.kind).toBe('on premise')
+        expect(dataIssus.data.restaurant).toBe('You sushi')
+        expect(dataIssus.data.paymentMethod).toBe('cash')
+        expect(new Date(dataIssus.data.date).toString()).toBe(new Date("March 26, 2022 18:58:00").toString())
+        expect(dataIssus.data.products).toStrictEqual(["sushi", "bol de soupe", "bière","glace"])
+        expect(dataIssus.data.price).toBe(50)
+        expect(dataIssus.data.currency).toBe("Livre")
+        expect(dataIssus.data.state).toBe("in progress")
+    })
+
+    it('set a command but don\'t exist', async () => {
+        let _id = "Efzfdaqzadcvg23"
+        let commandNotExist = new commandModel({_id: _id, kind: "delivery", restaurant: "le mas des aromes", paymentMethod: "check", date: new Date("12/12/12"), product: ["salade caesar"], price: 23, currency: "Euro", state: "delivered"})
+        let reqSet = httpMock.createRequest({body: commandNotExist})
+        let resSet = httpMock.createResponse()
+        await command.setCommand(reqSet, resSet)
+        let dataSet = resSet._getJSONData()
+        let statusSet = resSet._getStatusCode()
+        expect(dataSet).toBe("command not found")
+        expect(statusSet).toBe(400)
     })
 })

@@ -34,12 +34,15 @@ module.exports.createCommand = async (req,res) => {
  */
 module.exports.getCommand = async (req, res) => {
     try{
-        const {kind, restaurant, paymentMethod, date, products, price, currency, state} = req.body            
+        const {kind, restaurant, paymentMethod, date, products, price, currency, state} = req.body
         
         if(!kind || !restaurant || !paymentMethod ||  !date || !products || !price ||  !currency || !state)
-            return res.status(400).json({message: `at least one field are missing`})
-
+        return res.status(400).json({message: `at least one field are missing`})
+        
         let findCommand = await command.findOne({body:{kind, restaurant, paymentMethod,date,products, price, currency, state}})
+        if(!findCommand)
+        return res.status(400).json({message: `command not found`})
+        
         return res.status(200).json({data: findCommand})        
     }catch(err){
         return res.status(500).json({message:`Database error`})
@@ -68,22 +71,50 @@ module.exports.deleteCommand = async (req,res) => {
     try{
         const {_id} =req.body
         if(!_id)
-            return res.status(400).json({message: "id are missing"})
+        return res.status(400).json({message: "id are missing"})
         
         let findCommand = await command.findOne({_id})
         
         if(!findCommand)
-            return res.status(400).json({message:"command are not exist"})
+        return res.status(400).json({message:"command are not exist"})
         
         return res.status(201).json({message: `command with id ${_id} deleted successfully`})
     }catch(err){
         return res.status(500).json({message:`Database error`})
     }
-}
+} 
 
+/**
+ * method to set a command in the database
+ * if command not found in the database, return 400
+ * if a problem in the database, return 500
+ * return 200 if the command setted normally
+ */
 module.exports.setCommand = async (req, res) => {
     try{
-
+        const {_id, kind, restaurant, paymentMethod, date, products, price, currency, state} = req.body
+        let findCommand = await command.findOne({_id: _id})
+        if(!findCommand)
+            return res.status(400).json("command not found")
+        if(kind)
+            findCommand.kind = kind
+        if(restaurant)
+            findCommand.restaurant = restaurant
+        if(paymentMethod)
+            findCommand.paymentMethod = paymentMethod
+        if(date)
+            findCommand.date = date
+        if(products)
+            findCommand.products = products
+        if(price)
+            findCommand.price = price
+        if(currency)
+            findCommand.currency = currency
+        if(state)
+            findCommand.state = state
+         
+        await findCommand.save()
+        return res.status(200).json('Command setted successfully')
     }catch(err){
         return res.status(500).json({message:`Database error`})
     }       
