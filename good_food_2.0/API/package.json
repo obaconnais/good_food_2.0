@@ -5,7 +5,7 @@
   "main": "serveur.js",
   "scripts": {
     "dev": "nodemon serveur.js",
-    "test": "jest --runInBand --detectOpenHandles ./test "
+    "test": "jest --runInBand --watch --detectOpenHandles ./test "
   },
   "repository": {
     "type": "git",
@@ -23,13 +23,17 @@
     "jest": "^27.5.1",
     "mongodb-memory-server": "^8.3.0",
     "mongoose": "^6.2.2",
-    "nodemon": "^2.0.15",
-    "supertest": "^6.2.2"
+    "nodemon": "^2.0.15"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "devDependencies": {
-    "node-mocks-http": "^1.11.0"
+    "node-mocks-http": "^1.11.0",
+    "supertest": "^6.2.2"
+  
   }
 }

@@ -1,25 +1,6 @@
-/*******************************************/
-/************** library import *************/
-/*******************************************/
-const express = require('express')
-const cors = require('cors')
-const db = require('./tests/db_handle')
+const app = require('./app')
 
-/*******************************************/
-/**************** API init *****************/
-/*******************************************/
-const app = express()
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(cors());
+const port = 5001
+app.listen(port, () =>console.log(`server is listening on port ${port}`))
 
-const user_router = require('./routes/user')(app)
-
-app.get('/',(req,res)=>"")
-
-db.connect()
-
-const port = 5000
-const server = app.listen(port, ()=>console.log(`server is listening on port ${port}`))
-
-module.exports = {app, server}
+module.exports = app
