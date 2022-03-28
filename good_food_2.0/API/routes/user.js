@@ -1,7 +1,7 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
-const express = require("express")
+const express = requite('express')
 const userCtrl = require("../controller/user")
 
 /***********************************************/

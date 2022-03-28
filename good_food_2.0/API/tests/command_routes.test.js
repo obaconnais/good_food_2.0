@@ -4,7 +4,7 @@
 const request = require('supertest')
 const app = require('../app')
 const mockedDb = require("./db_handle")
-const commandModels = require("../model/command")
+const commandModels = require("../model/commmand")
 
 /***********************************************/
 /***** data base configuration during test *****/

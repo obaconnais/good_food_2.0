@@ -1,4 +1,4 @@
-const command = require("../model/command")
+const command = require("../model/commmand")
 
 /**
  * method to create a command in the database
