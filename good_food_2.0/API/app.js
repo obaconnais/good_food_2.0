@@ -4,7 +4,7 @@
 const express = require('express')
 const cors = require('cors')
 const userRouter = require('./routes/user')
-
+const commandRouter = require('./routes/command')
 let app = express()
 
 /*******************************************/
@@ -26,4 +26,8 @@ app.get('/',(req,res)=>{
  */
 app.use('/user',userRouter)
 
+/**
+ * route for command
+ */
+app.use('/command',commandRouter)
 module.exports = app

@@ -1,8 +1,7 @@
 const db = require("./db_handle")
 const httpMock = require('node-mocks-http')
 const command = require("../controller/command")
-const commandModel = require("../model/commmand")
-const commmand = require("../model/commmand")
+const commandModel = require("../model/command")
 
 /**
  * before each test, connect to the mocked database
@@ -29,7 +28,6 @@ describe('mongodb command response and connexion', ()=>{
         currency: "Euro",
         state:'delivered'
     })
-    
     
     it('create a command normally',async() => {
         let req = httpMock.createRequest({body:commandMocked})
@@ -190,6 +188,7 @@ describe('mongodb command response and connexion', ()=>{
 
     it('get a command but field are missing', async () => {
         //initiate test
+        let _id = null
         let reqOrigin = httpMock.createRequest({body: commandMocked})
         let resOrigin = httpMock.createResponse()
         await command.createCommand(reqOrigin,resOrigin)
@@ -197,94 +196,13 @@ describe('mongodb command response and connexion', ()=>{
         let statusOrigin = resOrigin._getStatusCode()
         expect(dataOrigin.message).toBe(`command created`)
         expect(statusOrigin).toBe(201)
-
-        // test with kind = null
-        commandMocked.kind = null
-        let reqFind = httpMock.createRequest({body: commandMocked})
-        let resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        let dataFind = resFind._getJSONData()
-        let statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-
-        // test with payments = null
-        commandMocked.kind = "delivery"
-        commandMocked.paymentMethod = null
-        reqFind = httpMock.createRequest({body: commandMocked})
-        resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        dataFind = resFind._getJSONData()
-        statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-
-        // test with restaurant = null
-        commandMocked.paymentMethod = "card"
-        commandMocked.restaurant = null
-        reqFind = httpMock.createRequest({body: commandMocked})
-        resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        dataFind = resFind._getJSONData()
-        statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-        
-        // test with date = null
-        commandMocked.restaurant = "Pizza Hut"
-        commandMocked.date = null
-        reqFind = httpMock.createRequest({body: commandMocked})
-        resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        dataFind = resFind._getJSONData()
-        statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-        
-        // test with products = null
-        commandMocked.date = new Date('March 18, 2022 18:58:00')
-        commandMocked.products = null
-        reqFind = httpMock.createRequest({body: commandMocked})
-        resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        dataFind = resFind._getJSONData()
-        statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-        
-        // test with price = null
-        commandMocked.products = ["reine","margarita","royal"]
-        commandMocked.price = null
-        reqFind = httpMock.createRequest({body: commandMocked})
-        resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        dataFind = resFind._getJSONData()
-        statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-
-        // test with currency = null
-        commandMocked.price = 34
-        commandMocked.currency = null
-        reqFind = httpMock.createRequest({body: commandMocked})
-        resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        dataFind = resFind._getJSONData()
-        statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-        
-        // test with state = null
-        commandMocked.currency = "Euro"
-        commandMocked.state = null
-        reqFind = httpMock.createRequest({body: commandMocked})
-        resFind = httpMock.createResponse()
-        await command.getCommand(reqFind, resFind)
-        dataFind = resFind._getJSONData()
-        statusFind = resFind._getStatusCode()
-        expect(dataFind.message).toBe(`at least one field are missing`)
-        expect(statusFind).toBe(400)
-        commandMocked.state = "delivered"     
+        let reqGet = httpMock.createRequest({body: {_id: _id}})
+        let resGet = httpMock.createResponse()
+        await command.getCommand(reqGet, resGet)
+        let dataGet = resGet._getJSONData()
+        let statusGet = resGet._getStatusCode()
+        expect(dataGet.message).toBe('at least one field are missing')
+        expect(statusGet).toBe(400)
     })
 
     it('get a command but not found', async () => {
@@ -345,9 +263,15 @@ describe('mongodb command response and connexion', ()=>{
         let statusOrigin = resOrigin._getStatusCode()
         expect(dataOrigin.message).toBe(`command created`)
         expect(statusOrigin).toBe(201)
-        let reqGet = httpMock.createRequest({body: commandMocked})
+        let reqGetId = httpMock.createRequest({body: commandMocked})
+        let resGetId = httpMock.createResponse()
+        await command.getCommandId(reqGetId,resGetId)
+        let dataGetId = resGetId._getJSONData()
+        let statusGetId = resGetId._getStatusCode()
+        expect(statusGetId).toBe(200)
+        let reqGet = httpMock.createRequest({body: {_id: dataGetId}})
         let resGet = httpMock.createResponse()
-        await command.getCommand(reqGet,resGet)
+        await command.getCommand(reqGet, resGet)
         let dataGet = resGet._getJSONData()
         let statusGet = resGet._getStatusCode()
         expect(statusGet).toBe(200)
