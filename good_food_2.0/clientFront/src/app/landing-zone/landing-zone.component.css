@@ -1,0 +1,17 @@
+.background{
+  background: no-repeat;
+  background-size: contain;
+  background-size: 100%;
+  opacity: 0.9;
+  height: 100%;
+}
+
+.frontext{
+  color:wheat;
+  font-family: 'Send Flowers', cursive;
+  font-size: 50px;
+  font-weight: inherit;
+  position: relative;
+  top: 140px;
+  right: -140px;
+}
