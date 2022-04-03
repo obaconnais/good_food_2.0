@@ -1,0 +1,60 @@
+.company_name{
+  font-family:'Great Vibes', cursive;
+  color: silver;
+  font-size: 30px;
+  position: relative;
+  right: -820px;
+  top: 170px;
+
+}
+
+.frontext{
+  color: silver;
+  font-size: 50px;
+  font-family:'Great Vibes', cursive;
+  position: relative;
+  text-align: center;
+  top: 40px;
+}
+
+.question{
+  color: silver;
+  font-weight: bold;
+  font-size: 40px;
+  font-weight: inherit;
+  position: relative;
+  top: 160px;
+  text-align:center;
+}
+
+.button1{
+  background: none;
+  color: silver;
+  font-size: 20px;
+  font-family:'Great Vibes', cursive;
+  border-radius: 2px;
+  position: relative;
+  top: 200px;
+  right: -300px;
+}
+
+.button1:hover{
+  color: black;
+  background-color:silver;
+}
+
+.button2{
+  background: none;
+  color: silver;
+  font-size: 20px;
+  font-family:'Great Vibes', cursive;
+  border-radius: 2px;
+  position: relative;
+  top: 200px;
+  right: -600px;
+}
+
+.button2:hover{
+  color: black;
+  background-color:silver;
+}
