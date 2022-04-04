@@ -1,9 +1,14 @@
-FROM node:16
+# syntax=docker/dockerfile:1
+FROM node:16.13
 
-WORKDIR /API
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+COPY ["package.json","package-lock*.json", "./"]
+
+RUN npm install --production
 
 COPY . .
 
-RUN npm install
-EXPOSE 5000
-CMD "[nodemon", "serveur.js"]
+CMD ["npm run", "dev"]
