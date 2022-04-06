@@ -23,52 +23,52 @@ module.exports.createRecipe = async (req, res) => {
     } catch (err) { throw err }
 }
 
-module.exports.findRecipe = async (recipe) => {
-    try {
-        //testing if recipe is null
-        if (recipe == null) {
-            console.log(`recipe is null, cannot find it`)
-            return null
-        }
-        const existingRecipe = await Recipe.findOne(recipe)
+// module.exports.findRecipe = async (recipe) => {
+//     try {
+//         //testing if recipe is null
+//         if (recipe == null) {
+//             console.log(`recipe is null, cannot find it`)
+//             return null
+//         }
+//         const existingRecipe = await Recipe.findOne(recipe)
 
-        //testing if recipe not exist
-        if (!existingRecipe) {
-            console.log(`recipe ${recipe.name} doesn't exist`)
-            return null
-        }
-        else {
-            console.log(`recipe ${recipe.name} exists`)
-            return recipe
-        }
-    } catch (err) { }
-}
+//         //testing if recipe not exist
+//         if (!existingRecipe) {
+//             console.log(`recipe ${recipe.name} doesn't exist`)
+//             return null
+//         }
+//         else {
+//             console.log(`recipe ${recipe.name} exists`)
+//             return recipe
+//         }
+//     } catch (err) { }
+// }
 
-module.exports.deleteRecipe = async (recipe) => {
-    try {
-        await Recipe.deleteOne(recipe)
-        console.log(`recipe ${recipe.name} deleted`)
-    } catch (err) { }
-}
+// module.exports.deleteRecipe = async (recipe) => {
+//     try {
+//         await Recipe.deleteOne(recipe)
+//         console.log(`recipe ${recipe.name} deleted`)
+//     } catch (err) { }
+// }
 
-module.exports.setRecipe = async ({ name, ingredients }, recipe) => {
-    try {
-        recipe.name = name
-        recipe.ingredients = ingredients
-        await recipe.save()
-    } catch (err) { }
-}
+// module.exports.setRecipe = async ({ name, ingredients }, recipe) => {
+//     try {
+//         recipe.name = name
+//         recipe.ingredients = ingredients
+//         await recipe.save()
+//     } catch (err) { }
+// }
 
-module.exports.setRecipeName = async ({ name }, recipe) => {
-    try {
-        recipe.name = name
-        await recipe.save()
-    } catch (err) { }
-}
+// module.exports.setRecipeName = async ({ name }, recipe) => {
+//     try {
+//         recipe.name = name
+//         await recipe.save()
+//     } catch (err) { }
+// }
 
-module.exports.setRecipeForname = async ({ ingredients }, recipe) => {
-    try {
-        recipe.ingredients = ingredients
-        await recipe.save()
-    } catch (err) { }
-}
+// module.exports.setRecipeForname = async ({ ingredients }, recipe) => {
+//     try {
+//         recipe.ingredients = ingredients
+//         await recipe.save()
+//     } catch (err) { }
+// }

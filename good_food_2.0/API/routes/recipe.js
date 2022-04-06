@@ -1,8 +1,8 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
-const recipeCtrl = require("./controler/recipe")
-const express = require("express")
+const recipeCtrl = require('./controler/recipe')
+const express = require('express')
 
 /***********************************************/
 /******** definition of request on API *********/

@@ -13,9 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
 // const user_router = require('./routes/user')
 const recipe_router = require('./routes/recipe')
-app.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
 
 // app.get('user', (req, res) => user_router)
 app.get('recipe', (req, res) => recipe_router)
