@@ -1,7 +1,7 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
-const userCtrl = require("./controler/recipe")
+const recipeCtrl = require("./controler/recipe")
 const express = require("express")
 
 /***********************************************/
@@ -13,6 +13,6 @@ let router = express.Router()
 /***********************************************/
 /*********** routage de la ressource ***********/
 /***********************************************/
-router.put('',recipeCtrl.createRecipe)
+router.put('', recipeCtrl.createRecipe)
 
 module.exports = router
