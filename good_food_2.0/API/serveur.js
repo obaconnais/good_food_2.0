@@ -11,6 +11,11 @@ const user_router = require('./routes/user')
 app.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
 // app.get('user', (req, res) => user_router)
 
+const recipe_router = require('./routes/recipe')
+// app.get('/', (req, res) =>"")
+app.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
+// app.get('user', (req, res) => user_router)
+
 const port = 5000
 const server = app.listen(port, () => console.log(`server is listening on port ${port}`))
 
