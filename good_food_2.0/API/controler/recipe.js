@@ -1,5 +1,6 @@
 const Recipe = require("../model/recipe")
 
+
 module.exports.createRecipe = async (req, res) => {
     try {
         const { name, ingredients } = req.body
@@ -10,6 +11,7 @@ module.exports.createRecipe = async (req, res) => {
         }
 
         const existingRecipe = await Recipe.findOne({ name: name })
+
 
         //testing if recipe not exist
         if (existingRecipe) {
