@@ -6,9 +6,6 @@ ENV NODE_ENV=production
 
 COPY . .
 
-RUN npm install
-
-COPY . .
-
-CMD ["npm run", "dev"]
+RUN npm install -g
 EXPOSE 5000
+CMD ["npm", "run", "dev"]

@@ -3,7 +3,7 @@
 /***********************************************/
 
 const express = require("express")
-const userCtrl = require("../controler/recipe")
+const recipeCtrl = require("../controler/recipe")
 
 /***********************************************/
 /******** definition of request on API *********/
@@ -19,31 +19,31 @@ router.use((req, res, next) => {
 /*************** route resources ***************/
 /***********************************************/
 
-router.get('', recetteCtrl.getAllUsers)
+router.get('', recipeCtrl.getAllRecipes)
 
 /**
 * route to create a user
 */
-router.put('', userCtrl.createUser)
+// router.put('', recipeCtrl.createRecipe)
 
 /**
 * route to get the user_Id thanks to its mail 
 */
-router.get('/mail', userCtrl.getUserId)
+// router.get('/mail', recipeCtrl.getRecipeId)
 
 /**
 * route to get a user thanks to its id
 */
-router.get('/:id', userCtrl.getUser)
+// router.get('/:id', recipeCtrl.getRecipe)
 
 /**
 * route to delete a user
 */
-router.delete('/:id', userCtrl.deleteUser)
+// router.delete('/:id', recipeCtrl.deleteRecipe)
 
 /**
 * route to set a user
 */
-router.patch('/:id', userCtrl.setUser)
+// router.patch('/:id', recipeCtrl.setRecipe)
 
 module.exports = router

@@ -1,11 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const userShema = new Schema(
+const recipeShema = new Schema(
     {
         name: String,
-        toto: String,
-        // ingredient: []
+        ingredient: String,
     }
 )
 

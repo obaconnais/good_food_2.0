@@ -56,29 +56,14 @@ exports.deleteRecipe = async (recipe) => {
     } catch (err) { }
 }
 
-exports.setRecipe = async ({ lastname, forname, mail, address }, recipe) => {
+exports.setRecipe = async ({ name, ingredient }, recipe) => {
     try {
-        recipe.lastname = lastname
-        recipe.forname = forname
-        recipe.mail = mail
-        recipe.address = address
+        recipe.name = name
+        recipe.ingredient = ingredient
         await recipe.save()
     } catch (err) { }
 }
 
-exports.setRecipeLastname = async ({ lastname }, recipe) => {
-    try {
-        recipe.lastname = lastname
-        await recipe.save()
-    } catch (err) { }
-}
-
-exports.setRecipeForname = async ({ forname }, recipe) => {
-    try {
-        recipe.forname = forname
-        await recipe.save()
-    } catch (err) { }
-}
 
 exports.setRecipeMail = async ({ mail }, recipe) => {
     try {
@@ -87,9 +72,3 @@ exports.setRecipeMail = async ({ mail }, recipe) => {
     } catch (err) { }
 }
 
-exports.setRecipeAddress = async ({ address }, recipe) => {
-    try {
-        recipe.address = address
-        await recipe.save()
-    } catch (err) { }
-}
