@@ -24,12 +24,12 @@ router.get('', recipeCtrl.getAllRecipes)
 /**
 * route to create a user
 */
-// router.put('', recipeCtrl.createRecipe)
+router.put('', recipeCtrl.createRecipe)
 
 /**
-* route to get the user_Id thanks to its mail 
+* route to find a recipe
 */
-// router.get('/mail', recipeCtrl.getRecipeId)
+router.get('/:name', recipeCtrl.findRecipe)
 
 /**
 * route to get a user thanks to its id
