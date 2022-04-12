@@ -20,14 +20,15 @@
 .question{
   color: silver;
   font-weight: bold;
-  font-size: 40px;
+  font-family:'Great Vibes', cursive;
   font-weight: inherit;
   position: relative;
   top: 160px;
+  font-size: 40px;
   text-align:center;
 }
 
-.button1{
+.login{
   background: none;
   color: silver;
   font-size: 20px;
@@ -36,14 +37,10 @@
   position: relative;
   top: 200px;
   right: -300px;
+  text-decoration: none;
 }
 
-.button1:hover{
-  color: black;
-  background-color:silver;
-}
-
-.button2{
+.home{
   background: none;
   color: silver;
   font-size: 20px;
@@ -52,9 +49,5 @@
   position: relative;
   top: 200px;
   right: -600px;
-}
-
-.button2:hover{
-  color: black;
-  background-color:silver;
+  text-decoration: none;
 }
