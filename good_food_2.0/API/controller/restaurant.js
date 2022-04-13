@@ -4,18 +4,25 @@ const Restaurant = require("../model/restaurant")
 // Create restaurant
 module.exports.createRestaurant = async (req,res) => {
     try{
-        const name = req.query.name,
-        address = req.query.address,
-        telephone = req.query.telephone,
-        mail = req.query.mail,
-        franchised = req.query.franchised === "true",
-        schedule = JSON.parse(req.query.schedule)
-        
+        let name = req.body.name,
+        address = req.body.address,
+        telephone = req.body.telephone,
+        mail = req.body.mail,
+        franchised = req.body.franchised === "true",
+        schedule = req.body.schedule;
+
         //testing if needed informations about restaurant are defined
-        if(!name || !address|| !telephone || !mail || !franchised || !schedule){
+        if(!name || !address|| !telephone || !mail || !franchised || !schedule || schedule === '{}'){
             return res.status(400).json({message:'At least one field is missing'})
         }
-        
+        schedule = JSON.parse(schedule);
+
+        //testing if this restaurant already exists
+        let existingRestaurants = (await Restaurant.findOne({name, address, telephone, mail, franchised, schedule}));
+        if(existingRestaurants){
+            return res.status(409).json({message:`Restaurant ${name} already exists`})
+        }
+
         //create restaurant in the db
         await Restaurant.create({name,address,telephone,mail,franchised,schedule})
         return res.status(200).json({message:`Restaurant ${name} was created successfully`})
