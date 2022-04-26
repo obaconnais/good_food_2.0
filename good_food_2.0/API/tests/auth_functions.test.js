@@ -2,6 +2,7 @@ const user = require('../model/user')
 const db = require("./db_handle")
 const httpMock = require('node-mocks-http')
 const authControler = require('../controler/auth')
+const jwt = require('jsonwebtoken')
 /**
  * before each test, connect to the mocked database
  */
@@ -106,4 +107,16 @@ describe('test function for auth', ()=> {
         expect(data.message).toBe('password is wrong')
     })
 
+    it('test authenticationSend normally', async()=>{
+        authMocked.password = "Voltaire75"
+        let authMockedFind = user.findOne({mail: authMocked.mail})
+        let req = httpMock.createRequest({body:authMocked})
+        let res = httpMock.createResponse()
+        await authControler.authenticationSend(req,res) 
+        let data = res._getJSONData()
+        let payLoad = jwt.verify(data.access_token, process.env.JWT_SECRET)
+        expect(payLoad.id).toBe(authMockedFind.id)
+        expect(payLoad.lastname).toBe(authMockedFind.lastname)
+        expect(payLoad.forname).toBe(authMockedFind.forname)
+    })
 })
