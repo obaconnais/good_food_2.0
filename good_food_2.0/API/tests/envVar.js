@@ -1,0 +1,3 @@
+process.env.PORT = 4001;
+process.env.JWT_SECRET='itisimpossibletofindthesecretpasswordbecauseyoucannotknowwhereiwasbornwheniwasayoungmenduringallmylifeandifyoureadthisyouarecrazybecauseitisdifficult'
+process.env.JWT_DURING='30 min'

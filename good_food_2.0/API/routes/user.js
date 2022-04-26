@@ -2,7 +2,7 @@
 /********* import necessary librairies *********/
 /***********************************************/
 const express = require('express')
-const userCtrl = require("../controller/user")
+const userCtrl = require("../controler/user")
 
 /***********************************************/
 /******** definition of request on API *********/
