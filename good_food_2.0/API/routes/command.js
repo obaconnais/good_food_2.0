@@ -2,7 +2,7 @@
 /********* import necessary librairies *********/
 /***********************************************/
 const express = require("express")
-const commandCtrl = require("../controller/command")
+const commandCtrl = require("../controler/command")
 
 /***********************************************/
 /******** definition of request on API *********/
