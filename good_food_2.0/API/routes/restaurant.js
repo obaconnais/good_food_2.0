@@ -16,36 +16,36 @@ let router = express.Router()
 /**
  * route to create a restaurant
  */
-router.put('/restaurant',restaurantCtrl.createRestaurant)
+router.put('',restaurantCtrl.createRestaurant)
 
 /**
  * route to set a restaurant
  */
-router.patch('/restaurant/:id', restaurantCtrl.setRestaurant)
+router.patch('/:_id', restaurantCtrl.setRestaurant)
 
 /**
  * route to delete a restaurant
  */
-router.delete('/restaurant/:id', restaurantCtrl.deleteRestaurant)
+router.delete('/:_id', restaurantCtrl.deleteRestaurant)
 
 /**
  * route to get a restaurant by its name
  */
-router.get('/restaurant/:name',restaurantCtrl.getRestaurantByName)
+router.get('/name/:name',restaurantCtrl.getRestaurantByName)
 
 /**
  * route to get a restaurant by its id
  */
-router.get('/restaurant/:id',restaurantCtrl.getRestaurantById)
+router.get('/id/:_id',restaurantCtrl.getRestaurantById)
 
 /**
  * route to get a restaurant by its mail
  */
-router.get('/restaurant/:mail', restaurantCtrl.getRestaurantByMail)
+router.get('/mail/:mail', restaurantCtrl.getRestaurantByMail)
 
 /**
  * route to get all restaurants
  */
-router.get('/restaurants', restaurantCtrl.getAllRestaurants)
+router.get('/all', restaurantCtrl.getAllRestaurants)
 
 module.exports = router
