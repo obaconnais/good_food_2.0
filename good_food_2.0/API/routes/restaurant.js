@@ -1,26 +1,51 @@
 /***********************************************/
 /********* import required librairies *********/
 /***********************************************/
-const restaurantCtrl = require("../controller/restaurant")
+const restaurantCtrl = require("../controler/restaurant")
+const express = require('express')
 
 /***********************************************/
 /******** definition of request on API *********/
 /***********************************************/
-module.exports = function (router) {
-    /***********************************************/
-    /*********** routage de la ressource ***********/
-    /***********************************************/
-    // Create restaurant
-    router.put('/restaurant',restaurantCtrl.createRestaurant)
+let router = express.Router()
 
-    // Update restaurant
-    router.patch('/restaurant/:id', restaurantCtrl.updateRestaurant)
+/***********************************************/
+/*************** route resources ***************/
+/***********************************************/
 
-    // Delete restaurant
-    router.delete('/restaurant/:id', restaurantCtrl.removeRestaurant)
+/**
+ * route to create a restaurant
+ */
+router.put('/restaurant',restaurantCtrl.createRestaurant)
 
-    // Find restaurants
-    router.get('/restaurant/:name',restaurantCtrl.findRestaurantByName)
-    router.get('/restaurant/id/:id',restaurantCtrl.findRestaurantById)
-    router.get('/restaurants', restaurantCtrl.findAllRestaurants)
-}
+/**
+ * route to set a restaurant
+ */
+router.patch('/restaurant/:id', restaurantCtrl.setRestaurant)
+
+/**
+ * route to delete a restaurant
+ */
+router.delete('/restaurant/:id', restaurantCtrl.deleteRestaurant)
+
+/**
+ * route to get a restaurant by its name
+ */
+router.get('/restaurant/:name',restaurantCtrl.getRestaurantByName)
+
+/**
+ * route to get a restaurant by its id
+ */
+router.get('/restaurant/:id',restaurantCtrl.getRestaurantById)
+
+/**
+ * route to get a restaurant by its mail
+ */
+router.get('/restaurant/:mail', restaurantCtrl.getRestaurantByMail)
+
+/**
+ * route to get all restaurants
+ */
+router.get('/restaurants', restaurantCtrl.getAllRestaurants)
+
+module.exports = router
