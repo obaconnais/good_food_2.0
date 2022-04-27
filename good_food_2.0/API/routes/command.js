@@ -1,8 +1,8 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
-const express = require('express')
-const userCtrl = require("../controller/user")
+const express = require("express")
+const commandCtrl = require("../controller/command")
 
 /***********************************************/
 /******** definition of request on API *********/
@@ -13,28 +13,28 @@ let router = express.Router()
 /*************** route resources ***************/
 /***********************************************/
 /**
-* route to create a user
+* route to create a Command
 */
-router.put('',userCtrl.createUser)
+router.put('',commandCtrl.createCommand)
 
 /**
-* route to get the user_Id thanks to its mail 
+* route to get the Command_Id thanks to its mail 
 */
-router.get('/mail', userCtrl.getUserId)
+router.get('/mail', commandCtrl.getCommandId)
 
 /**
-* route to get a user thanks to its id
+* route to get a Command thanks to its id
 */
-router.get('/:id', userCtrl.getUser)
+router.get('/:id', commandCtrl.getCommand)
 
 /**
-* route to delete a user
+* route to delete a Command
 */
-router.delete('/:id', userCtrl.deleteUser)
+router.delete('/:id', commandCtrl.deleteCommand)
 
 /**
-* route to set a user
+* route to set a Command
 */
-router.patch('/:id', userCtrl.setUser)
+router.patch('/:id', commandCtrl.setCommand)
 
 module.exports = router
