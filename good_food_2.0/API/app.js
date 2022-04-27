@@ -5,6 +5,8 @@ const express = require('express')
 const cors = require('cors')
 const userRouter = require('./routes/user')
 const commandRouter = require('./routes/command')
+const restaurantRouter = require('./routes/restaurant')
+const db = require('./tests/db_handle')
 let app = express()
 
 /*******************************************/
@@ -30,5 +32,14 @@ app.use('/user',userRouter)
  * route for command
  */
 app.use('/command',commandRouter)
+
+/**
+ * route for restaurant
+ */
+app.use('/restaurant', restaurantRouter)
+
+db.connect().then(() => {
+    console.log('db connected')
+})
 
 module.exports = app
