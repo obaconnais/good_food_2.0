@@ -19,6 +19,7 @@ const restaurantSchema = new Schema(
         },
         mail: {
             type: String,
+            unique: true,
             required: [true, 'Required field'],
             match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/                
         },
