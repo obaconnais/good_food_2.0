@@ -1,7 +1,7 @@
 const Restaurant = require("../model/restaurant")
 
 /**
- * module to creat a restaurant
+ * module to create a restaurant
  */
 module.exports.createRestaurant = async (req,res) => {
     try{
@@ -11,7 +11,6 @@ module.exports.createRestaurant = async (req,res) => {
         if(!name || !address|| !telephone || !mail || !franchised || !schedule){
             return res.status(400).json({message:'At least one field is missing'})
         }
-        schedule = JSON.parse(schedule);
 
         //testing if this restaurant already exists
         const existingRestaurants = await Restaurant.findOne({mail: mail});
@@ -33,36 +32,37 @@ module.exports.createRestaurant = async (req,res) => {
  */
 module.exports.setRestaurant = async (req,res) => {
     try {
-        let {id }= req.params.id
-        if(!id)
+        const {_id, name, address, franchised, telephone, schedule, mail} = req.body;
+        const restaurantGet = await Restaurant.findOne({_id:_id})
+
+        if(!_id)
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
 
-        if(!req.body.name && !req.body.address && !req.body.telephone && !req.body.mail && !req.body.franchised && !req.body.schedule)
+        if(!name && !address && !telephone && !mail && !franchised && !schedule)
             return res.status(400).json({message: 'Bad request'})
 
+        if(name)
+            await Restaurant.updateOne({ _id: _id }, { $set: {name: name} })
 
-        if(req.body.name)
-            await Restaurant.updateOne({ _id: id }, { $set: {name: req.body.name} })
+        if(address)
+            await Restaurant.updateOne({ _id: _id }, { $set: {address: address} })
 
-        if(req.body.address)
-            await Restaurant.updateOne({ _id: id }, { $set: {address: req.body.address} })
+        if(telephone)
+            await Restaurant.updateOne({ _id: _id }, { $set: {telephone: telephone} })
 
-        if(req.body.telephone)
-            await Restaurant.updateOne({ _id: id }, { $set: {telephone: req.body.telephone} })
+        if(mail)
+            await Restaurant.updateOne({ _id: _id }, { $set: {mail: mail} })
 
-        if(req.body.mail)
-            await Restaurant.updateOne({ _id: id }, { $set: {mail: req.body.mail} })
+        if(franchised)
+            await Restaurant.updateOne({ _id: _id }, { $set: {franchised: franchised} })
 
-        if(req.body.franchised)
-            await Restaurant.updateOne({ _id: id }, { $set: {franchised: req.body.franchised} })
+        if(schedule)
+            await Restaurant.updateOne({ _id: _id }, { $set: {schedule: schedule} })
 
-        if(req.body.schedule)
-            await Restaurant.updateOne({ _id: id }, { $set: {schedule: req.body.schedule} })
-
-        return res.status(200).json({message: 'OK'})
+        return res.status(200).json({message: 'Restaurant was updated successfully'})
 
     } catch(err) {
-        return res.status(500).json({message: 'Erreur interne'})
+        return res.status(500).json({message: 'Internal error'})
     }
 }
 
@@ -71,17 +71,18 @@ module.exports.setRestaurant = async (req,res) => {
  */
 module.exports.deleteRestaurant = async (req,res) => {
     try {
-        let id = req.params.id
-        if(!id){
+        const {_id} = req.body
+
+        if(!_id){
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
         }
 
-        await Restaurant.deleteOne({ _id: id })
+        await Restaurant.deleteOne({ _id: _id })
 
-        return res.status(200).json({message: 'OK'})
+        return res.status(200).json({message: 'Restaurant was deleted successfully'})
 
     } catch(err) {
-        return res.status(500).json({message: 'Erreur interne'})
+        return res.status(500).json({message: 'Internal error'})
     }
 }
 
@@ -90,22 +91,24 @@ module.exports.deleteRestaurant = async (req,res) => {
  */
 module.exports.getRestaurantByName = async (req,res) => {
     try{
-        let name = req.params.name
+        const {name} = req.body
+
         //testing if name is defined
         if(!name){
             return res.status(400).json({message: 'Name is not defined, cannot find any restaurant'})
         }
-        let existingRestaurants = (await Restaurant.find({ name: {$regex: name, $options: 'i'} })).map(r => { return {id: r._id, name: r.name} })
+
+        const existingRestaurants = (await Restaurant.find({ name: {$regex: name, $options: 'i'} })).map(r => { return {id: r._id, name: r.name} })
         
         //testing if restaurant exists
         if(existingRestaurants.length == 0){
-            return res.status(200).json({message: `No restaurant found as ${name}`, found: false})
+            return res.status(404).json({message: `Restaurant ${name} wasn't found`, found: false})
         }  
         else{
             return res.status(200).json({found: true, data: existingRestaurants})
         }
     }catch(err){
-        return res.status(500).json({message: 'Erreur interne'})
+        return res.status(500).json({message: 'Internal error'})
     }
 }
 
@@ -114,23 +117,24 @@ module.exports.getRestaurantByName = async (req,res) => {
  */
 module.exports.getRestaurantById = async (req,res) => {
     try{
-        let id = req.params.id
+        const {_id} = req.body
 
-        //testing if name is defined
-        if(!id){
+        //testing if id is defined
+        if(!_id){
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
         }
-        const existingRestaurant = await Restaurant.findOne({ _id: id })
+
+        const existingRestaurant = await Restaurant.findOne({ _id: _id })
 
         //testing if restaurant exists
         if(!existingRestaurant){
-            return res.status(200).json({found: false})
+            return res.status(404).json({message: `Restaurant with id : ${_id} wasn't found`, found: false})
         }  
         else{
             return res.status(200).json({found: true, data: existingRestaurant})
         }
     }catch(err){
-        return res.status(500).json({message: 'Erreur interne'})
+        return res.status(500).json({message: 'Internal error'})
     }
 }
 
@@ -138,7 +142,26 @@ module.exports.getRestaurantById = async (req,res) => {
  * module to get a restaurant by its mail
  */
 module.exports.getRestaurantByMail = async (req,res) => {
+    try{
+        const {mail} = req.body
 
+        //testing if mail is defined
+        if(!mail){
+            return res.status(400).json({message: 'Mail is not defined, cannot find any restaurant'})
+        }
+
+        const existingRestaurant = await Restaurant.findOne({ mail: mail })
+
+        //testing if restaurant exists
+        if(!existingRestaurant){
+            return res.status(404).json({message: `Restaurant with mail : ${mail} wasn't found`, found: false})
+        }  
+        else{
+            return res.status(200).json({found: true, data: existingRestaurant})
+        }
+    }catch(err){
+        return res.status(500).json({message: 'Internal error'})
+    }
 }
 
 /**
@@ -148,9 +171,9 @@ module.exports.getAllRestaurants = async (req,res) => {
     try{
         const restaurants = (await Restaurant.find({})).map(r => { return {id: r._id, name: r.name} })
 
-        return res.status(200).json({message: 'OK', data: restaurants})
+        return res.status(200).json({message: 'Restaurants were found', data: restaurants})
     }catch(err){
-        return res.status(500).json({message: 'Erreur interne'})
+        return res.status(500).json({message: 'Internal error'})
     }
 }
 
