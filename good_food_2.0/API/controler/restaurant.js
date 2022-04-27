@@ -33,7 +33,7 @@ module.exports.createRestaurant = async (req,res) => {
  */
 module.exports.setRestaurant = async (req,res) => {
     try {
-        let {id = req.params.id
+        let {id }= req.params.id
         if(!id)
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
 
