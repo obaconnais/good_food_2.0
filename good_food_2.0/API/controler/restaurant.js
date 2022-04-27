@@ -21,7 +21,7 @@ module.exports.createRestaurant = async (req,res) => {
         //create restaurant in the db
         await Restaurant.create({name,address,telephone,mail,franchised,schedule})
         return res.status(200).json({message:`Restaurant ${name} was created successfully`})
-
+    
     }catch(err){
         return res.status(500).json({message: 'Internal error'})
     }
@@ -32,7 +32,8 @@ module.exports.createRestaurant = async (req,res) => {
  */
 module.exports.setRestaurant = async (req,res) => {
     try {
-        const {_id, name, address, franchised, telephone, schedule, mail} = req.body;
+        const {_id} = req.params
+        const {name, address, franchised, telephone, schedule, mail} = req.body;
         const restaurantGet = await Restaurant.findOne({_id:_id})
 
         if(!_id)
@@ -71,7 +72,7 @@ module.exports.setRestaurant = async (req,res) => {
  */
 module.exports.deleteRestaurant = async (req,res) => {
     try {
-        const {_id} = req.body
+        const {_id} = req.params
 
         if(!_id){
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
@@ -91,7 +92,7 @@ module.exports.deleteRestaurant = async (req,res) => {
  */
 module.exports.getRestaurantByName = async (req,res) => {
     try{
-        const {name} = req.body
+        const {name} = req.params
 
         //testing if name is defined
         if(!name){
@@ -117,7 +118,7 @@ module.exports.getRestaurantByName = async (req,res) => {
  */
 module.exports.getRestaurantById = async (req,res) => {
     try{
-        const {_id} = req.body
+        const {_id} = req.params
 
         //testing if id is defined
         if(!_id){
@@ -143,7 +144,7 @@ module.exports.getRestaurantById = async (req,res) => {
  */
 module.exports.getRestaurantByMail = async (req,res) => {
     try{
-        const {mail} = req.body
+        const {mail} = req.params
 
         //testing if mail is defined
         if(!mail){
