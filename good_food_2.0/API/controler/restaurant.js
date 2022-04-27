@@ -1,24 +1,20 @@
-const restaurant = require("../model/restaurant")
 const Restaurant = require("../model/restaurant")
 
-// Create restaurant
+/**
+ * module to creat a restaurant
+ */
 module.exports.createRestaurant = async (req,res) => {
     try{
-        let name = req.body.name,
-        address = req.body.address,
-        telephone = req.body.telephone,
-        mail = req.body.mail,
-        franchised = req.body.franchised === "true",
-        schedule = req.body.schedule;
-
+        const{ name, address, franchised, telephone, schedule, mail } = req.body;
+    
         //testing if needed informations about restaurant are defined
-        if(!name || !address|| !telephone || !mail || !franchised || !schedule || schedule === '{}'){
+        if(!name || !address|| !telephone || !mail || !franchised || !schedule){
             return res.status(400).json({message:'At least one field is missing'})
         }
         schedule = JSON.parse(schedule);
 
         //testing if this restaurant already exists
-        let existingRestaurants = (await Restaurant.findOne({name, address, telephone, mail, franchised, schedule}));
+        const existingRestaurants = await Restaurant.findOne({mail: mail});
         if(existingRestaurants){
             return res.status(409).json({message:`Restaurant ${name} already exists`})
         }
@@ -26,15 +22,18 @@ module.exports.createRestaurant = async (req,res) => {
         //create restaurant in the db
         await Restaurant.create({name,address,telephone,mail,franchised,schedule})
         return res.status(200).json({message:`Restaurant ${name} was created successfully`})
+
     }catch(err){
         return res.status(500).json({message: 'Internal error'})
     }
 }
 
-// Update restaurant
-module.exports.updateRestaurant = async (req,res) => {
+/**
+ * module to set a restaurant
+ */
+module.exports.setRestaurant = async (req,res) => {
     try {
-        let id = req.params.id
+        let {id = req.params.id
         if(!id)
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
 
@@ -67,8 +66,10 @@ module.exports.updateRestaurant = async (req,res) => {
     }
 }
 
-// Delete restaurant
-module.exports.removeRestaurant = async (req,res) => {
+/**
+ * module to delete a restaurant
+ */
+module.exports.deleteRestaurant = async (req,res) => {
     try {
         let id = req.params.id
         if(!id){
@@ -84,8 +85,10 @@ module.exports.removeRestaurant = async (req,res) => {
     }
 }
 
-// Find restaurants
-module.exports.findRestaurantByName = async (req,res) => {
+/**
+ * module to get a restaurant by its name 
+ */
+module.exports.getRestaurantByName = async (req,res) => {
     try{
         let name = req.params.name
         //testing if name is defined
@@ -106,7 +109,10 @@ module.exports.findRestaurantByName = async (req,res) => {
     }
 }
 
-module.exports.findRestaurantById = async (req,res) => {
+/**
+ * module to get a restaurant by its id 
+ */
+module.exports.getRestaurantById = async (req,res) => {
     try{
         let id = req.params.id
 
@@ -128,7 +134,17 @@ module.exports.findRestaurantById = async (req,res) => {
     }
 }
 
-module.exports.findAllRestaurants = async (req,res) => {
+/**
+ * module to get a restaurant by its mail
+ */
+module.exports.getRestaurantByMail = async (req,res) => {
+
+}
+
+/**
+ * module to get all restaurants 
+ */
+module.exports.getAllRestaurants = async (req,res) => {
     try{
         const restaurants = (await Restaurant.find({})).map(r => { return {id: r._id, name: r.name} })
 
