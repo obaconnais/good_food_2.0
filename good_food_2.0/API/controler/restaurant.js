@@ -35,30 +35,45 @@ module.exports.setRestaurant = async (req,res) => {
         const {_id} = req.params
         const {name, address, franchised, telephone, schedule, mail} = req.body;
         const restaurantGet = await Restaurant.findOne({_id:_id})
+        let updateObject = {}
 
         if(!_id)
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
 
         if(!name && !address && !telephone && !mail && !franchised && !schedule)
-            return res.status(400).json({message: 'Bad request'})
+            return res.status(400).json({message: 'None element defined'})
 
         if(name)
-            await Restaurant.updateOne({ _id: _id }, { $set: {name: name} })
+            updateObject.name = name
 
         if(address)
-            await Restaurant.updateOne({ _id: _id }, { $set: {address: address} })
-
+            updateObject.address = address
+        
         if(telephone)
-            await Restaurant.updateOne({ _id: _id }, { $set: {telephone: telephone} })
-
+            updateObject.telephone = telephone
+        
         if(mail)
-            await Restaurant.updateOne({ _id: _id }, { $set: {mail: mail} })
-
-        if(franchised)
-            await Restaurant.updateOne({ _id: _id }, { $set: {franchised: franchised} })
-
+            updateObject.mail = mail
+        
+        if(franchised != null)
+            updateObject.franchised = franchised
+        
         if(schedule)
-            await Restaurant.updateOne({ _id: _id }, { $set: {schedule: schedule} })
+            updateObject.schedule = schedule
+
+        try {
+            await Restaurant.updateOne({ _id: _id }, { $set: updateObject }, {runValidators: true})
+        } catch(err) {
+            if(err.code == 11000) {
+                return res.status(409).json({message: `Restaurant with mail ${mail} already exists`})
+            } else if(err.errors.name && err.errors.name.kind == 'regexp') {
+                return res.status(400).json({message: `Name is not compliant`})
+            } else if(err.errors.mail && err.errors.mail.kind == 'regexp') {
+                return res.status(400).json({message: `Mail is not compliant`})
+            } else if(err.errors.telephone && err.errors.telephone.kind == 'regexp') {
+                return res.status(400).json({message: `Telephone is not compliant`})
+            } else throw err
+        }
 
         return res.status(200).json({message: 'Restaurant was updated successfully'})
 
@@ -78,9 +93,15 @@ module.exports.deleteRestaurant = async (req,res) => {
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
         }
 
-        await Restaurant.deleteOne({ _id: _id })
+        let existingRestaurant = await Restaurant.findOne({_id: _id})
 
-        return res.status(200).json({message: 'Restaurant was deleted successfully'})
+        if(!existingRestaurant) {
+            return res.status(404).json({message: `Restaurant with id : ${_id} wasn't found`})
+        } else {
+            await Restaurant.deleteOne({ _id: _id })
+    
+            return res.status(200).json({message: 'Restaurant was deleted successfully'})
+        }
 
     } catch(err) {
         return res.status(500).json({message: 'Internal error'})
