@@ -15,7 +15,7 @@ app.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
 
 const recipe_router = require('./routes/recipe')
 // app.get('/', (req, res) =>"")
-// recipe_router.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
+recipe_router.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
 // app.get('user', (req, res) => user_router)
 
 const port = 5000
