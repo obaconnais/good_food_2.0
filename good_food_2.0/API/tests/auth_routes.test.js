@@ -24,7 +24,6 @@ beforeAll(async () => {
  afterAll(async () => {await mockedDb.closeDatabase()})
  
  describe('test route for auth', ()=> {
-
     it('test login path', async ()=>{
         let userMocked = await user.findOne({mail:"fm.voltaire@test.com" })
         const res = await request(app)

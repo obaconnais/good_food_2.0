@@ -23,7 +23,6 @@ beforeEach(async()=>{
     })
     //create a user in the db
     await user.create(authMocked)
-
 })
 /**
  * after each test,clear all date which present in the mocked database
@@ -109,7 +108,7 @@ describe('test function for auth', ()=> {
 
     it('test authenticationSend normally', async()=>{
         authMocked.password = "Voltaire75"
-        let authMockedFind = user.findOne({mail: authMocked.mail})
+        let authMockedFind = await user.findOne({mail: authMocked.mail})
         let req = httpMock.createRequest({body:authMocked})
         let res = httpMock.createResponse()
         await authControler.authenticationSend(req,res) 

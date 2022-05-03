@@ -20,8 +20,8 @@ router.put('',userCtrl.createUser)
 /**
 * route to get the user_Id thanks to its mail 
 */
-router.get('/mail', userCtrl.getUserId)
-
+router.get('/mail',userCtrl.getUserId)
+    
 /**
 * route to get a user thanks to its id
 */

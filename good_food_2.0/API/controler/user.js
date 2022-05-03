@@ -3,7 +3,7 @@ const user = require("../model/user")
 module.exports.createUser = async (req,res) => {
     try{
         const {lastname,forname,mail,address,password} = req.body
-        
+
         //testing if needed informations about user are not null
         if(!lastname || !forname || !mail || !address || !password){
             return res.status(400).json({message:`at least on field are missing`})
@@ -49,8 +49,13 @@ module.exports.getUser = async (req, res) => {
 //@toFix develop many test code/ not done actually
 module.exports.getUserId = async (req, res) => {
     let{mail} = req.body
-    let doc = await user.findOne({mail: mail})
-    return res.status(200).json({data: doc._id})
+    try{
+        let doc = await user.findOne({mail: mail})
+        return res.status(200).json({data: doc._id})
+    }
+    catch(err){
+        return res.status(400).json({message: 'no user in the db'})
+    }
 }   
 
 module.exports.deleteUser = async (req,res) => {
