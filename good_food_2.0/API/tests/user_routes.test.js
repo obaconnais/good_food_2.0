@@ -28,14 +28,16 @@ afterAll(async () => {await mockedDb.closeDatabase()})
     lastname:"Hugo",
     forname:"Victor",
     mail:"victor.hugo@gmail.com",
-    address:"1 rue de la Mine 26000 GERMINAL"
+    address:"1 rue de la Mine 26000 GERMINAL",
+    password:"Hugo21"
 })
 
 let userSet = new userModels({
     lastname: "Camus",
     forname: "Albert",
     mail: "albert.camus@gmail.com",
-    address: "14 rue de l'Homme révolté 12345 LA CHUTE"
+    address: "14 rue de l'Homme révolté 12345 LA CHUTE",
+    password: "Hugo22"
 })
 
 describe('Test every path for /user end-point', () => {
@@ -47,7 +49,8 @@ describe('Test every path for /user end-point', () => {
                                 lastname: userModel.lastname,
                                 forname: userModel.forname,
                                 mail: userModel.mail,
-                                address: userModel.address
+                                address: userModel.address,
+                                password: userModel.password
                             })
         expect(res.status).toBe(200)
         expect(res.body.message).toBe(`the user ${userModel.lastname} ${userModel.forname} created successfully`)
@@ -97,7 +100,8 @@ describe('Test every path for /user end-point', () => {
             lastname: userSet.lastname,
             forname: userSet.forname,
             mail: userSet.mail, 
-            address: userSet.address
+            address: userSet.address,
+            password: userSet.password
         })
         //check if code is correct and message
         expect(resSet.status).toBe(200)

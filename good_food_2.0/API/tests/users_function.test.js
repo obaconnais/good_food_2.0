@@ -1,6 +1,6 @@
 const db = require("./db_handle")
 const httpMock = require('node-mocks-http');
-const user = require("../controller/user");
+const user = require("../controler/user");
 const userModel = require("../model/user")
 /**
  * before each test, connect to the mocked database
@@ -16,14 +16,15 @@ afterEach(async () => {await db.clearDatabase()})
 afterAll(async () => {await db.closeDatabase()})
 
 describe('mongodb user response and connexion',()=>{
-
     let lastname = "IME"
     let forname = "Vincent"
     let mail= " gmail.com"
     let address = "1 rue de l'épilation 58170 Poil"
+    let password = "hugo21"
 
     it('create user normally', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname,mail,address}})
+
+        let req = httpMock.createRequest({body:{lastname,forname,mail,address,password}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -34,7 +35,7 @@ describe('mongodb user response and connexion',()=>{
     })
 
     it('create user without lastname field', async () => {
-        let req = httpMock.createRequest({body:{lastname: null,forname,mail,address}})
+        let req = httpMock.createRequest({body:{lastname: null,forname,mail,address,password}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -45,7 +46,7 @@ describe('mongodb user response and connexion',()=>{
     }) 
     
     it('create user without forname field', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname:null,mail,address}})
+        let req = httpMock.createRequest({body:{lastname,forname:null,mail,address,password}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -56,7 +57,7 @@ describe('mongodb user response and connexion',()=>{
     }) 
     
     it('create user without mail field', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname,mail:null,address}})
+        let req = httpMock.createRequest({body:{lastname,forname,mail:null,address,password}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -67,7 +68,7 @@ describe('mongodb user response and connexion',()=>{
     }) 
     
     it('create user without address field', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname,mail,address:null}})
+        let req = httpMock.createRequest({body:{lastname,forname,mail,address:null,password}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -78,7 +79,7 @@ describe('mongodb user response and connexion',()=>{
     }) 
 
     it('create user without needed fields', async () => {
-        let req = httpMock.createRequest({body:{lastname:null,forname:null,mail:null,address:null}})
+        let req = httpMock.createRequest({body:{lastname:null,forname:null,mail:null,address:null,password:null}})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -89,7 +90,7 @@ describe('mongodb user response and connexion',()=>{
     }) 
     
     it('create user which are already created', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname,mail,address}})
+        let req = httpMock.createRequest({body:{lastname,forname,mail,address,password}})
         let res = httpMock.createResponse()
         let res2 = httpMock.createResponse()
         await user.createUser(req,res)
@@ -102,7 +103,7 @@ describe('mongodb user response and connexion',()=>{
     
     it('get user normally', async ()=> {
         //Create a new user
-        let reqCreate = httpMock.createRequest({body:{lastname, forname, mail, address}})
+        let reqCreate = httpMock.createRequest({body:{lastname, forname, mail, address,password}})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate,resCreate)
         
@@ -148,7 +149,7 @@ describe('mongodb user response and connexion',()=>{
     }) 
     
     it('delete a user', async () => {
-        let reqCreate = httpMock.createRequest({body: {lastname,forname,mail,address}})
+        let reqCreate = httpMock.createRequest({body: {lastname,forname,mail,address,password}})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate,resCreate)
         //Pick up ID from user created
@@ -167,7 +168,7 @@ describe('mongodb user response and connexion',()=>{
     })
     
     it('delete a user, but null', async () => {
-        let reqCreate = httpMock.createRequest({body: {lastname,forname,mail,address}})
+        let reqCreate = httpMock.createRequest({body: {lastname,forname,mail,address,password}})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate,resCreate)
         let reqDelete = httpMock.createRequest({body:{_id: null}})
@@ -187,7 +188,7 @@ describe('mongodb user response and connexion',()=>{
         let addressSet = "24 avenue de la rouerie 59380 BERGUES"
 
         //Create user which will be modified soon
-        let reqCreate = httpMock.createRequest({body:{lastname,forname,mail,address}})
+        let reqCreate = httpMock.createRequest({body:{lastname,forname,mail,address,password}})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate, resCreate)
         let message = resCreate._getJSONData()
