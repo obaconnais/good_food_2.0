@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*******************************************/
 /**************** API init *****************/
 /*******************************************/
@@ -17,6 +18,14 @@ const recipe_router = require('./routes/recipe')
 // app.get('/', (req, res) =>"")
 recipe_router.get('/', (req, res) => res.status(501).send(`What the fuck ?`))
 // app.get('user', (req, res) => user_router)
+=======
+const app = require('./app')
+const db = require('./db_config')
+const port = process.env.PORT || 5001
+
+db.connect()
+app.listen(port, () =>console.log(`server is listening on port ${port}`))
+>>>>>>> bbb26b4c18a9825167370eeaad2d57c91ccc35a7
 
 const port = 5000
 const server = app.listen(port, () => console.log(`server is listening on port ${port}`))
