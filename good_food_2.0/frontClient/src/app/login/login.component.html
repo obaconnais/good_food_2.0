@@ -8,7 +8,12 @@
     </a>
   </nav>
     <div class = "signIn">Sign In</div>
-    <input class = "input1" placeholder= "enter your login">
-    <input class = "input2" placeholder="enter your password">
-    <button class = "submit">connect</button>
+    <input  class = "input1"
+            placeholder= "enter your login"
+            [(ngModel)]="user.mail">
+    <input  class = "input2"
+            placeholder="enter your password"
+            [(ngModel)]="user.password">
+    <button class = "submit"
+            (click)="onClick()">connect</button>
 </div>
