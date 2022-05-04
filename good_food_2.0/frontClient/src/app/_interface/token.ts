@@ -1,3 +1,3 @@
 export interface IToken {
-  token: String
+  acces_token: string
 }

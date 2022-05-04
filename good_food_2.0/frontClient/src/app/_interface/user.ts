@@ -1,9 +1,9 @@
 export interface IUser {
-  id:String,
-  lastname: String,
-  forname: String,
-  mail: String,
-  password: String
+  id:string,
+  lastname: string,
+  forname: string,
+  mail: string,
+  password: string
 }
 
 export interface IUsers{
