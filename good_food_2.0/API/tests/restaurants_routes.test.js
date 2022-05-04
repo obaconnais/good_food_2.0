@@ -20,7 +20,7 @@ describe('Test every path for /user end-point', () => {
     let address = "14 rue du miam"
     let telephone = "+33678912345"
     let mail = "mcdo@maim.fr"
-    let franchised = true
+    let franchisedGroup = true
     let schedule = {"mon":[{"begin": "9h00", "end": "18h00"}]}
     let global_id
 
@@ -32,7 +32,7 @@ describe('Test every path for /user end-point', () => {
                         address,
                         telephone,
                         mail,
-                        franchised,
+                        franchisedGroup,
                         schedule
                     })
 

@@ -23,7 +23,7 @@ const restaurantSchema = new Schema(
             required: [true, 'Required field'],
             match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/                
         },
-        franchised: {
+        franchisedGroup: {
             type: Boolean,
             required: [true, 'Required field'],
             default: false                    

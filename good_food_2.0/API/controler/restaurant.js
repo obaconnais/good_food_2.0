@@ -5,10 +5,10 @@ const Restaurant = require("../model/restaurant")
  */
 module.exports.createRestaurant = async (req,res) => {
     try{
-        const{ name, address, franchised, telephone, schedule, mail } = req.body;
+        const{ name, address, franchisedGroup, telephone, schedule, mail } = req.body;
     
         //testing if needed informations about restaurant are defined
-        if(!name || !address|| !telephone || !mail || !franchised || !schedule){
+        if(!name || !address|| !telephone || !mail || !franchisedGroup || !schedule){
             return res.status(400).json({message:'At least one field is missing'})
         }
 
@@ -19,7 +19,7 @@ module.exports.createRestaurant = async (req,res) => {
         }
 
         //create restaurant in the db
-        await Restaurant.create({name,address,telephone,mail,franchised,schedule})
+        await Restaurant.create({name,address,telephone,mail,franchisedGroup,schedule})
         return res.status(200).json({message:`Restaurant ${name} was created successfully`})
     
     }catch(err){
@@ -33,14 +33,14 @@ module.exports.createRestaurant = async (req,res) => {
 module.exports.setRestaurant = async (req,res) => {
     try {
         const {_id} = req.params
-        const {name, address, franchised, telephone, schedule, mail} = req.body;
+        const {name, address, franchisedGroup, telephone, schedule, mail} = req.body;
         const restaurantGet = await Restaurant.findOne({_id:_id})
         let updateObject = {}
 
         if(!_id)
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
 
-        if(!name && !address && !telephone && !mail && !franchised && !schedule)
+        if(!name && !address && !telephone && !mail && !franchisedGroup && !schedule)
             return res.status(400).json({message: 'None element defined'})
 
         if(name)
@@ -55,8 +55,8 @@ module.exports.setRestaurant = async (req,res) => {
         if(mail)
             updateObject.mail = mail
         
-        if(franchised != null)
-            updateObject.franchised = franchised
+        if(franchisedGroup != null)
+            updateObject.franchisedGroup = franchisedGroup
         
         if(schedule)
             updateObject.schedule = schedule
