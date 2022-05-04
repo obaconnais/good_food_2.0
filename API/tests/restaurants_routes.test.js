@@ -4,23 +4,31 @@
 const request = require('supertest')
 const app = require('../app')
 const mockedDb = require("./db_handle")
-
+const franchise = require("../model/franchise");
 /***********************************************/
 /***** data base configuration during test *****/
 /***********************************************/
+
+
+/**
+ * before tests, create a franchise 
+ */
+beforeAll(async () => {
+    await franchise.create({ name: 'Mcdonald\'s France' })
+})
 
 /**
  * after tests passed, disconnect and close the mocked database
  */
 afterAll(async () => {await mockedDb.closeDatabase()})
 
-describe('Test every path for /user end-point', () => {
-
+describe('Test every path for restaurant end-point', () => {
+    
     let name = "McDO"
     let address = "14 rue du miam"
-    let telephone = "+33678912345"
+    let phone = "+33678912345"
     let mail = "mcdo@maim.fr"
-    let franchisedGroup = true
+    let franchiseName = 'Mcdonald\'s France'
     let schedule = {"mon":[{"begin": "9h00", "end": "18h00"}]}
     let global_id
 
@@ -30,9 +38,9 @@ describe('Test every path for /user end-point', () => {
                     .send({
                         name,
                         address,
-                        telephone,
+                        phone,
                         mail,
-                        franchisedGroup,
+                        franchiseName,
                         schedule
                     })
 

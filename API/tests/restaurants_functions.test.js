@@ -1,15 +1,21 @@
 const db = require("./db_handle")
 const httpMock = require('node-mocks-http');
 const restaurant = require("../controler/restaurant");
+const franchise = require("../model/franchise");
 
 /**
 * before each test, connect to the mocked database
  */
-beforeAll(async () => {await db.connect()})
+beforeAll(async () => {
+    await db.connect()
+})
 /**
-* after each test,clear all date which present in the mocked database
-*/
-afterEach(async () => {await db.clearDatabase()})
+ * before each test,clear all data in the mocked database and create franchise
+ */
+beforeEach(async () => {
+    await db.clearDatabase()
+    await franchise.create({ name: 'McDonald\'s France' })
+})
 /**
 * after tests passed, disconnect and close the mocked database
 */
@@ -19,15 +25,15 @@ describe('mongodb restaurants response and connexion',()=>{
 
     let name = "McDO"
     let address = "14 rue du miam"
-    let telephone = "+33678912345"
+    let phone = "+33678912345"
     let mail = "mcdo@maim.fr"
-    let franchisedGroup = true
+    let franchiseName = 'McDonald\'s France'
     let schedule = {"mon":[{"begin": "9h00", "end": "18h00"}]}
 
     /* CREATE */
 
     it('create restaurant', async () => {
-        let req = httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}})
+        let req = httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}})
         let res = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
         let data = res._getJSONData()
@@ -37,7 +43,7 @@ describe('mongodb restaurants response and connexion',()=>{
     })
 
     it('create restaurant without name', async () => {
-        let req = httpMock.createRequest({body:{address,telephone,mail,franchisedGroup,schedule}})
+        let req = httpMock.createRequest({body:{address,phone,mail,franchiseName,schedule}})
         let res = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
         let data = res._getJSONData()
@@ -47,7 +53,7 @@ describe('mongodb restaurants response and connexion',()=>{
     })
 
     it('create restaurant without address', async () => {
-        let req = httpMock.createRequest({body:{name,telephone,mail,franchisedGroup,schedule}})
+        let req = httpMock.createRequest({body:{name,phone,mail,franchiseName,schedule}})
         let res = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
         let data = res._getJSONData()
@@ -56,8 +62,8 @@ describe('mongodb restaurants response and connexion',()=>{
         expect(status).toBe(400)
     })
 
-    it('create restaurant without telephone', async () => {
-        let req = httpMock.createRequest({body:{name,address,mail,franchisedGroup,schedule}})
+    it('create restaurant without phone', async () => {
+        let req = httpMock.createRequest({body:{name,address,mail,franchiseName,schedule}})
         let res = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
         let data = res._getJSONData()
@@ -67,7 +73,7 @@ describe('mongodb restaurants response and connexion',()=>{
     })
 
     it('create restaurant without mail', async () => {
-        let req = httpMock.createRequest({body:{name,address,telephone,franchisedGroup,schedule}})
+        let req = httpMock.createRequest({body:{name,address,phone,franchiseName,schedule}})
         let res = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
         let data = res._getJSONData()
@@ -76,18 +82,18 @@ describe('mongodb restaurants response and connexion',()=>{
         expect(status).toBe(400)
     })
 
-    it('create restaurant without franchisedGroup', async () => {
-        let req = httpMock.createRequest({body:{name,address,telephone,mail,schedule}})
+    it('create restaurant without franchiseName', async () => {
+        let req = httpMock.createRequest({body:{name,address,phone,mail,schedule}})
         let res = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
         let data = res._getJSONData()
         let status = res._getStatusCode()
-        expect(data.message).toBe(`At least one field is missing`)
-        expect(status).toBe(400)
+        expect(data.message).toBe(`Restaurant ${name} was created successfully`)
+        expect(status).toBe(200)
     })
 
     it('create restaurant without schedule', async () => {
-        let req = httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup}})
+        let req = httpMock.createRequest({body:{name,address,phone,mail,franchiseName}})
         let res = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
         let data = res._getJSONData()
@@ -97,7 +103,7 @@ describe('mongodb restaurants response and connexion',()=>{
     })
 
     it('create restaurant who are already created', async () => {
-        let req = httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}})
+        let req = httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}})
         let res = httpMock.createResponse()
         let res2 = httpMock.createResponse()
         await restaurant.createRestaurant(req,res) 
@@ -124,7 +130,7 @@ describe('mongodb restaurants response and connexion',()=>{
 
     it('get restaurant by name', async () => {
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
         let req = httpMock.createRequest({params: {name: name}})
         let res = httpMock.createResponse()
@@ -158,7 +164,7 @@ describe('mongodb restaurants response and connexion',()=>{
     it('get restaurant by id', async () => {
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up id from this restaurant
@@ -167,7 +173,6 @@ describe('mongodb restaurants response and connexion',()=>{
             httpMock.createRequest({params:{mail: mail}}),
             resId)
         let id = resId._getJSONData().data._id
-
         let req = httpMock.createRequest({params: {_id: id}})
         let res = httpMock.createResponse()
         await restaurant.getRestaurantById(req, res)
@@ -199,7 +204,7 @@ describe('mongodb restaurants response and connexion',()=>{
     it('get restaurant by mail', async () => {
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
             
         let req = httpMock.createRequest({params: {mail: mail}})
@@ -236,14 +241,13 @@ describe('mongodb restaurants response and connexion',()=>{
         const body = {
             name: 'McDonald\'s',
             address: '8 allée de la nourriture 64000 MIAM',
-            telephone: '+33677889944',
+            phone: '+33677889944',
             mail: 'contact@mcdonalds.fr',
-            franchisedGroup: false,
             schedule: {"tue":[{"begin": "8h00", "end": "19h00"}]}
         }
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up ID from restaurant created
@@ -269,9 +273,8 @@ describe('mongodb restaurants response and connexion',()=>{
         expect(updatedRestaurant._id).toBe(id)
         expect(updatedRestaurant.name).toBe(body.name)
         expect(updatedRestaurant.address).toBe(body.address)
-        expect(updatedRestaurant.telephone).toBe(body.telephone)
+        expect(updatedRestaurant.phone).toBe(body.phone)
         expect(updatedRestaurant.mail).toBe(body.mail)
-        expect(updatedRestaurant.franchisedGroup).toBe(body.franchisedGroup)
         expect(JSON.stringify(updatedRestaurant.schedule)).toBe(JSON.stringify(body.schedule))
     })
 
@@ -281,7 +284,7 @@ describe('mongodb restaurants response and connexion',()=>{
         }
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up ID from restaurant created
@@ -305,7 +308,7 @@ describe('mongodb restaurants response and connexion',()=>{
         }
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up ID from restaurant created
@@ -323,13 +326,13 @@ describe('mongodb restaurants response and connexion',()=>{
         expect(resData.message).toBe('None element defined')
     })
 
-    it('update restaurant\'s telephone but telephone is not compliant', async () => {
+    it('update restaurant\'s phone but phone is not compliant', async () => {
         const body = {
-            telephone: '(***)'
+            phone: '(***)'
         }
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up ID from restaurant created
@@ -344,7 +347,7 @@ describe('mongodb restaurants response and connexion',()=>{
         await restaurant.setRestaurant(req, res)
         let resData = res._getJSONData()
         expect(res._getStatusCode()).toBe(400)
-        expect(resData.message).toBe('Telephone is not compliant')
+        expect(resData.message).toBe('Phone is not compliant')
     })
 
     it('update restaurant\'s mail but mail is not compliant', async () => {
@@ -353,7 +356,7 @@ describe('mongodb restaurants response and connexion',()=>{
         }
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up ID from restaurant created
@@ -377,10 +380,10 @@ describe('mongodb restaurants response and connexion',()=>{
         }
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail:'contact@mcdonalds.fr',franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail:'contact@mcdonalds.fr',franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up ID from restaurant created
@@ -405,37 +408,13 @@ describe('mongodb restaurants response and connexion',()=>{
         expect(resId2._getStatusCode()).toBe(200)
     })
 
-    it('update restaurant\'s franchisedGroup but franchisedGroup is null', async () => {
-        const body = {
-            franchisedGroup: null
-        }
-        //Create restaurant
-        await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
-            httpMock.createResponse())
-
-        //Pick up ID from restaurant created
-        let resId1 = httpMock.createResponse()
-        await restaurant.getRestaurantByMail(
-            httpMock.createRequest({params:{mail:mail}}),
-            resId1)
-        let id = resId1._getJSONData().data._id
-
-        let req = httpMock.createRequest({params:{_id: id}, body: body})
-        let res = httpMock.createResponse()
-        await restaurant.setRestaurant(req, res)
-        let resData = res._getJSONData()
-        expect(res._getStatusCode()).toBe(400)
-        expect(resData.message).toBe('None element defined')
-    })
-
     it('update restaurant\'s schedule but schedule is null', async () => {
         const body = {
             schedule: null
         }
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
         //Pick up ID from restaurant created
@@ -459,10 +438,10 @@ describe('mongodb restaurants response and connexion',()=>{
     it('delete restaurant', async () => {
         //Create restaurant
         await restaurant.createRestaurant(
-            httpMock.createRequest({body:{name,address,telephone,mail,franchisedGroup,schedule}}),
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
             httpMock.createResponse())
 
-        //Pick up ID from user created
+        //Pick up ID from restaurant created
         let reqId = httpMock.createRequest({params:{mail:mail}})
         let resId = httpMock.createResponse()
         await restaurant.getRestaurantByMail(reqId,resId)
