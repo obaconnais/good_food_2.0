@@ -49,6 +49,7 @@ module.exports.getUser = async (req, res) => {
 //@toFix develop many test code/ not done actually
 module.exports.getUserId = async (req, res) => {
     let{mail} = req.body
+    
     try{
         let doc = await user.findOne({mail: mail})
         return res.status(200).json({data: doc._id})
