@@ -18,7 +18,6 @@ module.exports.createCommand = async (req,res) => {
         
         if(existingCommand)
             return res.status(400).json({message:`the command with number ${existingCommand._id} already exist`})
-        
         else{
             await command.create({kind,restaurant,paymentMethod, date, products,price,currency,state})
             return res.status(201).json({message:`command created`})

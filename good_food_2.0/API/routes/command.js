@@ -2,7 +2,7 @@
 /********* import necessary librairies *********/
 /***********************************************/
 const express = require("express")
-const commandCtrl = require("../controller/command")
+const commandCtrl = require("../controler/command")
 
 /***********************************************/
 /******** definition of request on API *********/
@@ -20,7 +20,7 @@ router.put('',commandCtrl.createCommand)
 /**
 * route to get the Command_Id thanks to its mail 
 */
-router.get('/mail', commandCtrl.getCommandId)
+router.get('/full', commandCtrl.getCommandId)
 
 /**
 * route to get a Command thanks to its id

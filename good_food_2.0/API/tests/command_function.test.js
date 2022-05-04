@@ -1,6 +1,6 @@
 const db = require("./db_handle")
 const httpMock = require('node-mocks-http')
-const command = require("../controller/command")
+const command = require("../controler/command")
 const commandModel = require("../model/command")
 
 /**

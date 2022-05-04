@@ -65,9 +65,9 @@ describe('Test every path for /command end-point', () => {
         expect(res.status).toBe(201)
     })
 
-    it('test path get \"command/mail\"', async () => {
+    it('test path get \"command/full\"', async () => {
         const res = await request(app)
-                                .get(`/command/mail`)
+                                .get(`/command/full`)
                                 .send({
                                     kind: commandModel.kind,
                                     restaurant: commandModel.restaurant,
@@ -83,7 +83,7 @@ describe('Test every path for /command end-point', () => {
     
     it('test path get \"/command/:id\"', async () => {
         const resId = await request(app)
-                                .get(`/command/mail`)
+                                .get(`/command/full`)
                                 .send({
                                     kind: commandModel.kind,
                                     restaurant: commandModel.restaurant,
@@ -115,7 +115,7 @@ describe('Test every path for /command end-point', () => {
     it('test path patch \"/command/:id\"', async ()=> {
         //get the id
         let resId = await request(app)
-        .get('/command/mail')
+        .get('/command/full')
         .send({
             kind: commandModel.kind,
             restaurant: commandModel.restaurant,
@@ -151,16 +151,18 @@ describe('Test every path for /command end-point', () => {
             _id: resId.body.data
         })
         expect(resCheck.status).toBe(200)
-        expect(resCheck.body.data.lastname).toBe(commandSet.lastname)
-        expect(resCheck.body.data.forname).toBe(commandSet.forname)
-        expect(resCheck.body.data.mail).toBe(commandSet.mail)
-        expect(resCheck.body.data.address).toBe(commandSet.address)
+        expect(resCheck.body.data.kind).toBe(commandSet.kind)
+        expect(resCheck.body.data.restaurant).toBe(commandSet.restaurant)
+        expect(resCheck.body.data.paymentMethod).toBe(commandSet.paymentMethod)
+        expect(resCheck.body.data.products).toStrictEqual(commandSet.products)
+        expect(resCheck.body.data.price).toBe(commandSet.price)
+        expect(resCheck.body.data.state).toBe(commandSet.state)
     })
     
     it('test path delete \"command/:id\"', async ()=> {
         //get the id
         const resId = await request(app)
-                            .get(`/command/mail`)
+                            .get(`/command/full`)
                             .send({
                                 kind: commandSet.kind,
                                 restaurant: commandSet.restaurant,

@@ -1,0 +1,21 @@
+[{
+    "lastname": "Arrouet",
+    "forname": "Francois-Marie",
+    "mail": "fm.Voltaire@test.com",
+    "address": "2 rue de l'amour 65000 TARBES",
+    "password": "test"
+},
+{
+    "lastname": "Hugo",
+    "forname": "Victor",
+    "mail": "hugo.victor@test.com",
+    "password": "azerty"
+},
+{
+    "lastname": "Lamartine",
+    "forname": "Marc",
+    "mail": "marc.lamartine@test.com",
+    "address": "2 rue de l'amour 65000 TARBES",
+    "password": "1234"
+}
+]
