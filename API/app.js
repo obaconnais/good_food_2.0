@@ -7,7 +7,7 @@ const userRouter = require('./routes/user')
 const commandRouter = require('./routes/command')
 const restaurantRouter = require('./routes/restaurant')
 const authRouter = require('./routes/auth')
-
+const franchiseRouter = require('./routes/franchise')
 let app = express()
 
 /*******************************************/
@@ -38,6 +38,11 @@ app.use('/command',commandRouter)
  * route for restaurant
  */
 app.use('/restaurant', restaurantRouter)
+
+/**
+ * route for franchise
+ */
+ app.use('/franchise', franchiseRouter)
 
 /**
  * route for authentification
