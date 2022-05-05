@@ -1,25 +1,36 @@
 const Restaurant = require("../model/restaurant")
+const Franchise = require('../model/franchise')
 
 /**
  * module to create a restaurant
  */
 module.exports.createRestaurant = async (req,res) => {
     try{
-        const{ name, address, franchisedGroup, telephone, schedule, mail } = req.body;
-    
+        const{ name, address, franchiseName, phone, schedule, mail } = req.body;
+        let createObject = {name, address, phone, schedule, mail}
+
         //testing if needed informations about restaurant are defined
-        if(!name || !address|| !telephone || !mail || !franchisedGroup || !schedule){
+        if(!name || !address|| !phone || !mail || !schedule){
             return res.status(400).json({message:'At least one field is missing'})
         }
 
         //testing if this restaurant already exists
-        const existingRestaurants = await Restaurant.findOne({mail: mail});
+        const existingRestaurants = await Restaurant.findOne({mail: mail})
         if(existingRestaurants){
             return res.status(409).json({message:`Restaurant ${name} already exists`})
         }
 
+        if(franchiseName) {
+            const existingFranchise = await Franchise.findOne({name: franchiseName})
+            if(!existingFranchise) {
+                return res.status(404).json({message: `Unable to create restaurant franchised to ${franchiseName} (not found)`})
+            }
+            //create restaurant in the db
+            createObject.franchisedGroup = existingFranchise._id
+        }
+        
         //create restaurant in the db
-        await Restaurant.create({name,address,telephone,mail,franchisedGroup,schedule})
+        await Restaurant.create(createObject)
         return res.status(200).json({message:`Restaurant ${name} was created successfully`})
     
     }catch(err){
@@ -33,14 +44,14 @@ module.exports.createRestaurant = async (req,res) => {
 module.exports.setRestaurant = async (req,res) => {
     try {
         const {_id} = req.params
-        const {name, address, franchisedGroup, telephone, schedule, mail} = req.body;
+        const {name, address, phone, schedule, mail} = req.body;
         const restaurantGet = await Restaurant.findOne({_id:_id})
         let updateObject = {}
 
         if(!_id)
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
 
-        if(!name && !address && !telephone && !mail && !franchisedGroup && !schedule)
+        if(!name && !address && !phone && !mail && !schedule)
             return res.status(400).json({message: 'None element defined'})
 
         if(name)
@@ -49,14 +60,11 @@ module.exports.setRestaurant = async (req,res) => {
         if(address)
             updateObject.address = address
         
-        if(telephone)
-            updateObject.telephone = telephone
+        if(phone)
+            updateObject.phone = phone
         
         if(mail)
             updateObject.mail = mail
-        
-        if(franchisedGroup != null)
-            updateObject.franchisedGroup = franchisedGroup
         
         if(schedule)
             updateObject.schedule = schedule
@@ -70,8 +78,8 @@ module.exports.setRestaurant = async (req,res) => {
                 return res.status(400).json({message: `Name is not compliant`})
             } else if(err.errors.mail && err.errors.mail.kind == 'regexp') {
                 return res.status(400).json({message: `Mail is not compliant`})
-            } else if(err.errors.telephone && err.errors.telephone.kind == 'regexp') {
-                return res.status(400).json({message: `Telephone is not compliant`})
+            } else if(err.errors.phone && err.errors.phone.kind == 'regexp') {
+                return res.status(400).json({message: `Phone is not compliant`})
             } else throw err
         }
 

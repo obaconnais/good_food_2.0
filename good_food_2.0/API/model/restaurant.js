@@ -12,7 +12,7 @@ const restaurantSchema = new Schema(
             type: String,
             required: [true, 'Required field']            
         },
-        telephone: {
+        phone: {
             type: String,
             required: [true, 'Required field'],
             match: /^\+\d{2}\d{9}$/                
@@ -24,9 +24,8 @@ const restaurantSchema = new Schema(
             match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/                
         },
         franchisedGroup: {
-            type: Boolean,
-            required: [true, 'Required field'],
-            default: false                    
+            type: mongoose.Types.ObjectId,
+            default: null               
         },
         schedule: {
             type: Object,
