@@ -3,6 +3,7 @@
  * use the ./tests/db_handle file instead of db_config
  */
  const db = require("./db_handle")
+ const franchise = require('../model/franchise')
  /**
   * useful for mock http request
   */
