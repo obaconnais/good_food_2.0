@@ -1,32 +1,37 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
-const request = require('supertest')
-const app = require('../app')
-const mockedDb = require("./db_handle")
-const userModels = require("../model/user")
-const user = require('../model/user')
-
-/***********************************************/
-/***** data base configuration during test *****/
-/***********************************************/
-
 /**
- * before each test, connect to the mocked database
+ * use the db configuration  only for test
+ * use the ./tests/db_handle file instead db_config
  */
-beforeAll(async () => {await mockedDb.connect()})
-
-/**
- * after tests passed, disconnect and close the mocked database
+ const mockedDb = require("./db_handle")
+ /*
+ * useful for mock an http Frame
  */
-afterAll(async () => {await mockedDb.closeDatabase()})
-
-describe('Test global path', () => {
-    
-    it('test path \"get/\"', async () => {
-        const res = await request(app)
-                        .get('/')
-        expect(res.text).toBe("server is online")
-    })
-
-})
+ const request = require('supertest')
+ const app = require('../app')
+ 
+ /***********************************************/
+ /***** data base configuration during test *****/
+ /***********************************************/
+ 
+ /**
+  * before each test, connect to the mocked database
+  */
+ beforeAll(async () => {await mockedDb.connect()})
+ 
+ /**
+  * after tests passed, disconnect and close the mocked database
+  */
+ afterAll(async () => {await mockedDb.closeDatabase()})
+ 
+ describe('Test global path', () => {
+     
+     it('test path \"get/\"', async () => {
+         const res = await request(app)
+                         .get('/')
+         expect(res.text).toBe("server is online")
+     })
+ 
+ })
