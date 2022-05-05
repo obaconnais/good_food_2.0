@@ -5,7 +5,6 @@ const request = require('supertest')
 const app = require('../app')
 const mockedDb = require("./db_handle")
 const userModels = require("../model/user")
-const user = require('../model/user')
 
 /***********************************************/
 /***** data base configuration during test *****/
@@ -29,7 +28,8 @@ afterAll(async () => {await mockedDb.closeDatabase()})
     forname:"Victor",
     mail:"victor.hugo@gmail.com",
     address:"1 rue de la Mine 26000 GERMINAL",
-    password:"Hugo21"
+    password:"Hugo21",
+    phone:"0622993344"
 })
 
 let userSet = new userModels({
@@ -37,7 +37,8 @@ let userSet = new userModels({
     forname: "Albert",
     mail: "albert.camus@gmail.com",
     address: "14 rue de l'Homme révolté 12345 LA CHUTE",
-    password: "Hugo22"
+    password: "Hugo22",
+    phone:"06229933456"
 })
 
 describe('Test every path for /user end-point', () => {
@@ -50,7 +51,8 @@ describe('Test every path for /user end-point', () => {
                                 forname: userModel.forname,
                                 mail: userModel.mail,
                                 address: userModel.address,
-                                password: userModel.password
+                                password: userModel.password,
+                                phone: userModel.phone
                             })
         expect(res.status).toBe(200)
         expect(res.body.message).toBe(`the user ${userModel.lastname} ${userModel.forname} created successfully`)
@@ -82,6 +84,7 @@ describe('Test every path for /user end-point', () => {
         expect(resUser.body.data.lastname).toBe(userModel.lastname)
         expect(resUser.body.data.mail).toBe(userModel.mail)
         expect(resUser.body.data.address).toBe(userModel.address)
+        expect(resUser.body.data.phone).toBe(userModel.phone)
     })
     
     it('test path patch \"/user/:id\"', async ()=> {
@@ -101,7 +104,8 @@ describe('Test every path for /user end-point', () => {
             forname: userSet.forname,
             mail: userSet.mail, 
             address: userSet.address,
-            password: userSet.password
+            password: userSet.password,
+            phone:userSet.phone
         })
         //check if code is correct and message
         expect(resSet.status).toBe(200)
@@ -118,6 +122,7 @@ describe('Test every path for /user end-point', () => {
         expect(resCheck.body.data.forname).toBe(userSet.forname)
         expect(resCheck.body.data.mail).toBe(userSet.mail)
         expect(resCheck.body.data.address).toBe(userSet.address)
+        expect(resCheck.body.data.phone).toBe(userSet.phone)
     })
     
     it('test path delete \"user/:id\"', async ()=> {
@@ -128,7 +133,7 @@ describe('Test every path for /user end-point', () => {
                                 mail: userSet.mail
                             })
         
-        //Check the delete the user 
+        //Check the deleted the user 
         let resDelete = await request(app)
                                 .delete(`/user/${resId.body.data}`)
                                 .send({

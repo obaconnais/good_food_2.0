@@ -9,6 +9,7 @@ const mockedDb = require("./db_handle")
 /***** data base configuration during test *****/
 /***********************************************/
 
+beforeAll(async ()=> {await mockedDb.connect()})
 /**
  * after tests passed, disconnect and close the mocked database
  */

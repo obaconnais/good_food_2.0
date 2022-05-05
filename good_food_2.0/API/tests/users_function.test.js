@@ -16,26 +16,31 @@ afterEach(async () => {await db.clearDatabase()})
 afterAll(async () => {await db.closeDatabase()})
 
 describe('mongodb user response and connexion',()=>{
-    let lastname = "IME"
-    let forname = "Vincent"
-    let mail= " gmail.com"
-    let address = "1 rue de l'épilation 58170 Poil"
-    let password = "hugo21"
+    let userMocked = new userModel({
+        lastname: "IME",
+        forname: "Vincent",
+        mail: " gmail.com",
+        address: "1 rue de l'épilation 58170 Poil",
+        password: "hugo21",
+        phone : "0607080910"
+    })
 
     it('create user normally', async () => {
 
-        let req = httpMock.createRequest({body:{lastname,forname,mail,address,password}})
+        let req = httpMock.createRequest({body:userMocked})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
         let data = res._getJSONData()
         let status = res._getStatusCode()
-        expect(data.message).toBe(`the user ${lastname} ${forname} created successfully`)
+        expect(data.message).toBe(`the user ${userMocked.lastname} ${userMocked.forname} created successfully`)
         expect(status).toBe(200)
     })
 
     it('create user without lastname field', async () => {
-        let req = httpMock.createRequest({body:{lastname: null,forname,mail,address,password}})
+        let temp = userMocked.lastname
+        userMocked.lastname=null
+        let req = httpMock.createRequest({body:userMocked})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -43,10 +48,13 @@ describe('mongodb user response and connexion',()=>{
         let status = res._getStatusCode()
         expect(data.message).toBe(`at least on field are missing`)
         expect(status).toBe(400)
+        userMocked.lastname=temp
     }) 
     
     it('create user without forname field', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname:null,mail,address,password}})
+        let temp = userMocked.forname
+        userMocked.forname=null
+        let req = httpMock.createRequest({body:userMocked})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -54,10 +62,13 @@ describe('mongodb user response and connexion',()=>{
         let status = res._getStatusCode()
         expect(data.message).toBe(`at least on field are missing`)
         expect(status).toBe(400)
+        userMocked.forname= temp
     }) 
     
     it('create user without mail field', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname,mail:null,address,password}})
+        let temp = userMocked.mail
+        userMocked.mail=null
+        let req = httpMock.createRequest({body:userMocked})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -65,10 +76,13 @@ describe('mongodb user response and connexion',()=>{
         let status = res._getStatusCode()
         expect(data.message).toBe(`at least on field are missing`)
         expect(status).toBe(400)
+        userMocked.mail = temp 
     }) 
     
     it('create user without address field', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname,mail,address:null,password}})
+        let temp = userMocked.address
+        userMocked.address=null
+        let req = httpMock.createRequest({body:userMocked})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -76,10 +90,49 @@ describe('mongodb user response and connexion',()=>{
         let status = res._getStatusCode()
         expect(data.message).toBe(`at least on field are missing`)
         expect(status).toBe(400)
+        userMocked.address=temp
+    }) 
+
+    it('create user without password field', async () => {
+        let temp = userMocked.password
+        userMocked.password=null
+        let req = httpMock.createRequest({body:userMocked})
+        let res = httpMock.createResponse()
+        await user.createUser(req,res)
+        //useful to get 
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`at least on field are missing`)
+        expect(status).toBe(400)
+        userMocked.password = temp 
+    }) 
+
+    it('create user without phone field', async () => {
+        let temp = userMocked.phone
+        userMocked.phone=null
+        let req = httpMock.createRequest({body:userMocked})
+        let res = httpMock.createResponse()
+        await user.createUser(req,res)
+        //useful to get 
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`at least on field are missing`)
+        expect(status).toBe(400)
+        userMocked.phone=temp
     }) 
 
     it('create user without needed fields', async () => {
-        let req = httpMock.createRequest({body:{lastname:null,forname:null,mail:null,address:null,password:null}})
+        let userMockedNull = new userModel(
+            {
+                lastname: null,
+                forname: null,
+                mail:null,
+                address:null,
+                passord:null,
+                phone:null
+            }
+        )
+        let req = httpMock.createRequest({body:userMockedNull})
         let res = httpMock.createResponse()
         await user.createUser(req,res)
         //useful to get 
@@ -90,25 +143,25 @@ describe('mongodb user response and connexion',()=>{
     }) 
     
     it('create user which are already created', async () => {
-        let req = httpMock.createRequest({body:{lastname,forname,mail,address,password}})
+        let req = httpMock.createRequest({body:userMocked})
         let res = httpMock.createResponse()
         let res2 = httpMock.createResponse()
         await user.createUser(req,res)
         await user.createUser(req,res2)
         let data = res2._getJSONData()
         let status = res2._getStatusCode()
-        expect(data.message).toBe(`the user ${lastname} ${forname} already exist`)
+        expect(data.message).toBe(`the user ${userMocked.lastname} ${userMocked.forname} already exist`)
         expect(status).toBe(400)
     })
     
     it('get user normally', async ()=> {
         //Create a new user
-        let reqCreate = httpMock.createRequest({body:{lastname, forname, mail, address,password}})
+        let reqCreate = httpMock.createRequest({body:userMocked})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate,resCreate)
         
-        //Pick up id from this user
-        let reqId = httpMock.createRequest({body:{mail: mail}})
+        //Pick up id from this user 
+        let reqId = httpMock.createRequest({body:{mail: userMocked.mail}})
         let resId = httpMock.createResponse()
         await user.getUserId(reqId, resId)
         let id = resId._getJSONData().data
@@ -121,10 +174,11 @@ describe('mongodb user response and connexion',()=>{
         let statusGet = resGet._getStatusCode()
         expect(statusGet).toBe(200)
         expect(dataGet.data._id).toBe(id)
-        expect(dataGet.data.lastname).toBe(lastname)
-        expect(dataGet.data.forname).toBe(forname)
-        expect(dataGet.data.mail).toBe(mail)
-        expect(dataGet.data.address).toBe(address)
+        expect(dataGet.data.lastname).toBe(userMocked.lastname)
+        expect(dataGet.data.forname).toBe(userMocked.forname)
+        expect(dataGet.data.mail).toBe(userMocked.mail)
+        expect(dataGet.data.address).toBe(userMocked.address)
+        expect(dataGet.data.phone).toBe(userMocked.phone)
     })
 
     it('get user but don\'t exist', async () =>{
@@ -149,11 +203,11 @@ describe('mongodb user response and connexion',()=>{
     }) 
     
     it('delete a user', async () => {
-        let reqCreate = httpMock.createRequest({body: {lastname,forname,mail,address,password}})
+        let reqCreate = httpMock.createRequest({body: userMocked})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate,resCreate)
         //Pick up ID from user created
-        let reqId = httpMock.createRequest({body:{mail:mail}})
+        let reqId = httpMock.createRequest({body:{mail:userMocked.mail}})
         let resId = httpMock.createResponse()
         await user.getUserId(reqId,resId)
         let _id = resId._getJSONData()
@@ -168,7 +222,7 @@ describe('mongodb user response and connexion',()=>{
     })
     
     it('delete a user, but null', async () => {
-        let reqCreate = httpMock.createRequest({body: {lastname,forname,mail,address,password}})
+        let reqCreate = httpMock.createRequest({body:userMocked})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate,resCreate)
         let reqDelete = httpMock.createRequest({body:{_id: null}})
@@ -188,16 +242,16 @@ describe('mongodb user response and connexion',()=>{
         let addressSet = "24 avenue de la rouerie 59380 BERGUES"
 
         //Create user which will be modified soon
-        let reqCreate = httpMock.createRequest({body:{lastname,forname,mail,address,password}})
+        let reqCreate = httpMock.createRequest({body:userMocked})
         let resCreate = httpMock.createResponse()
         await user.createUser(reqCreate, resCreate)
         let message = resCreate._getJSONData()
-        expect(message.message).toBe(`the user ${lastname} ${forname} created successfully`)
+        expect(message.message).toBe(`the user ${userMocked.lastname} ${userMocked.forname} created successfully`)
         let status = resCreate._getStatusCode()
         expect(status).toBe(200)
         
         //Pick up Id from the user
-        let reqId = httpMock.createRequest({body:{mail: mail}})
+        let reqId = httpMock.createRequest({body:{mail:userMocked.mail}})
         let resId = httpMock.createResponse()
         await user.getUserId(reqId,resId)
         let _id = resId._getJSONData().data
@@ -213,9 +267,9 @@ describe('mongodb user response and connexion',()=>{
         dataUser = resGet._getJSONData()
         expect(dataUser.data._id).toBe(_id)
         expect(dataUser.data.lastname).toBe(lastnameSet)
-        expect(dataUser.data.forname).toBe(forname)
-        expect(dataUser.data.mail).toBe(mail)
-        expect(dataUser.data.address).toBe(address)
+        expect(dataUser.data.forname).toBe(userMocked.forname)
+        expect(dataUser.data.mail).toBe(userMocked.mail)
+        expect(dataUser.data.address).toBe(userMocked.address)
         //do it with two fields
         reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: fornameSet,mail: null,address: null}})
         resSet = httpMock.createResponse()
@@ -227,8 +281,8 @@ describe('mongodb user response and connexion',()=>{
         expect(dataUser.data._id).toBe(_id)
         expect(dataUser.data.lastname).toBe(lastnameSet)
         expect(dataUser.data.forname).toBe(fornameSet)
-        expect(dataUser.data.mail).toBe(mail)
-        expect(dataUser.data.address).toBe(address)
+        expect(dataUser.data.mail).toBe(userMocked.mail)
+        expect(dataUser.data.address).toBe(userMocked.address)
         //do it with three fields
         reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: fornameSet,mail: mailSet,address: null}})
         resSet = httpMock.createResponse()
@@ -241,7 +295,7 @@ describe('mongodb user response and connexion',()=>{
         expect(dataUser.data.lastname).toBe(lastnameSet)
         expect(dataUser.data.forname).toBe(fornameSet)
         expect(dataUser.data.mail).toBe(mailSet)
-        expect(dataUser.data.address).toBe(address)
+        expect(dataUser.data.address).toBe(userMocked.address)
         //do it with four fields
         reqSet = httpMock.createRequest({body:{_id: _id, lastname: lastnameSet,forname: fornameSet,mail: mailSet,address: addressSet}})
         resSet = httpMock.createResponse()

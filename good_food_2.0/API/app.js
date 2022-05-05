@@ -7,7 +7,7 @@ const userRouter = require('./routes/user')
 const commandRouter = require('./routes/command')
 const restaurantRouter = require('./routes/restaurant')
 const authRouter = require('./routes/auth')
-const db = require('./tests/db_handle')
+const db = require('./db_handle')
 
 let app = express()
 

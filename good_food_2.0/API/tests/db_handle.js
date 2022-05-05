@@ -19,7 +19,7 @@ module.exports.connect = async () => {
         useNewUrlParser: true, 
         useUnifiedTopology: true,
     }
-    await mongoose.connect(uri, mongooseOpt)
+    mongoose.connect(uri, mongooseOpt)
 }
 
 //to disconnected db

@@ -9,7 +9,8 @@ const userSchema = new Schema(
         forname: String,
         mail: String,
         address: String,
-        password: String
+        password: String, 
+        phone: String
     }
 )
 

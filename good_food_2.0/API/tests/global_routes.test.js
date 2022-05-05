@@ -4,8 +4,6 @@
 const request = require('supertest')
 const app = require('../app')
 const mockedDb = require("./db_handle")
-const userModels = require("../model/user")
-const user = require('../model/user')
 
 /***********************************************/
 /***** data base configuration during test *****/
