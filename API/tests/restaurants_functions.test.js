@@ -3,6 +3,8 @@
  * use the ./tests/db_handle file instead of db_config
  */
  const db = require("./db_handle")
+ const franchise = require('../model/franchise')
+
  /**
   * useful for mock http request
   */
@@ -24,8 +26,8 @@
  * after tests passed, disconnect and close the mocked database
  */
  afterAll(async () => {await db.closeDatabase()})
-  
- ddescribe('mongodb restaurants response and connexion',()=>{
+
+ describe('mongodb restaurants response and connexion',()=>{
 
     let name = "McDO"
     let address = "14 rue du miam"
