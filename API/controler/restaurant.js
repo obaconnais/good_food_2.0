@@ -45,14 +45,17 @@ module.exports.setRestaurant = async (req,res) => {
     try {
         const {_id} = req.params
         const {name, address, phone, schedule, mail} = req.body;
-        const restaurantGet = await Restaurant.findOne({_id:_id})
         let updateObject = {}
-
+        
         if(!_id)
             return res.status(400).json({message: 'Id is not defined, cannot find any restaurant'})
-
+        
         if(!name && !address && !phone && !mail && !schedule)
             return res.status(400).json({message: 'None element defined'})
+        
+        const restaurantGet = await Restaurant.findOne({_id:_id})
+        if(!restaurantGet)
+            return res.status(404).json({message: `Restaurant with id '${_id}' not found`})
 
         if(name)
             updateObject.name = name
