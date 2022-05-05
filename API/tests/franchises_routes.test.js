@@ -10,6 +10,13 @@ const mockedDb = require("./db_handle")
 /***********************************************/
 
 /**
+ * before tests, connect to mockedDb and create a franchise 
+ */
+beforeAll(async () => {
+    await mockedDb.connect()
+})
+
+/**
  * after tests passed, disconnect and close the mocked database
  */
 afterAll(async () => {await mockedDb.closeDatabase()})
@@ -39,6 +46,8 @@ describe('Test every path for franchise end-point', () => {
                     })
         expect(res.status).toBe(200)
         expect(res.body.message).toBe(`Franchise was updated successfully`)
+        name = 'McDonald\'s'
+
     })
     
     it('test path get \"franchise/name/:name\"', async () => {
