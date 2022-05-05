@@ -11,9 +11,10 @@ const franchise = require("../model/franchise");
 
 
 /**
- * before tests, create a franchise 
+ * before tests, connect to mockedDb and create a franchise 
  */
 beforeAll(async () => {
+    await mockedDb.connect()
     await franchise.create({ name: 'Mcdonald\'s France' })
 })
 
