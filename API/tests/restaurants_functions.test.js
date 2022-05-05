@@ -25,7 +25,7 @@
  */
  afterAll(async () => {await db.closeDatabase()})
   
- ddescribe('mongodb restaurants response and connexion',()=>{
+ describe('mongodb restaurants response and connexion',()=>{
 
     let name = "McDO"
     let address = "14 rue du miam"
