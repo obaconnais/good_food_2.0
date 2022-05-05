@@ -7,7 +7,6 @@ const userRouter = require('./routes/user')
 const commandRouter = require('./routes/command')
 const restaurantRouter = require('./routes/restaurant')
 const authRouter = require('./routes/auth')
-const db = require('./db_handle')
 
 let app = express()
 
@@ -44,9 +43,5 @@ app.use('/restaurant', restaurantRouter)
  * route for authentification
  */
 app.use('/auth',authRouter)
-
-db.connect().then(() => {
-    console.log('db connected')
-})
 
 module.exports = app

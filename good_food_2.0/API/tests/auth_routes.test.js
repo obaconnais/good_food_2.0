@@ -1,7 +1,14 @@
+/**
+ * use the db configuration  only for test
+ * use the ./tests/db_handle file instead db_config
+ */
+const mockedDb = require("./db_handle")
+/*
+* useful for mock an http Frame
+*/
 const request = require('supertest')
 const app = require('../app')
 const user = require('../model/user')
-const mockedDb = require("./db_handle")
 const jwt = require('jsonwebtoken')
 /**
  * before each test, connect to the mocked database

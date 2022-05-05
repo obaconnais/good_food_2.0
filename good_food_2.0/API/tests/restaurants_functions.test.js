@@ -1,4 +1,11 @@
+/**
+ * use the db configuration  only for test
+ * use the ./tests/db_handle file instead db_config
+ */
 const db = require("./db_handle")
+/**
+ * useful for mock http request
+ */
 const httpMock = require('node-mocks-http');
 const restaurant = require("../controler/restaurant");
 

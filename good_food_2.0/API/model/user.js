@@ -5,12 +5,31 @@ const saltRounds = 10
 
 const userSchema = new Schema(
     {
-        lastname: String, 
-        forname: String,
-        mail: String,
-        address: String,
-        password: String, 
-        phone: String
+        lastname: {
+            type: String, 
+            required: [true, 'Required field'],
+        },
+        forname: {
+            type: String, 
+            required: [true, 'Required field'],
+        },
+        mail: {
+            type: String,
+            unique: true,
+            required: [true, 'Required field'],
+            match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/                
+        },
+        address: {
+            type: String, 
+            required: [true, 'Required field'],
+        },
+        password: {
+            type: String, 
+            required: [true, 'Required field'],
+        }, 
+        phone: {
+            type: String
+        },
     }
 )
 

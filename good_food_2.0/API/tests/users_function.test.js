@@ -1,4 +1,11 @@
+/**
+ * use the db configuration  only for test
+ * use the ./tests/db_handle file instead db_config
+ */
 const db = require("./db_handle")
+/**
+ * useful for mock http request
+ */
 const httpMock = require('node-mocks-http');
 const user = require("../controler/user");
 const userModel = require("../model/user")
@@ -19,7 +26,7 @@ describe('mongodb user response and connexion',()=>{
     let userMocked = new userModel({
         lastname: "IME",
         forname: "Vincent",
-        mail: " gmail.com",
+        mail: "ime.vincent@gmail.com",
         address: "1 rue de l'épilation 58170 Poil",
         password: "hugo21",
         phone : "0607080910"
@@ -116,8 +123,8 @@ describe('mongodb user response and connexion',()=>{
         //useful to get 
         let data = res._getJSONData()
         let status = res._getStatusCode()
-        expect(data.message).toBe(`at least on field are missing`)
-        expect(status).toBe(400)
+        expect(data.message).toBe(`the user ${userMocked.lastname} ${userMocked.forname} created successfully`)
+        expect(status).toBe(200)
         userMocked.phone=temp
     }) 
 
@@ -238,7 +245,7 @@ describe('mongodb user response and connexion',()=>{
         //Data set useful for setting user
         let lastnameSet = "deLamartine"
         let fornameSet = "Alphonse"
-        let mailSet = `${lastnameSet.toLowerCase()}.${fornameSet.toLowerCase}@gmail.com`
+        let mailSet = `${lastnameSet.toLowerCase()}.${fornameSet.toLowerCase()}@gmail.com`
         let addressSet = "24 avenue de la rouerie 59380 BERGUES"
 
         //Create user which will be modified soon

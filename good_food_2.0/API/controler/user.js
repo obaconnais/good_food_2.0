@@ -5,7 +5,7 @@ module.exports.createUser = async (req,res) => {
         const {lastname,forname,mail,address,password,phone} = req.body
 
         //testing if needed informations about user are not null
-        if(!lastname || !forname || !mail || !address || !password || !phone){
+        if(!lastname || !forname || !mail || !address || !password){
             return res.status(400).json({message:`at least on field are missing`})
         }
 
