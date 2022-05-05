@@ -2,7 +2,7 @@ const user = require("../model/user")
 
 module.exports.createUser = async (req,res) => {
     try{
-        const {lastname,forname,mail,address,password} = req.body
+        const {lastname,forname,mail,address,password,phone} = req.body
 
         //testing if needed informations about user are not null
         if(!lastname || !forname || !mail || !address || !password){
@@ -17,7 +17,7 @@ module.exports.createUser = async (req,res) => {
         }
         else{
             //create user in the db
-            await user.create({lastname,forname,mail,address,password})
+            await user.create({lastname,forname,mail,address,password,phone})
             return res.status(200).json({message:`the user ${lastname} ${forname} created successfully`})
         }
     }catch(err){
@@ -75,7 +75,7 @@ module.exports.deleteUser = async (req,res) => {
 
 module.exports.setUser = async (req, res) => {
     try{
-        let {_id,lastname,forname,mail,address}=req.body
+        let {_id,lastname,forname,mail,address,phone}=req.body
         let userGet = await user.findOne({_id:_id})
         if(!_id){
             return res.status(400).json({message: `user with id ${_id} doesn't exist`})
@@ -96,6 +96,11 @@ module.exports.setUser = async (req, res) => {
             userGet.address = address
             await userGet.save()
         }
+        if(phone){
+            userGet.phone = phone
+            await userGet.save()
+        }
+
         return  res.status(200).json({message:`User with id ${_id} updated successfully`})
     }catch(err){
         return res.status(500).json({message:`Database error`})
