@@ -4,6 +4,7 @@
  */
  const db = require("./db_handle")
  const franchise = require('../model/franchise')
+
  /**
   * useful for mock http request
   */
@@ -21,6 +22,7 @@
     await db.clearDatabase()
     await franchise.create({ name: 'McDonald\'s France' })
 })
+
  /**
  * after tests passed, disconnect and close the mocked database
  */
