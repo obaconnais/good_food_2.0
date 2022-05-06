@@ -1,0 +1,11 @@
+#navBar{
+  background-color: black;
+  position: fixed;
+  top:0%;
+  font-family:'Great Vibes', cursive;
+}
+
+#linkBar{
+  color: white;
+  font-size:150%;
+}
