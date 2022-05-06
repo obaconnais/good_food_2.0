@@ -8,6 +8,9 @@ import { AuthService } from '../_service/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  title = 'appBootstrap';
+  closeResult: string = '';
+
   constructor(
     private tokenServ:TokenService,
     private authServ:AuthService
@@ -29,7 +32,8 @@ export class LoginComponent implements OnInit {
         console.log(data)
         this.tokenServ.saveToken(data.acces_token)
       },
-      err=>console.log(err)
+      err=>{
+      }
     )
   }
 }
