@@ -1,0 +1,29 @@
+.navbar{
+  background-color: black;
+  height: 10%;
+}
+
+.navbar-nav{
+  position: fixed;
+  left:2%;
+}
+
+.nav-link{
+  font-family:'Great Vibes', cursive;
+  color: silver;
+  font-size:150%;
+}
+
+.signIn{
+  position:fixed;
+  left: 90%;
+  height: 5%;
+  width: 7%;
+  color:silver;
+  border-radius: 50px;
+  font-family:'Great Vibes', cursive;
+  font-size: 100%;
+  background: none;
+  text-decoration: none;
+}
+
