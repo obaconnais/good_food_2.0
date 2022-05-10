@@ -1,0 +1,16 @@
+#carousel{
+  position: fixed;
+  left: 20%;
+  height: 69%;
+  width:61%
+}
+
+#img{
+  width: 100%;
+  height: auto;
+}
+
+#body{
+  background-color:grey;
+  height: 80%;
+}
