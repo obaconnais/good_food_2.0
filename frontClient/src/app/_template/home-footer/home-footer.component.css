@@ -1,6 +1,36 @@
 .navbar{
   background-color: black;
-  height: 11%;
+  height: 10%;
   font-family:'Great Vibes', cursive;
   color:silver;
+}
+
+#first_header{
+  font-size: 160%;
+}
+
+.list-unstyled{
+  position: relative;
+  top: 0%;
+  left: 15%;
+  font-family:'Great Vibes', cursive;
+  color:silver;
+  text-decoration: none;
+}
+
+#footer_one{
+  position:fixed;
+  left:37%
+}
+#footer_two{
+  position:fixed;
+  left:43%
+}
+#footer_three{
+  position:fixed;
+  left:50%
+}
+#footer_for{
+  position:fixed;
+  left:57%
 }
