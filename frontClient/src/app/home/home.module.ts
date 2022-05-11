@@ -5,14 +5,16 @@ import { HomeComponent } from './home/home.component';
 import { HomeBodyComponent } from './home-body/home-body.component';
 import { HomeHeaderComponent } from '../_template/home-header/home-header.component';
 import { HomeFooterComponent } from '../_template/home-footer/home-footer.component';
-
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HomeFranchiseComponent } from './home-franchise/home-franchise.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
     HomeBodyComponent,
     HomeHeaderComponent,
-    HomeFooterComponent
+    HomeFooterComponent,
+    HomeFranchiseComponent
   ],
   imports: [
     CommonModule,
