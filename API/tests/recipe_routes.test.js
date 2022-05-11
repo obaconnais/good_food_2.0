@@ -15,9 +15,9 @@ let recipeModel = new recipeModel({
 })
 
 
-describe('Test every path for /recipe route', () => {
+describe('Recipe tests routes', () => {
 
-    it('test path put \"/recipe/\"', async () => {
+    it('Test PUT \"/recipe\"', async () => {
 
         const res = await request(app)
             .put('/recipe')
@@ -31,9 +31,9 @@ describe('Test every path for /recipe route', () => {
     })
 
 
-    it('test path get \"/recipe/:id\"', async () => {
+    it('Test GET \"/recipe/:id\"', async () => {
         const resId = await request(app)
-            .get(`/recipe/full`)
+            .get(`/recipe`)
             .send({
                 name: recipeModel.name,
                 ingredients: recipeModel.ingredients,
@@ -51,13 +51,14 @@ describe('Test every path for /recipe route', () => {
         expect(resCommand.body.data.price).toBe(recipeModel.price)
     })
 
-    it('test path patch \"/recipe/:id\"', async () => {
+    it('Test PATCH \"/recipe/:id\"', async () => {
         //get the id
         let resId = await request(app)
-            .get('/recipe/full')
+            .get('/recipe')
             .send({
                 name: recipeModel.name,
-                ingredients: recipeModel.ingredients
+                ingredients: recipeModel.ingredients,
+                price: recipeModel.price
             })
         //Set user with new model
         let resSet = await request(app)
@@ -84,10 +85,10 @@ describe('Test every path for /recipe route', () => {
         expect(resCheck.body.data.price).toBe(recipeSet.price)
     })
 
-    it('test path delete \"recipe/:id\"', async () => {
+    it('Test DELETE \"recipe/:id\"', async () => {
         //get the id
         const resId = await request(app)
-            .get(`/recipe/full`)
+            .get(`/recipe`)
             .send({
                 name: recipeModel.name,
                 ingredients: recipeModel.ingredients,
@@ -102,7 +103,7 @@ describe('Test every path for /recipe route', () => {
         expect(resDelete.body.message).toBe(`recipe with id ${resId.body.data} deleted successfully`)
         expect(resDelete.status).toBe(201)
 
-        //Check if user deleted
+        //Check if recipe deleted
         let resCheck = await request(app)
             .get(`/recipe/${resId.body.data}`)
             .send({

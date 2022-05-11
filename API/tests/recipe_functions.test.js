@@ -19,7 +19,7 @@ beforeAll(async () => { await mockedDB.connect() })
 // afterEach(async () => { await mockedDB.clearDatabase() })
 afterAll(async () => { await mockedDB.closeDatabase() })
 
-describe('Recipe tests', () => {
+describe('Recipe tests functions', () => {
 
     let name = "Pizza 4 fromages"
     let ingredients = ["Camembert", "Chèvre", "Raclette", "Bleu"]
@@ -31,7 +31,7 @@ describe('Recipe tests', () => {
         await recipe.createRecipe(req, res)
         let data = res._getJSONData()
         let status = res._getStatusCode()
-        expect(data.message).toBe(`Recipe ${name} was created successfully`)
+        expect(data.message).toBe(`Recipe ${name} created successfully`)
         expect(status).toBe(200)
     })
 
