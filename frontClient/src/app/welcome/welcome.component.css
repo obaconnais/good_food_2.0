@@ -1,20 +1,19 @@
 .company_name{
   font-family:'Great Vibes', cursive;
   color: silver;
-  font-size: 30px;
-  position: relative;
-  right: -820px;
-  top: 170px;
-
+  font-size: 200%;
+  position: fixed;
+  left: 65%;
+  top: 20%;
 }
 
 .frontext{
   color: silver;
   font-size: 50px;
   font-family:'Great Vibes', cursive;
-  position: relative;
-  text-align: center;
-  top: 40px;
+  position: fixed;
+  left: 33%;
+  top: 12%;
 }
 
 .question{
@@ -22,32 +21,30 @@
   font-weight: bold;
   font-family:'Great Vibes', cursive;
   font-weight: inherit;
-  position: relative;
-  top: 160px;
+  position: fixed;
+  top: 35%;
+  left: 43%;
   font-size: 40px;
-  text-align:center;
 }
 
 .login{
   background: none;
   color: silver;
-  font-size: 20px;
+  font-size: 200%;
   font-family:'Great Vibes', cursive;
-  border-radius: 2px;
-  position: relative;
-  top: 200px;
-  right: -300px;
+  position: fixed;
+  top: 55%;
+  left: 18%;
   text-decoration: none;
 }
 
 .home{
   background: none;
   color: silver;
-  font-size: 20px;
+  font-size: 200%;
   font-family:'Great Vibes', cursive;
-  border-radius: 2px;
-  position: relative;
-  top: 200px;
-  right: -600px;
+  position: fixed;
+  top: 55%;
+  left: 65%;
   text-decoration: none;
 }

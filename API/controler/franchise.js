@@ -34,14 +34,17 @@ module.exports.setFranchise = async (req,res) => {
     try {
         const {_id} = req.params
         const {name} = req.body;
-        const FranchiseGet = await Franchise.findOne({_id:_id})
         let updateObject = {}
-
+        
         if(!_id)
             return res.status(400).json({message: 'Id is not defined, cannot find any franchise'})
-
+        
         if(!name)
             return res.status(400).json({message: 'Franchise\'s name is not define'})
+
+        const FranchiseGet = await Franchise.findOne({_id:_id})
+        if(!FranchiseGet)
+            return res.status(404).json({message: `Franchise with id '${_id}' not found`})
 
         if(name)
             updateObject.name = name
