@@ -110,6 +110,6 @@ describe('Recipe tests routes', () => {
                 _id: resId.body.data
             })
         expect(resCheck.status).toBe(400)
-        expect(resCheck.body.message).toBe(`recipe not found`)
+        expect(resCheck.body.message).toBe(`Recipe not found`)
     })
 })

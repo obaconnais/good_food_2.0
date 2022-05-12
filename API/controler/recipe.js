@@ -15,6 +15,7 @@ module.exports.getAllRecipes = async (req, res) => {
 
 module.exports.createRecipe = async (req, res) => {
     try {
+        // return res.status(200).json({ message: `Ca marche` })
         const { name, ingredients, price } = req.body
 
         if (!name || !ingredients || !price) {
@@ -30,10 +31,10 @@ module.exports.createRecipe = async (req, res) => {
             await Recipe.create({ name, ingredients, price })
             return res.status('').json({ message: `Recipe ${name} created successfully` })
         }
-    } catch (err) { throw err }
+    } catch (err) { return res.status(500).json({ message: `Internal error` }) }
 }
 
-module.exports.findRecipe = async (recipe) => {
+module.exports.findRecipe = async (req, res) => {
     try {
         const { name } = req.body
 
@@ -51,25 +52,25 @@ module.exports.findRecipe = async (recipe) => {
     }
 }
 
-// exports.getRecipe = async (recipe) => {
-//     try {
-//         const { name } = req.body
+exports.getRecipe = async (recipe) => {
+    try {
+        const { id } = req.body
 
-//         if (!id) {
-//             return res.status(400).json({ message: 'Id is not defined, cannot find any restaurant' })
-//         }
-//         const existingRecipe = await Restaurant.findOne({ name: name })
+        if (!id) {
+            return res.status(400).json({ message: 'Id is not defined, cannot find any restaurant' })
+        }
+        const existingRecipe = await Restaurant.findOne({ _id: id })
 
-//         if (!existingRecipe) {
-//             return res.status(200).json({ found: false })
-//         }
-//         else {
-//             return res.status(200).json({ found: true, data: existingRecipe })
-//         }
-//     } catch (err) {
-//         return res.status(500).json({ message: err })
-//     }
-// }
+        if (!existingRecipe) {
+            return res.status(200).json({ found: false })
+        }
+        else {
+            return res.status(200).json({ found: true, data: existingRecipe })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err })
+    }
+}
 
 module.exports.deleteRecipe = async (recipe) => {
     try {
