@@ -9,15 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginTemplateComponent } from './_template/login-template/login-template.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FranchiseComponent } from './franchise/franchise.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     LoginComponent,
-    LoginTemplateComponent,
-    FranchiseComponent
+    LoginTemplateComponent
   ],
   imports: [
     BrowserModule,
