@@ -1,15 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeBodyComponent } from './home-body/home-body.component';
 import { HomeFranchiseComponent } from './home-franchise/home-franchise.component';
+import { HomeMenuComponent } from './home-menu/home-menu.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: "", component: HomeComponent, children: []
+    path:'', component: HomeComponent, children:[
+      {
+        path:"", component: HomeBodyComponent
+      },
+      {
+        path:"franchise", component:HomeFranchiseComponent
+      },
+      {
+        path:"menu", component:HomeMenuComponent
+      },
+    ]
   },
-  {
-    path:"home/franchise",component:HomeFranchiseComponent,children: []
-  }
 ];
 
 @NgModule({
