@@ -8,8 +8,8 @@ const recipeShema = new Schema(
             required: [true, 'Required field'],
         },
         ingredients: {
-            type: [String],
-            required: [true, 'Required field']
+            type: [String], //Tableau de strings
+            required: [true, 'Required field'],
         },
         price: {
             type: Number,

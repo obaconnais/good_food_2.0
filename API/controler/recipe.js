@@ -15,29 +15,28 @@ module.exports.getAllRecipes = async (req, res) => {
 
 module.exports.createRecipe = async (req, res) => {
     try {
-        // return res.status(200).json({ message: `Ca marche` })
         const { name, ingredients, price } = req.body
 
         if (!name || !ingredients || !price) {
-            return res.status(400).json({ message: `At least on field is missing` })
+            return res.status(400).json({ message: `At least one field is missing` })
         }
-
         const existingRecipe = await Recipe.findOne({ name: name })
 
         if (existingRecipe) {
-            return res.status(409).json({ message: `the recipe ${name} already exists` })
+            return res.status(409).json({ message: `Recipe ${name} already exists` })
         }
         else {
             await Recipe.create({ name, ingredients, price })
-            return res.status('').json({ message: `Recipe ${name} created successfully` })
+            return res.status(201).json({ message: `Recipe ${name} created successfully` })
         }
-    } catch (err) { return res.status(500).json({ message: `Internal error` }) }
+    } catch (err) {
+        return res.status(500).json({ message: `Internal error` })
+    }
 }
 
 module.exports.findRecipe = async (req, res) => {
     try {
         const { name } = req.body
-
         if (!name)
             return res.status(400).json({ message: `at least one field are missing` })
 
@@ -82,10 +81,10 @@ module.exports.deleteRecipe = async (recipe) => {
 }
 
 
-module.exports.setRecipe = async ({ name, ingredient, price }, recipe) => {
+module.exports.setRecipe = async ({ name, ingredients, price }, recipe) => {
     try {
         recipe.name = name
-        recipe.ingredient = ingredient
+        recipe.ingredients = ingredients
         recipe.price = price
         await recipe.save()
     } catch (err) {
