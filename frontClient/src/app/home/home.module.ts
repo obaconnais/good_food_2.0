@@ -8,6 +8,7 @@ import { HomeFooterComponent } from '../_template/home-footer/home-footer.compon
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeFranchiseComponent } from './home-franchise/home-franchise.component';
 import { HomeMenuComponent } from './home-menu/home-menu.component';
+import { HomeAboutusComponent } from './home-aboutus/home-aboutus.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HomeMenuComponent } from './home-menu/home-menu.component';
     HomeHeaderComponent,
     HomeFooterComponent,
     HomeFranchiseComponent,
-    HomeMenuComponent
+    HomeMenuComponent,
+    HomeAboutusComponent
   ],
   imports: [
     CommonModule,
