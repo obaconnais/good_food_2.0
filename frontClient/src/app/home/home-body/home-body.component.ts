@@ -15,6 +15,6 @@ export class HomeBodyComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  images = ["../assets/images/poulpe.jpeg", "../assets/images/pickles.jpeg", "../assets/images/gateau.jpeg"]
+  images = ["../assets/images/tartare.jpeg", "../assets/images/pickles.jpeg", "../assets/images/gateau.jpeg"]
 
 }
