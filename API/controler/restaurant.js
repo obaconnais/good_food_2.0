@@ -202,7 +202,7 @@ module.exports.getRestaurantByMail = async (req,res) => {
  */
 module.exports.getAllRestaurants = async (req,res) => {
     try{
-        const restaurants = (await Restaurant.find({})).map(r => { return {id: r._id, name: r.name} })
+        const restaurants = (await Restaurant.find({})).map(r => { return {id: r._id, name: r.name, address:r.address} })
 
         return res.status(200).json({message: 'Restaurants were found', data: restaurants})
     }catch(err){
