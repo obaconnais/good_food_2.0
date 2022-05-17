@@ -5,13 +5,13 @@
 
 .navbar-nav{
   position: fixed;
-  left:2%;
+  left:6%;
 }
 
 .nav-link{
   font-family:'Great Vibes', cursive;
   color: silver;
-  font-size:150%;
+  font-size:140%;
 }
 
 .signIn{
@@ -27,3 +27,7 @@
   text-decoration: none;
 }
 
+#logo{
+  width: auto;
+  height: 2%;
+}

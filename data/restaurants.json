@@ -1,0 +1,98 @@
+[
+    {
+        "name": "au bon miam",
+        "address":"1 côte d'Eich, 1450 Luxembourg",
+        "phone":"+35224618213",
+        "mail":"aubon.miam@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"11h", "end":"20h"}],
+            "wednesday": [{"begin":"11h", "end":"20h"}],
+            "thursday": [{"begin":"11h", "end":"20h"}],
+            "friday": [{"begin":"11h", "end":"20h"}],
+            "saturday": [{"begin":"11h", "end":"20h"}],
+            "sunday": ["closed"]
+        }
+    },
+    {
+        "name": "la cote saignante",
+        "address":"3 rue sainte-catherine 33000 BORDEAUX",
+        "phone":"+33124879034",
+        "mail":"lacote.saignante@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"12    h", "end":"23h"}],
+            "wednesday": [{"begin":"12h", "end":"23h"}],
+            "thursday": [{"begin":"12h", "end":"23h"}],
+            "friday": [{"begin":"12h", "end":"23h"}],
+            "saturday": [{"begin":"12h", "end":"23h"}],
+            "sunday": ["closed"]
+        }
+    },
+    {
+        "name": "le mulet fantastique",
+        "address":"26 rue de l'abattoir 31000 TOULOUSE",
+        "phone":"+33549124390",
+        "mail":"lemulet.fantastique@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"12    h", "end":"23h"}],
+            "wednesday": [{"begin":"12h", "end":"23h"}],
+            "thursday": [{"begin":"12h", "end":"23h"}],
+            "friday": [{"begin":"12h", "end":"23h"}],
+            "saturday": [{"begin":"12h", "end":"23h"}],
+            "sunday": ["closed"]
+        }
+    },
+    {
+        "name": "la table royale",
+        "address":"34 rue des orpheline 64000 PAU",
+        "phone":"+33559567189",
+        "mail":"latable.royal@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"12    h", "end":"23h"}],
+            "wednesday": [{"begin":"12h", "end":"23h"}],
+            "thursday": [{"begin":"12h", "end":"23h"}],
+            "friday": [{"begin":"12h", "end":"23h"}],
+            "saturday": [{"begin":"12h", "end":"23h"}],
+            "sunday": ["closed"]
+        }
+    },
+    {
+        "name": "le canard dechainé",
+        "address":"54 rue Mouillard 69000 LYON",
+        "phone":"+33389256728",
+        "mail":"lecanard.dechaine@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"12    h", "end":"23h"}],
+            "wednesday": [{"begin":"12h", "end":"23h"}],
+            "thursday": [{"begin":"12h", "end":"23h"}],
+            "friday": [{"begin":"12h", "end":"23h"}],
+            "saturday": [{"begin":"12h", "end":"23h"}],
+            "sunday": ["closed"]
+        }
+    },
+    {
+        "name": "la friterie belge",
+        "address":"54 boulevard du jubilé 1000 BRUXELLE",
+        "phone":"+32765318934",
+        "mail":"lafriterie.belge@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"12    h", "end":"23h"}],
+            "wednesday": [{"begin":"12h", "end":"23h"}],
+            "thursday": [{"begin":"12h", "end":"23h"}],
+            "friday": [{"begin":"12h", "end":"23h"}],
+            "saturday": [{"begin":"12h", "end":"23h"}],
+            "sunday": ["closed"]
+        }
+    }
+]

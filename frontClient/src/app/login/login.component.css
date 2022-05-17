@@ -67,3 +67,15 @@
   left: 47.5vw;
 }
 
+#login{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  height: 20vh;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(21px);
+  border-radius: 10px;
+  overflow: hidden;
+}

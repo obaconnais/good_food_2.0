@@ -20,6 +20,9 @@ const routes: Routes = [
       },
       {
         path:"aboutus", component:HomeAboutusComponent
+      },
+      {
+        path:"body", component:HomeBodyComponent
       }
     ]
   },

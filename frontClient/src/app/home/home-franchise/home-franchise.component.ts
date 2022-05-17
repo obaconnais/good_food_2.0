@@ -20,6 +20,7 @@ export class HomeFranchiseComponent implements OnInit {
     //get addresse from database and convert it into coordinate
     this.restaurants.getRestaurant().subscribe(rest=>{
       rest.data.forEach(restaurant=>{
+        console.log(restaurant)
         //translate string to geo coordinate
         this.geoService.getLocation(restaurant.address).subscribe(coord=>{
           const myIcon = L.icon({
