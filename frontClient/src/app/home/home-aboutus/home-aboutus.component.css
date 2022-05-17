@@ -1,9 +1,87 @@
 #aboutus{
   height: 80%;
+  width:55%;
 }
 
-#image{
-  position: relative;
-  top:5%;
+#logo{
+  position: absolute;
+  top:17%;
   left: 42%;
+}
+
+#presentation{
+  z-index: 5;
+  position: fixed;
+  top: 50%;
+  left:22%;
+  width:50%;
+  color: white;
+}
+
+
+#tomato{
+  position: fixed;
+  top:40%;
+  left:0%;
+  height:29%;
+  width:auto;
+}
+
+#carotte{
+  position:fixed;
+  top:10%;
+  left:63%;
+  height: 45%;
+  width: auto;
+}
+
+#salade{
+  z-index: 4;
+  position:fixed;
+  top:50%;
+  left:38%;
+  width:auto;
+  height: 40%;
+}
+
+#vache{
+  position: fixed;
+  width:28%;
+  height:auto;
+  top:55%;
+  left:73%
+}
+
+#poule{
+  z-index: 2;
+  position: fixed;
+  width:24%;
+  height:auto;
+  top:61%;
+  left:15%;
+}
+
+#casserole{
+  position: fixed;
+  width: 31%;
+  height:auto;
+  top:10%;
+  left:0%;
+}
+
+#aubergine{
+  position: fixed;
+  width: 17%;
+  height:auto;
+  top: 69%;
+  left:0%;
+}
+
+#gaz{
+  z-index: 3;
+  position: fixed;
+  width: 18%;
+  height:auto;
+  top:40%;
+  left:20%;
 }
