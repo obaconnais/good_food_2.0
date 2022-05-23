@@ -203,10 +203,30 @@ module.exports.getRestaurantByMail = async (req,res) => {
 module.exports.getAllRestaurants = async (req,res) => {
     try{
         const restaurants = (await Restaurant.find({})).map(r => { return {id: r._id, name: r.name, address:r.address} })
-
         return res.status(200).json({message: 'Restaurants were found', data: restaurants})
     }catch(err){
         return res.status(500).json({message: 'Internal error'})
     }
 }
 
+/**
+ * module to get Restaurants by city
+ */
+module.exports.getRestaurantByCity = async (req,res) => {
+    try{
+        let result =[]
+        let zipCodes = []
+        zipCodes = req.body
+        if(zipCodes.length ==0)
+            return res.status(400).json({message:'zipCodes is empty'})
+        for (const postCode of zipCodes){
+            let findRes = await Restaurant.find({'address.postCode': {$regex: postCode, $options:'i'}})
+            if(findRes.length!=0){
+                result.push(findRes)
+            }
+        }
+        return res.status(200).json({found:true, data:result})
+    }catch(err){
+        return res.status(500).json({message: 'Internal error'})
+    } 
+}

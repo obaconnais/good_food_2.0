@@ -1,8 +1,6 @@
 #carousel{
   position: fixed;
-  left: 20%;
-  height: 69%;
-  width:61%
+  width:61%;
 }
 
 #img{
@@ -13,4 +11,51 @@
 #body{
   background-color:white;
   height: 80%;
+}
+
+#header{
+  position: fixed;
+  right: 8%;
+  top: 30%;
+  font-size: 300%;
+  font-family:'Snell Roundhand', cursive;
+  font-weight: bold;
+  color: teal;
+}
+
+#form{
+  position: fixed;
+  top: 40%;
+  right: 15%;
+}
+
+#postCode{
+  position: fixed;
+  top: 50%;
+  right: 10%;
+  width: 15%;
+  border-radius: 10px;
+}
+
+#valid{
+  position:fixed;
+  top:60%;
+  right: 13%;
+  height: 5%;
+  width: 9%;
+  color:silver;
+  border-radius: 50px;
+  font-family:'Great Vibes', cursive;
+  font-size: 100%;
+  background: black;
+  text-decoration: none;
+}
+
+#country{
+  position: fixed;
+  top: 45%;
+  right: 10%;
+  width: 15%;
+  height: 3.5%;
+  border-radius: 10px;
 }

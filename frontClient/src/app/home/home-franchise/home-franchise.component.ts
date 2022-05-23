@@ -20,9 +20,10 @@ export class HomeFranchiseComponent implements OnInit {
     //get addresse from database and convert it into coordinate
     this.restaurants.getRestaurant().subscribe(rest=>{
       rest.data.forEach(restaurant=>{
-        console.log(restaurant)
+        let add = restaurant.address
+        let address = add.street + ' ' + add.postCode + ' ' + add.city
         //translate string to geo coordinate
-        this.geoService.getLocation(restaurant.address).subscribe(coord=>{
+        this.geoService.getLocation(address).subscribe(coord=>{
           const myIcon = L.icon({
             iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
           });

@@ -1,7 +1,7 @@
 [
     {
         "name": "au bon miam",
-        "address":"1 côte d'Eich, 1450 Luxembourg",
+        "address":{"street":"1 côte d'Eich","postCode": "1450","city": "Luxembourg","country": "LU"},
         "phone":"+35224618213",
         "mail":"aubon.miam@good-food.net",
         "franchisedGroup":"",
@@ -17,7 +17,7 @@
     },
     {
         "name": "la cote saignante",
-        "address":"3 rue sainte-catherine 33000 BORDEAUX",
+        "address":{"street":"3 rue sainte-catherine","postCode":"33000","city": "BORDEAUX","country":"FR"},
         "phone":"+33124879034",
         "mail":"lacote.saignante@good-food.net",
         "franchisedGroup":"",
@@ -33,7 +33,7 @@
     },
     {
         "name": "le mulet fantastique",
-        "address":"26 rue de l'abattoir 31000 TOULOUSE",
+        "address":{"street": "26 rue de l'abattoir","postCode":"31000", "city": "TOULOUSE", "country":"FR"},
         "phone":"+33549124390",
         "mail":"lemulet.fantastique@good-food.net",
         "franchisedGroup":"",
@@ -49,7 +49,7 @@
     },
     {
         "name": "la table royale",
-        "address":"34 rue des orpheline 64000 PAU",
+        "address":{"street":"34 rue des orpheline", "postCode": "64000", "city":"PAU", "country":"FR"},
         "phone":"+33559567189",
         "mail":"latable.royal@good-food.net",
         "franchisedGroup":"",
@@ -65,7 +65,7 @@
     },
     {
         "name": "le canard dechainé",
-        "address":"54 rue Mouillard 69000 LYON",
+        "address":{"street": "rue Mouillard","postCode":"69000","city": "LYON","country":"FR"},
         "phone":"+33389256728",
         "mail":"lecanard.dechaine@good-food.net",
         "franchisedGroup":"",
@@ -81,13 +81,45 @@
     },
     {
         "name": "la friterie belge",
-        "address":"54 boulevard du jubilé 1000 BRUXELLE",
-        "phone":"+32765318934",
+        "address":{"street":"54 boulevard du jubilé","postCode": "1000","city": "BRUXELLE", "country":"FR"},
+        "phone":"+33559876547",
         "mail":"lafriterie.belge@good-food.net",
         "franchisedGroup":"",
         "schedule":{
             "monday": ["closed"],
             "tuesday": [{"begin":"12    h", "end":"23h"}],
+            "wednesday": [{"begin":"12h", "end":"23h"}],
+            "thursday": [{"begin":"12h", "end":"23h"}],
+            "friday": [{"begin":"12h", "end":"23h"}],
+            "saturday": [{"begin":"12h", "end":"23h"}],
+            "sunday": ["closed"]
+        }
+    },
+    {
+        "name": "le palais de la gourmandise",
+        "address":{"street":"54 rue richelieu","postCode": "64320","city": "BIZANOS", "country":"BE"},
+        "phone":"+33559876547",
+        "mail":"lepalais.delagourmandise@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"12h", "end":"23h"}],
+            "wednesday": [{"begin":"12h", "end":"23h"}],
+            "thursday": [{"begin":"12h", "end":"23h"}],
+            "friday": [{"begin":"12h", "end":"23h"}],
+            "saturday": [{"begin":"12h", "end":"23h"}],
+            "sunday": ["closed"]
+        }
+    },
+    {
+        "name": "le mas sympathique",
+        "address":{"street":"1 rue de la cochonnerie","postCode": "64230","city": "LESCAR", "country":"BE"},
+        "phone":"+33559886547",
+        "mail":"lemas.sympatique@good-food.net",
+        "franchisedGroup":"",
+        "schedule":{
+            "monday": ["closed"],
+            "tuesday": [{"begin":"12h", "end":"23h"}],
             "wednesday": [{"begin":"12h", "end":"23h"}],
             "thursday": [{"begin":"12h", "end":"23h"}],
             "friday": [{"begin":"12h", "end":"23h"}],

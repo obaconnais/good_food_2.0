@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../_service/token.service';
 import { AuthService } from '../_service/auth.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { LoginTemplateComponent } from '../_template/login-template/login-template.component';
 
 @Component({

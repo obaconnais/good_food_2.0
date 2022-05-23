@@ -9,6 +9,7 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeFranchiseComponent } from './home-franchise/home-franchise.component';
 import { HomeMenuComponent } from './home-menu/home-menu.component';
 import { HomeAboutusComponent } from './home-aboutus/home-aboutus.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HomeAboutusComponent } from './home-aboutus/home-aboutus.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

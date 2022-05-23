@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginTemplateComponent } from './_template/login-template/login-template.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-modal.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     WelcomeComponent,
     LoginComponent,
-    LoginTemplateComponent
+    LoginTemplateComponent,
+    RetaurantModalComponent
   ],
   imports: [
     BrowserModule,

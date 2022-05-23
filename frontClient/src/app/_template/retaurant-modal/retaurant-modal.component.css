@@ -1,0 +1,20 @@
+#downCloseButton{
+    color:silver;
+    border-radius: 50px;
+    font-family:'Great Vibes', cursive;
+    font-size: 100%;
+    background: black;
+    text-decoration: none;
+}
+
+#modalHeader{
+  background-color:black;
+  font-family:'Great Vibes', cursive;
+  text-align: center;
+  color: silver;
+}
+
+.modal-title{
+  margin: auto;
+  text-align: center
+}
