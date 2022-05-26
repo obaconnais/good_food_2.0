@@ -37,12 +37,10 @@ module.exports.createRecipe = async (req, res) => {
 module.exports.findRecipe = async (req, res) => {
     try {
         const { name } = req.body
-        console.log("name", name)
         if (!name)
             return res.status(400).json({ message: `at least one field are missing` })
 
         const foundRecipe = await Recipe.findOne({ body: { name: name } })
-        console.log(foundRecipe)
         if (!foundRecipe)
             return res.status(400).json({ message: `Recipe ${name} wasn't found`, found: false })
 
@@ -53,43 +51,49 @@ module.exports.findRecipe = async (req, res) => {
     }
 }
 
-exports.getRecipe = async (req, res) => {
+module.exports.getRecipeById = async (req, res) => {
     try {
-        const { id } = req.body
-
+        const { id } = req.params
+        console.log("id", id)
         if (!id) {
-            return res.status(400).json({ message: 'Id is not defined, cannot find any restaurant' })
+            return res.status(400).json({ message: 'Id is not defined, cannot find any recipe' })
         }
-        const existingRecipe = await Restaurant.findOne({ _id: id })
+        const existingRecipe = await Recipe.findOne({ _id: id })
 
         if (!existingRecipe) {
-            return res.status(200).json({ found: false })
+            return res.status(404).json({ message: `Recipe with id : ${id} wasn't found`, found: false })
         }
         else {
             return res.status(200).json({ found: true, data: existingRecipe })
         }
     } catch (err) {
+        console.log("err", err)
         return res.status(500).json({ message: err })
     }
 }
 
-module.exports.deleteRecipe = async (recipe) => {
+module.exports.deleteRecipe = async (req, res) => {
     try {
-        await Recipe.deleteOne(recipe)
-        console.log(`recipe ${recipe.name} deleted`)
+        const { id } = req.params
+        await Recipe.deleteOne({ _id: id })
+        console.log(`recipe ${id} deleted`)
     } catch (err) {
+        console.log("err", err)
         return res.status(500).json({ message: err })
     }
 }
 
 
-module.exports.setRecipe = async ({ name, ingredients, price }, recipe) => {
+module.exports.setRecipe = async (req, res) => {
     try {
+        const { name, ingredients, price } = req.body
+
         recipe.name = name
         recipe.ingredients = ingredients
         recipe.price = price
         await recipe.save()
     } catch (err) {
+        console.log("err", err)
         return res.status(500).json({ message: err })
     }
 }
