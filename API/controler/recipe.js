@@ -37,21 +37,23 @@ module.exports.createRecipe = async (req, res) => {
 module.exports.findRecipe = async (req, res) => {
     try {
         const { name } = req.body
+        console.log("name", name)
         if (!name)
             return res.status(400).json({ message: `at least one field are missing` })
 
         const foundRecipe = await Recipe.findOne({ body: { name: name } })
-
+        console.log(foundRecipe)
         if (!foundRecipe)
-            return res.status(400).json({ message: `Recipe not found` })
+            return res.status(400).json({ message: `Recipe ${name} wasn't found`, found: false })
 
-        return res.status(200).json({ data: foundRecipe })
+        return res.status(200).json({ data: foundRecipe, found: true })
     } catch (err) {
+        console.log(err)
         return res.status(500).json({ message: `Internal error` })
     }
 }
 
-exports.getRecipe = async (recipe) => {
+exports.getRecipe = async (req, res) => {
     try {
         const { id } = req.body
 

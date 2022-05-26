@@ -29,105 +29,98 @@ describe('Recipe tests functions', () => {
     let price = 12.00
 
     it('Create normal recipe', async () => {
-        // console.log(recipeMocked)
         let req = httpMock.createRequest({ body: recipeMocked })
         let res = httpMock.createResponse()
         await recipe.createRecipe(req, res)
         let data = res._getJSONData()
-        console.log("data", data.message)
         let status = res._getStatusCode()
         expect(data.message).toBe(`Recipe ${name} created successfully`)
         expect(status).toBe(201)
     })
 
-    // it('Create recipe without ingredients', async () => {
-    //     let req = httpMock.createRequest({ body: { name, price } })
-    //     let res = httpMock.createResponse()
-    //     await recipe.createRecipe(req, res)
-    //     let data = res._getJSONData()
-    //     let status = res._getStatusCode()
-    //     console.log(status)
-    //     expect(data.message).toBe(`At least one field is missing`)
-    //     expect(status).toBe(400)
-    // })
+    it('Create recipe without ingredients', async () => {
+        let req = httpMock.createRequest({ body: { name: name, price: price } })
+        let res = httpMock.createResponse()
+        await recipe.createRecipe(req, res)
+        let data = res._getJSONData()
+        let status = res._getStatusCode()
+        expect(data.message).toBe(`At least one field is missing`)
+        expect(status).toBe(400)
+    })
 
-    // it('Create a recipe that already exists', async () => {
-    //     let req = httpMock.createRequest({ body: recipeMocked })
-    //     let res = httpMock.createResponse()
-    //     let res2 = httpMock.createResponse()
-    //     await recipe.createRecipe(req, res)
-    //     await recipe.createRecipe(req, res2)
-    //     let data = res2._getJSONData()
-    //     let status = res2._getStatusCode()
-    //     console.log(data)
-    //     expect(data.message).toBe(`Recipe ${name} already exists`)
-    //     expect(status).toBe(409)
-    // })
-    // OKAY JUSQUE LA
+    it('Create a recipe that already exists', async () => {
+        let req = httpMock.createRequest({ body: recipeMocked })
+        let res = httpMock.createResponse()
+        let res2 = httpMock.createResponse()
+        await recipe.createRecipe(req, res)
+        await recipe.createRecipe(req, res2)
+        let data = res2._getJSONData()
+        let status = res2._getStatusCode()
+        expect(data.message).toBe(`Recipe ${name} already exists`)
+        expect(status).toBe(409)
+    })
 
-    // it('GET all recipes', async () => {
-    //     let req = httpMock.createRequest()
-    //     let res = httpMock.createResponse()
-    //     await recipe.getAllRecipes(req, res)
-    //     let resData = res._getJSONData()
-    //     expect(res._getStatusCode()).toBe(200)
-    //     expect(resData.message).toBe('Recipes were found')
-    //     expect(resData.data.length).toBe(0)
-    // })
+    it('GET all recipes', async () => {
+        let req = httpMock.createRequest({ body: recipeMocked })
+        let res = httpMock.createResponse()
+        await recipe.getAllRecipes(req, res)
+        let resData = res._getJSONData()
+        expect(res._getStatusCode()).toBe(200)
+        expect(resData.data.length).toBe(0)
+    })
 
 
     // it('get recipe by name', async () => {
-    //     await recipe.createRecipe(
-    //         httpMock.createRequest({ body: { name, address, phone, mail, franchiseName, schedule } }),
-    //         httpMock.createResponse())
-    //     let req = httpMock.createRequest({ params: { name: name } })
+    //     let req = httpMock.createRequest({ body: recipeMocked })
     //     let res = httpMock.createResponse()
-    //     await recipe.getRecipeByName(req, res)
-    //     let resData = res._getJSONData()
-    //     expect(res._getStatusCode()).toBe(200)
+    //     await recipe.createRecipe(req, res)
+    //     let req2 = httpMock.createRequest({ body: { name: name } })
+    //     let res2 = httpMock.createResponse()
+    //     await recipe.findRecipe(req2, res2)
+    //     let resData = res2._getJSONData()
+    //     expect(res2._getStatusCode()).toBe(200)
     //     expect(resData.found).toBe(true)
-    //     expect(resData.data.length).toBe(1)
+    //     expect(resData.foundRecipe.length).toBe(0)
     // })
 
-    // it('get recipe by name but recipe doesn\'t exist', async () => {
-    //     let req = httpMock.createRequest({ params: { name: name } })
-    //     let res = httpMock.createResponse()
-    //     await recipe.getRecipeByName(req, res)
-    //     let resData = res._getJSONData()
-    //     expect(res._getStatusCode()).toBe(404)
-    //     expect(resData.found).toBe(false)
-    //     expect(resData.message).toBe(`Recipe ${name} wasn't found`)
-    // })
+    it('get recipe by name but recipe doesn\'t exist', async () => {
+        let req = httpMock.createRequest({ body: { name: name } })
+        let res = httpMock.createResponse()
+        await recipe.findRecipe(req, res)
+        let resData = res._getJSONData()
+        console.log(resData)
+        expect(res._getStatusCode()).toBe(400)
+        expect(resData.found).toBe(false)
+        expect(resData.message).toBe(`Recipe ${name} wasn't found`)
+    })
 
-    // it('get recipe by name but name is null', async () => {
-    //     let req = httpMock.createRequest({ params: { name: null } })
-    //     let res = httpMock.createResponse()
-    //     await recipe.getRecipeByName(req, res)
-    //     let resData = res._getJSONData()
-    //     expect(res._getStatusCode()).toBe(400)
-    //     expect(resData.message).toBe('Name is not defined, cannot find any recipe')
-    // })
+    it('get recipe by name but name is null', async () => {
+        let req = httpMock.createRequest({ body: { name: null } })
+        let res = httpMock.createResponse()
+        await recipe.findRecipe(req, res)
+        let resData = res._getJSONData()
+        expect(res._getStatusCode()).toBe(400)
+        expect(resData.message).toBe(`at least one field are missing`)
+    })
 
 
-    // it('get recipe by id', async () => {
-    //     //Create recipe
-    //     await recipe.createRecipe(
-    //         httpMock.createRequest({ body: { name, address, phone, mail, franchiseName, schedule } }),
-    //         httpMock.createResponse())
+    it('get recipe by id', async () => {
+        //Create recipe
+        let req = httpMock.createRequest({ body: recipeMocked })
+        let res = httpMock.createResponse()
+        await recipe.createRecipe(req, res)
+        let resData = res._getJSONData()
+        let id = resData._id
+        console.log("resData", resData)
 
-    //     //Pick up id from this recipe
-    //     let resId = httpMock.createResponse()
-    //     await recipe.getRecipeByMail(
-    //         httpMock.createRequest({ params: { mail: mail } }),
-    //         resId)
-    //     let id = resId._getJSONData().data._id
-    //     let req = httpMock.createRequest({ params: { _id: id } })
-    //     let res = httpMock.createResponse()
-    //     await recipe.getRecipeById(req, res)
-    //     let resData = res._getJSONData()
-    //     expect(res._getStatusCode()).toBe(200)
-    //     expect(resData.found).toBe(true)
-    // })
+        //Pick up id from this recipe
+        let req2 = httpMock.createRequest({ body: { id: id } })
+        let res2 = httpMock.createResponse()
+        await recipe.getRecipe(req2, res2)
+        expect(res2._getStatusCode()).toBe(200)
+        let resData2 = res2._getJSONData()
+        expect(resData2.found).toBe(true)
+    })
 
     // it('get recipe by id but recipe doesn\'t exist', async () => {
     //     let req = httpMock.createRequest({ params: { _id: '123456789000' } })
