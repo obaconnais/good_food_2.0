@@ -214,7 +214,7 @@ module.exports.getAllRestaurants = async (req,res) => {
  */
 module.exports.getRestaurantByCity = async (req,res) => {
     try{
-        let result =[]
+        let result = new Set()
         let zipCodes = []
         zipCodes = req.body
         if(zipCodes.length ==0)
@@ -222,10 +222,13 @@ module.exports.getRestaurantByCity = async (req,res) => {
         for (const postCode of zipCodes){
             let findRes = await Restaurant.find({'address.postCode': {$regex: postCode, $options:'i'}})
             if(findRes.length!=0){
-                result.push(findRes)
+                findRes.forEach(elt=>{
+                    result.add(elt)
+                })
             }
         }
-        return res.status(200).json({found:true, data:result})
+        let resArray = Array.from(result)
+        return res.status(200).json({found:true, data:resArray})
     }catch(err){
         return res.status(500).json({message: 'Internal error'})
     } 
