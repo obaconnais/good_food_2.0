@@ -1,0 +1,19 @@
+<div id="chooseRestModal">
+  <div id="modalHeader" class="modal-header">
+    <h4 class="modal-title">{{my_modal_title}}</h4>
+  </div>
+  <div class="modal-body"  >
+    <div class="container-fluid" *ngIf="my_modal_failed">
+      <ul id="unorder">
+        <li id="liste" *ngFor="let restaurant of restaurants">
+          <a id="nav" (click)="onClick(restaurant)" routerLink="home/menu"   >
+              {{restaurant.name}} {{restaurant.address.street}} {{restaurant.address.postCode}} {{restaurant.address.city}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button id=downCloseButton type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</div>

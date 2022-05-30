@@ -1,7 +1,7 @@
 export interface IRestaurant {
   id:string,
   name:string,
-  address:string,
+  address:{"street":'',"postCode":'',"city":'',"country":''},
   phone:string,
   mail:string,
   franchisedGroup:string,

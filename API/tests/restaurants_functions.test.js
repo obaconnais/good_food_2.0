@@ -10,6 +10,7 @@
   */
  const httpMock = require('node-mocks-http');
  const restaurant = require("../controler/restaurant");
+ const restModel = require("../model/restaurant")
  /**
  * before each test, connect to the mocked database
   */
@@ -30,12 +31,21 @@
  describe('mongodb restaurants response and connexion',()=>{
 
     let name = "McDO"
-    let address = "14 rue du miam"
+    let address = {street:"14 rue du miam", postCode:"64000", city:"PAU", Country:"FRANCE"}
     let phone = "+33678912345"
     let mail = "mcdo@maim.fr"
     let franchiseName = 'McDonald\'s France'
     let schedule = {"mon":[{"begin": "9h00", "end": "18h00"}]}
 
+    let nameTwo = "Ronsard"
+    let addressTwos = {street:"12 rue de la Paix", postCode:"64000", city:"PAU", Country:"FRANCE"}
+    let phoneTwo = "+33678912655"
+    let mailTwo = "ronsard@maim.fr"
+
+    let nameThree = "le combawa"
+    let addressThree = {street:"34 boulevard des Couettes", postCode:"64320", city:"BIZANOS", Country:"FRANCE"}
+    let phoneThree = "+33559873409"
+    let mailThree = "le.combawa@maim.fr"
     /* CREATE */
 
     it('create restaurant', async () => {
@@ -239,14 +249,56 @@
         expect(res._getStatusCode()).toBe(400)
         expect(resData.message).toBe('Mail is not defined, cannot find any restaurant')
     })
+    
+    it('get restaurant by zipCode, but zipCode list is empty', async ()=>{
+        let req = httpMock.createRequest({body:[]})
+        let res = httpMock.createResponse()
+        await restaurant.getRestaurantByCity(req, res)
+        let resData = res._getJSONData()
+        expect(res._getStatusCode()).toBe(400)
+        expect(resData.message).toBe('zipCodes is empty')
+    })
 
+
+    it('get restaurant by zipCode', async ()=>{
+        await restaurant.createRestaurant(
+            httpMock.createRequest({body:{name,address,phone,mail,franchiseName,schedule}}),
+            httpMock.createResponse()
+        )
+        let restMocked = new restModel({
+            name: nameTwo,
+            address:addressTwos,
+            phone:phoneTwo,
+            mail:mailTwo,
+            franchise:franchiseName,
+            schedule:schedule
+        })
+
+        let restMockedTwo = new restModel({
+            name: nameThree,
+            address:addressThree,
+            phone:phoneThree,
+            mail:mailThree,
+            franchise:franchiseName,
+            schedule:schedule
+        })
+
+        await restModel.create(restMocked)
+        await restModel.create(restMockedTwo)
+        let req = httpMock.createRequest({body: ['64000','64320']})
+        let res = httpMock.createResponse()
+        await restaurant.getRestaurantByCity(req, res)
+        let resData = res._getJSONData()
+        expect(res._getStatusCode()).toBe(200)
+        expect(resData.data.length).toBe(3)
+    })
 
     /* UPDATE */
 
     it('update restaurant', async () => {
         const body = {
             name: 'McDonald\'s',
-            address: '8 allée de la nourriture 64000 MIAM',
+            address: {street:'8 allée de la nourriture',postCode: "64000",city:'MIAM', Country:"FRANCE"},
             phone: '+33677889944',
             mail: 'contact@mcdonalds.fr',
             schedule: {"tue":[{"begin": "8h00", "end": "19h00"}]}
@@ -278,7 +330,7 @@
         
         expect(updatedRestaurant._id).toBe(id)
         expect(updatedRestaurant.name).toBe(body.name)
-        expect(updatedRestaurant.address).toBe(body.address)
+        expect(updatedRestaurant.address).toStrictEqual(body.address)
         expect(updatedRestaurant.phone).toBe(body.phone)
         expect(updatedRestaurant.mail).toBe(body.mail)
         expect(JSON.stringify(updatedRestaurant.schedule)).toBe(JSON.stringify(body.schedule))
@@ -481,4 +533,5 @@
         expect(data.message).toBe(`Id is not defined, cannot find any restaurant`)
         expect(status).toBe(400)
     })
+
 })

@@ -18,6 +18,12 @@
   text-decoration: none;
 }
 
+.container a{
+  color: inherit;
+  color: silver;
+  text-decoration: none;
+}
+
 #footer_one{
   position:fixed;
   left:37%

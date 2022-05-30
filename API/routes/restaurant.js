@@ -48,4 +48,8 @@ router.get('/mail/:mail', restaurantCtrl.getRestaurantByMail)
  */
 router.get('/all', restaurantCtrl.getAllRestaurants)
 
+/**
+ * route to get restaurant that match to list of zipCode
+ */
+router.post('/zipCode', restaurantCtrl.getRestaurantByCity)
 module.exports = router

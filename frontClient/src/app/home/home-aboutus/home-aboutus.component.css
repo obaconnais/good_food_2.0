@@ -1,0 +1,88 @@
+#aboutus{
+  height: 80%;
+  width:55%;
+}
+
+#logo{
+  position: absolute;
+  top:14%;
+  left: 42%;
+}
+
+#presentation{
+  margin: auto;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  z-index: 5;
+  border-radius: 50px;
+  position: fixed;
+  top: 42%;
+  left:17%;
+  width:63%;
+  height: 33%;
+  color: white;
+  text-align: center;
+  background-color:rgba(255, 255, 255, 0.382);
+  color:black;
+  font-family:'Snell Roundhand', cursive;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+#tomato{
+  position: fixed;
+  top:38%;
+  left:0%;
+  height:31%;
+  width:31%;
+}
+
+#carotte{
+  position:fixed;
+  top:10%;
+  left:63%;
+  height: 45%;
+  width: auto;
+}
+
+#salade{
+  z-index: 4;
+  position:fixed;
+  top:50%;
+  left:38%;
+  width:auto;
+  height: 40%;
+}
+
+#vache{
+  position: fixed;
+  width:30%;
+  height:auto;
+  top:55%;
+  left:73%
+}
+
+#poule{
+  z-index: 2;
+  position: fixed;
+  width:26%;
+  height:auto;
+  top:61%;
+  left:15%;
+}
+
+#casserole{
+  position: fixed;
+  width: 31%;
+  height:auto;
+  top:10%;
+  left:0%;
+}
+
+#aubergine{
+  position: fixed;
+  width: 17%;
+  height:auto;
+  top: 69%;
+  left:0%;
+}

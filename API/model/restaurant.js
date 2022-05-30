@@ -1,3 +1,4 @@
+const { json } = require('docker/src/languages')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -9,7 +10,7 @@ const restaurantSchema = new Schema(
             match: /^[a-zA-Z\d 'éèêëîïàâùûôçœ]+$/         
         }, 
         address: {
-            type: String,
+            type: Object,
             required: [true, 'Required field']            
         },
         phone: {

@@ -5,6 +5,7 @@ const request = require('supertest')
 const app = require('../app')
 const mockedDb = require("./db_handle")
 const franchise = require("../model/franchise");
+const restModel = require("../model/restaurant")
 /***********************************************/
 /***** data base configuration during test *****/
 /***********************************************/
@@ -26,12 +27,17 @@ afterAll(async () => {await mockedDb.closeDatabase()})
 describe('Test every path for restaurant end-point', () => {
     
     let name = "McDO"
-    let address = "14 rue du miam"
+    let address = {street:"14 rue du miam", postCode:"64000", city:"PAU", Country:"FRANCE"}
     let phone = "+33678912345"
     let mail = "mcdo@maim.fr"
     let franchiseName = 'Mcdonald\'s France'
     let schedule = {"mon":[{"begin": "9h00", "end": "18h00"}]}
     let global_id
+    
+    let nametwo = "Ronsard"
+    let addresstwo = {street:"12 rue de la Paix", postCode:"64320", city:"PAU", Country:"FRANCE"}
+    let phonetwo = "+33678342345"
+    let mailtwo = "ronsard@maim.fr"
 
     it('test path put \"/restaurant/\"', async ()=> {
         const res = await request(app)
@@ -92,6 +98,25 @@ describe('Test every path for restaurant end-point', () => {
         expect(res.body.data.length).toBe(1)
     })
 
+    it('test path post \"retaurant/zipCode/\"', async ()=> {
+        let mockedRest = new restModel({
+            name:nametwo,
+            address:addresstwo,
+            phone:phonetwo,
+            mail:mailtwo,
+            franchiseName:franchiseName,
+            schedule:schedule
+        })
+        await restModel.create(mockedRest)
+        const res = await request(app)
+                    .post('/restaurant/zipCode/')
+                    .send(
+                        ["64000","64320"]
+                    )
+        expect(res.status).toBe(200)
+        expect(res.body.data.length).toBe(2)
+    })
+
     it('test path delete \"/restaurant/:_id\"', async ()=> {
         const res = await request(app)
                     .delete('/restaurant/' + global_id)
@@ -99,4 +124,6 @@ describe('Test every path for restaurant end-point', () => {
         expect(res.status).toBe(200)
         expect(res.body.message).toBe(`Restaurant was deleted successfully`)
     })
+
+  
 })

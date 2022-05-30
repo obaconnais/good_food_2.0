@@ -7,6 +7,9 @@ import { HomeHeaderComponent } from '../_template/home-header/home-header.compon
 import { HomeFooterComponent } from '../_template/home-footer/home-footer.component';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeFranchiseComponent } from './home-franchise/home-franchise.component';
+import { HomeMenuComponent } from './home-menu/home-menu.component';
+import { HomeAboutusComponent } from './home-aboutus/home-aboutus.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,12 +17,15 @@ import { HomeFranchiseComponent } from './home-franchise/home-franchise.componen
     HomeBodyComponent,
     HomeHeaderComponent,
     HomeFooterComponent,
-    HomeFranchiseComponent
+    HomeFranchiseComponent,
+    HomeMenuComponent,
+    HomeAboutusComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,0 +1,45 @@
+#downCloseButton{
+    color:white;
+    border-radius: 50px;
+    font-family:'Great Vibes', cursive;
+    font-size: 100%;
+    background: teal;
+    text-decoration: none;
+}
+
+#modalHeader{
+  background-color:teal;
+  font-family:'Great Vibes', cursive;
+  text-align: center;
+  color: white;
+}
+
+#unorder{
+  list-style-type: none;
+}
+
+.modal-title{
+  margin: auto;
+  text-align: center
+}
+
+#nav{
+  text-decoration:none;
+  color: black;
+}
+
+.modal-header{
+  width: 120%;
+  background-color: white;
+}
+.modal-body{
+  width: 120%;
+  height: 200%;
+  background-color: white
+;
+}
+.modal-footer{
+  width: 120%;
+  background-color: white;
+}
+
