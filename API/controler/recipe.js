@@ -2,13 +2,22 @@ const Recipe = require("../model/recipe")
 
 module.exports.getAllRecipes = async (req, res) => {
     try {
-        const foundRecipes = await Recipe.find({})
+        const { restaurant_id } = req.body
+        let foundRecipes = []
+        if (restaurant_id) {
+            foundRecipes = await Recipe.find({ restaurant_id: restaurant_id })
+        }
+        else {
+            foundRecipes = await Recipe.find({})
+        }
+        console.log(restaurant_id)
 
         if (!foundRecipes)
             return res.status(400).json({ message: `Recipe not found` })
 
         return res.status(200).json({ data: foundRecipes })
     } catch (err) {
+        console.log(err)
         return res.status(500).json({ message: `Internal error` })
     }
 }

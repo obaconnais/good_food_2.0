@@ -8,11 +8,15 @@ const recipeShema = new Schema(
             required: [true, 'Required field'],
         },
         ingredients: {
-            type: [String], //Tableau de strings
+            type: [String],
             required: [true, 'Required field'],
         },
         price: {
             type: Number,
+            required: [true, 'Required field'],
+        },
+        restaurant_id: {
+            type: [String],
             required: [true, 'Required field'],
         },
     }
