@@ -16,7 +16,7 @@ export class RestaurantService {
     return this.http.get<IRestaurants>('http://localhost:5001/restaurant/all')
   }
 
-  getRestaurantCities({ zipCodes }: { zipCodes: any; }):Observable<{found:boolean,data:string[]}>{
-    return this.http.post<{found:boolean,data:string[]}>('http://localhost:5001/restaurant/zipCode',zipCodes)
+  getRestaurantCities({ zipCodes }: { zipCodes: any; }):Observable<{found:boolean,data:Object[]}>{
+    return this.http.post<{found:boolean,data:Object[]}>('http://localhost:5001/restaurant/zipCode',zipCodes)
   }
 }
