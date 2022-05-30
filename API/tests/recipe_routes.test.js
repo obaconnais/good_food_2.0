@@ -6,6 +6,7 @@ const recipeModel = require("../model/recipe")
 
 
 beforeAll(async () => { await mockedDB.connect() })
+afterEach(async () => { await mockedDB.clearDatabase() })
 afterAll(async () => { await mockedDB.closeDatabase() })
 
 let recipeMocked = new recipeModel({
@@ -33,25 +34,32 @@ describe('Recipe tests routes', () => {
     })
 
 
-    // it('Test GET \"/recipe/:id\"', async () => {
-    //     const resId = await request(app)
-    //         .get(`/recipe/name`)
-    //         .send({
-    //             name: recipeModel.name,
-    //             ingredients: recipeModel.ingredients,
-    //             price: recipeModel.price
-    //         })
-    //     const resCommand = await request(app)
-    //         .get(`/recipe/${resId.body.data}`)
-    //         .send({
-    //             _id: resId.body.data
-    //         })
-    //     expect(resCommand.status).toBe(200)
-    //     expect(resCommand.body.data._id).toBe(resId.body.data)
-    //     expect(resCommand.body.data.name).toBe(recipeModel.name)
-    //     expect(resCommand.body.data.ingredients).toBe(recipeModel.ingredients)
-    //     expect(resCommand.body.data.price).toBe(recipeModel.price)
-    // })
+    it('Test GET \"/recipe/:id\"', async () => {
+        const res = await request(app)
+            .put('/recipe')
+            .send({
+                name: recipeMocked.name,
+                ingredients: recipeMocked.ingredients,
+                price: recipeMocked.price
+            })
+        const resId = await request(app)
+            .get(`/recipe/name`)
+            .send({
+                name: recipeModel.name,
+                // ingredients: recipeModel.ingredients,
+                // price: recipeModel.price
+            })
+        const resCommand = await request(app)
+            .get(`/recipe/${resId.body.data}`)
+            .send({
+                id: resId.body.data
+            })
+        expect(resCommand.status).toBe(200)
+        expect(resCommand.body.data._id).toBe(resId.body.data)
+        expect(resCommand.body.data.name).toBe(recipeModel.name)
+        expect(resCommand.body.data.ingredients).toBe(recipeModel.ingredients)
+        expect(resCommand.body.data.price).toBe(recipeModel.price)
+    })
 
     //     it('Test PATCH \"/recipe/:id\"', async () => {
     //         //get the id
