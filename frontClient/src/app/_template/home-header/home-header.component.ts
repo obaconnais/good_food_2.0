@@ -10,6 +10,8 @@ export class HomeHeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    let isLogged: boolean
+    isLogged = false
   }
 
 }

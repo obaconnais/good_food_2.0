@@ -18,6 +18,16 @@
       </li>
     </ul>
   </div>
-  <button class="signIn" routerLink="/login">Sign in</button>
+  <div *ngIf="!this.isLogged; then signIn else accountMenu"></div>
+  <ng-template #signIn><button class="signIn" routerLink="/login">Sign in</button></ng-template>
+  <ng-template #accountMenu>
+    <div ngbDropdown class="d-inline-block">
+      <button type="button" class="btn btn-outline-primary" id="dropdown1" ngbDropdownToggle>Account</button>
+      <div ngbDropdownMenu aria-labelledby="dropdown1">
+        <button ngbDropdownItem>My account</button>
+        <button ngbDropdownItem>My commands</button>
+        <button ngbDropdownItem>Logout</button>
+      </div>
+    </div>
+  </ng-template>
 </nav>
-
