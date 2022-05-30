@@ -36,11 +36,11 @@ export class HomeBodyComponent implements OnInit {
 
   onClick(){
       let test = parseInt(this.postCode)
-      let countryCode = this.geoService.getCountryCode("France")
+      let countryCode = this.geoService.getCountryCode(this.country)
       if(!this.postCode || !test){
         const modalRef = this.modalService.open(LoginTemplateComponent,{centered:true})
         modalRef.componentInstance.my_modal_content="zip code is required, please fill in it"
-        modalRef.componentInstance.my_modal_title="No post Cod!"
+        modalRef.componentInstance.my_modal_title="No Zip Code!"
         modalRef.componentInstance.my_modal_style={
           'font-style':'italic',
           'text-align':'center'
@@ -48,7 +48,7 @@ export class HomeBodyComponent implements OnInit {
         this.postCode = ''
       }
       else{
-        this.geoService.getAroundPostCode(this.postCode, "5", "FR").subscribe(res=>{
+        this.geoService.getAroundPostCode(this.postCode, "5", countryCode).subscribe(res=>{
           let zipCodeObjectTab = res.results
           let zipCodeSet = new Set()
           for(const obj of zipCodeObjectTab){
@@ -66,6 +66,7 @@ export class HomeBodyComponent implements OnInit {
               modalRef.componentInstance.my_modal_content= "good"
               modalRef.componentInstance.my_modal_title="Wich restaurant do you prefer? "
               modalRef.componentInstance.my_modal_failed=true
+              modalRef.componentInstance.restaurants = r.data
             }
           })
         })
