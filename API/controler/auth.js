@@ -18,7 +18,6 @@ module.exports.authenticationSend = async (req, res) => {
         //search in the db the user that match with mail 
         const userDb = await user.findOne({ mail: mail })
 
-        console.log('test')
         //is the user in the db ?    
         if (!userDb)
             return res.status(400).json({ message: 'the user does not exist' })
