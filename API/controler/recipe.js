@@ -2,8 +2,7 @@ const Recipe = require("../model/recipe")
 
 module.exports.getAllRecipes = async (req, res) => {
     try {
-        const restaurant_id = req.params
-        console.log(restaurant_id)
+        const restaurant_id = req.params.restaurant_id
         let foundRecipes = []
         let found = []
         let result = []
@@ -17,7 +16,6 @@ module.exports.getAllRecipes = async (req, res) => {
         }
         if (result.length == 0)
             return res.status(204).json({ message: `Recipe not found` })
-
         return res.status(200).json({ data: result })
     } catch (err) {
         console.log(err)
@@ -47,13 +45,13 @@ module.exports.createRecipe = async (req, res) => {
 
 module.exports.findRecipe = async (req, res) => {
     try {
-        const name  = req.params
+        const name  = req.params.name
         if(Object.keys(name).length==0)
             return res.status(400).json({ message: `at least one field are missing` })
 
-        const foundRecipe = await Recipe.findOne({ body: { name: name } })
+        const foundRecipe = await Recipe.find({ name: name })
 
-        if (!foundRecipe)
+        if (foundRecipe.length == 0)
             return res.status(400).json({ message: `Recipe ${name} wasn't found`, found: false })
 
         return res.status(200).json({ data: foundRecipe, found: true })
@@ -65,18 +63,19 @@ module.exports.findRecipe = async (req, res) => {
 
 module.exports.getRecipeById = async (req, res) => {
     try {
-        const  id = req.params
+        const  id = req.params.id
+
         if (Object.keys(id).length==0) {
             return res.status(400).json({ message: 'Id is not defined, cannot find any recipe' })
         }
         
-        const existingRecipe = await Recipe.findOne({ _id: id })
-
-        if (!existingRecipe) {
+        const existingRecipe = await Recipe.find({ _id: id })
+        
+        if (existingRecipe.length == 0) {
             return res.status(404).json({ message: `Recipe with id : ${id} wasn't found`, found: false })
         }
         else {
-            return res.status(200).json({ found: true, data: existingRecipe })
+            return res.status(200).json({ found: true, data: existingRecipe[0] })
         }
     } catch (err) {
         console.log("err", err)
@@ -86,7 +85,7 @@ module.exports.getRecipeById = async (req, res) => {
 
 module.exports.deleteRecipe = async (req, res) => {
     try {
-        const { id } = req.params
+        const  id = req.params.id
         await Recipe.deleteOne({ _id: id })
         return res.status(200).json({message:`recipe ${id} deleted`})
     } catch (err) {

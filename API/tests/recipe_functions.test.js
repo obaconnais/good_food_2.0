@@ -71,7 +71,7 @@ describe('Recipe tests functions', () => {
         let req1 = httpMock.createRequest({ body: recipeMocked })
         let res1 = httpMock.createResponse()        
         await recipe.createRecipe(req1, res1)
-        let req = httpMock.createRequest({ params: "" })
+        let req = httpMock.createRequest({ params: { restaurant_id: "" }})
         let res = httpMock.createResponse()
         await recipe.getAllRecipes(req, res)
         expect(res._getStatusCode()).toBe(204)
@@ -81,10 +81,12 @@ describe('Recipe tests functions', () => {
         let req1 = httpMock.createRequest({ body: recipeMocked })
         let res1 = httpMock.createResponse()        
         await recipe.createRecipe(req1, res1)
+
         let req2 = httpMock.createRequest({ body: recipeMocked3})
         let res2 = httpMock.createResponse()        
         await recipe.createRecipe(req2, res2)
-        let req = httpMock.createRequest({ params: "628bd294ebd84a3f859914b8" })
+
+        let req = httpMock.createRequest({ params: { restaurant_id: "628bd294ebd84a3f859914b8" } } )
         let res = httpMock.createResponse()
         await recipe.getAllRecipes(req, res)
         let resData = res._getJSONData()
@@ -96,10 +98,12 @@ describe('Recipe tests functions', () => {
         let req1 = httpMock.createRequest({ body: recipeMocked })
         let res1 = httpMock.createResponse()        
         await recipe.createRecipe(req1, res1)
+        
         let req2 = httpMock.createRequest({ body: recipeMocked3})
         let res2 = httpMock.createResponse()        
         await recipe.createRecipe(req2, res2)
-        let req = httpMock.createRequest({ params: "628bd294ebd84a3f859914b7" })
+        
+        let req = httpMock.createRequest({ params: {restaurant_id: "628bd294ebd84a3f859914b7"} })
         let res = httpMock.createResponse()
         await recipe.getAllRecipes(req, res)
         let resData = res._getJSONData()
@@ -108,10 +112,12 @@ describe('Recipe tests functions', () => {
     })
 
     it('get recipe by name', async () => {
+        //create the recipe in the database
         let req = httpMock.createRequest({ body: recipeMocked })
         let res = httpMock.createResponse()
         await recipe.createRecipe(req, res)
-        let req2 = httpMock.createRequest({ params: recipeMocked.name })
+        //find it in the db
+        let req2 = httpMock.createRequest({ params: { name: recipeMocked.name } })
         let res2 = httpMock.createResponse()
         await recipe.findRecipe(req2, res2)
         let resData = res2._getJSONData()
@@ -120,7 +126,7 @@ describe('Recipe tests functions', () => {
     })
 
     it('get recipe by name but recipe doesn\'t exist', async () => {
-        let req = httpMock.createRequest({ params: recipeMocked.name })
+        let req = httpMock.createRequest({ params: {name: recipeMocked.name} })
         let res = httpMock.createResponse()
         await recipe.findRecipe(req, res)
         let resData = res._getJSONData()
@@ -130,7 +136,7 @@ describe('Recipe tests functions', () => {
     })
 
     it('get recipe by name but name is null', async () => {
-        let req = httpMock.createRequest({ params: null })
+        let req = httpMock.createRequest({ params: {name : ''} })
         let res = httpMock.createResponse()
         await recipe.findRecipe(req, res)
         let resData = res._getJSONData()
@@ -139,18 +145,18 @@ describe('Recipe tests functions', () => {
     })
 
     it('get recipe by id', async () => {
-        //Create recipe
+        //Create recipe in the mocked database
         let req = httpMock.createRequest({ body: recipeMocked })
         let res = httpMock.createResponse()
         await recipe.createRecipe(req, res)
-
-        let req2 = httpMock.createRequest({ params: recipeMocked.name })
+        //find the recipe in the datBase
+        let req2 = httpMock.createRequest({ params: {name: recipeMocked.name} })
         let res2 = httpMock.createResponse()
         await recipe.findRecipe(req2, res2)
         let resData = res2._getJSONData()
+        let id = resData.data[0]._id
 
-        let id = resData.data._id
-        let req3 = httpMock.createRequest({ params: id })
+        let req3 = httpMock.createRequest({ params: {id : id}})
         let res3 = httpMock.createResponse()
         await recipe.getRecipeById(req3, res3)
         expect(res3._getStatusCode()).toBe(200)
@@ -159,8 +165,8 @@ describe('Recipe tests functions', () => {
     })
 
     it('get recipe by id but recipe doesn\'t exist', async () => {
-        let req = httpMock.createRequest({ params: '123456789000' })
-        let res = httpMock.createResponse()
+        let req = httpMock.createRequest({ params: { id: '123456789000' } })
+        let res = httpMock.createResponse() 
         await recipe.getRecipeById(req, res)
         let resData = res._getJSONData()
         expect(res._getStatusCode()).toBe(404)
@@ -169,7 +175,7 @@ describe('Recipe tests functions', () => {
     })
 
     it('get recipe by id but id is null', async () => {
-        let req = httpMock.createRequest({ params: null })
+        let req = httpMock.createRequest({ params: { id: '' } })
         let res = httpMock.createResponse()
         await recipe.getRecipeById(req, res)
         let resData = res._getJSONData()
@@ -182,7 +188,7 @@ describe('Recipe tests functions', () => {
         let res = httpMock.createResponse()
         await recipe.createRecipe(req, res)
 
-        let req2 = httpMock.createRequest({ params : recipeMocked.name })
+        let req2 = httpMock.createRequest({ params : { name: recipeMocked.name } })
         let res2 = httpMock.createResponse()
         await recipe.findRecipe(req2, res2)
         let resData = res2._getJSONData()
@@ -195,14 +201,24 @@ describe('Recipe tests functions', () => {
     })
 
     it('Set recipe', async () => {
+        // populate mocked database
         let req = httpMock.createRequest({ body: recipeMocked2 })
         let res = httpMock.createResponse()
         await recipe.createRecipe(req,res)
-        let reqFind = httpMock.createRequest({ params: recipeMocked2.name })
+        //find the recipe to set in the mocked database
+        let reqFind = httpMock.createRequest({ params: {name : recipeMocked2.name} })
         let resFind = httpMock.createResponse()
         await recipe.findRecipe(reqFind,resFind)
-        let recipeData = resFind._getJSONData().data
-        let req2 = httpMock.createRequest({ body:{_id:recipeData._id,name:recipeMocked.name,ingredients:recipeMocked.ingredients, price:recipeMocked.price, restaurant_id: recipeMocked.restaurant_id }})
+
+        let recipeData = resFind._getJSONData().data[0]
+        let req2 = httpMock.createRequest({ body:{
+            _id:recipeData._id,
+            name:recipeMocked.name,
+            ingredients:recipeMocked.ingredients,
+            price:recipeMocked.price,
+            restaurant_id: recipeMocked.restaurant_id
+            }
+        })
         let res2 = httpMock.createResponse()
         await recipe.setRecipe(req2, res2)
         expect(res2._getJSONData().message).toBe(`the recipe with id ${recipeData._id} setted succesfully`)
