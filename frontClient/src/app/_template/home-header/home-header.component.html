@@ -15,7 +15,7 @@
       </li>
     </ul>
   </div>
-  <div *ngIf="!this.isLogged; then signIn else accountMenu"></div>
+  <div *ngIf="!isLogged; then signIn else accountMenu"></div>
   <ng-template #signIn><button class="signIn" routerLink="/login">Sign in</button></ng-template>
   <ng-template #accountMenu>
     <div ngbDropdown class="d-inline-block">
