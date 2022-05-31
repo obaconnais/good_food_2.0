@@ -259,14 +259,6 @@
         expect(resData.message).toBe('zipCodes is empty')
     })
 
-    // it('get restaurant by zipCode, but no restaurants match', async ()=>{
-    //     let req = httpMock.createRequest({body:['63000', '62320']})
-    //     let res = httpMock.createResponse()
-    //     await restaurant.getRestaurantByCity(req, res)
-    //     let resData = res._getJSONData()
-    //     expect(res._getStatusCode()).toBe(400)
-    //     expect(resData.message).toBe('no Restaurant founded')
-    // })
 
     it('get restaurant by zipCode', async ()=>{
         await restaurant.createRestaurant(
@@ -298,7 +290,7 @@
         await restaurant.getRestaurantByCity(req, res)
         let resData = res._getJSONData()
         expect(res._getStatusCode()).toBe(200)
-        expect(resData.data.length).toBe(2)
+        expect(resData.data.length).toBe(3)
     })
 
     /* UPDATE */

@@ -279,8 +279,8 @@ export class GeoCorderResponseService {
    * country is the country name
    * return a String with country Code
    */
-  getCountryCode(country:String):String{
-    let code:String = 'Country not exist'
+  getCountryCode(country:string):string{
+    let code:string = 'Country not exist'
     this.constryCode.forEach(elt=>{
        if(elt.name === country)
         code = elt.code

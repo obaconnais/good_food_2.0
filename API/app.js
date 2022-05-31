@@ -6,6 +6,7 @@ const cors = require('cors')
 const userRouter = require('./routes/user')
 const commandRouter = require('./routes/command')
 const restaurantRouter = require('./routes/restaurant')
+const recipeRouter = require('./routes/recipe')
 const authRouter = require('./routes/auth')
 const franchiseRouter = require('./routes/franchise')
 let app = express()
@@ -15,24 +16,24 @@ let app = express()
 /*******************************************/
 app.use(express.json());
 app.use(cors())
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
 /**
  * global route
  */
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.send("server is online")
 })
 
 /**
  * route for user
  */
-app.use('/user',userRouter)
+app.use('/user', userRouter)
 
 /**
  * route for command
  */
-app.use('/command',commandRouter)
+app.use('/command', commandRouter)
 
 /**
  * route for restaurant
@@ -40,13 +41,18 @@ app.use('/command',commandRouter)
 app.use('/restaurant', restaurantRouter)
 
 /**
+ * route for recipe
+ */
+app.use('/recipe', recipeRouter)
+
+/**
  * route for franchise
  */
- app.use('/franchise', franchiseRouter)
+app.use('/franchise', franchiseRouter)
 
 /**
  * route for authentification
  */
-app.use('/auth',authRouter)
+app.use('/auth', authRouter)
 
 module.exports = app

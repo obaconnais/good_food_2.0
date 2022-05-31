@@ -1,6 +1,7 @@
 /***********************************************/
 /********* import necessary librairies *********/
 /***********************************************/
+
 const express = require('express')
 const userCtrl = require("../controler/user")
 
@@ -15,7 +16,7 @@ let router = express.Router()
 /**
 * route to create a user
 */
-router.put('',userCtrl.createUser)
+router.put('', userCtrl.createUser)
 
 /**
 * route to get the user_Id thanks to its mail 
