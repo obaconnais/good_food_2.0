@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenService } from '../../_service/token.service';
 
 @Component({
   selector: 'app-home-header',
@@ -6,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-header.component.css']
 })
 export class HomeHeaderComponent implements OnInit {
+  isLogged: boolean | undefined;
 
   constructor() { }
 
   ngOnInit(): void {
-    let isLogged: boolean
-    isLogged = false
+    this.isLogged = TokenService.isLogged()
   }
 
 }
