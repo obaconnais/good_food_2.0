@@ -2,19 +2,23 @@ const Recipe = require("../model/recipe")
 
 module.exports.getAllRecipes = async (req, res) => {
     try {
-        const { restaurant_id } = req.body
+        const restaurant_id = req.params
+        console.log(restaurant_id)
         let foundRecipes = []
-        if (restaurant_id) {
-            foundRecipes = await Recipe.find({ restaurant_id: restaurant_id || null })
+        let found = []
+        let result = []
+        if(Object.keys(restaurant_id).length!=0) {
+            foundRecipes = await Recipe.where('restaurant_id').in([restaurant_id])
+            found = await Recipe.where('restaurant_id').equals([])
+            result = [...foundRecipes,...found]
         }
         else {
-            foundRecipes = await Recipe.find({})
+            result = await Recipe.find({restaurant_id: []})
         }
+        if (result.length == 0)
+            return res.status(204).json({ message: `Recipe not found` })
 
-        if (!foundRecipes)
-            return res.status(400).json({ message: `Recipe not found` })
-
-        return res.status(200).json({ data: foundRecipes })
+        return res.status(200).json({ data: result })
     } catch (err) {
         console.log(err)
         return res.status(500).json({ message: `Internal error` })
@@ -43,11 +47,12 @@ module.exports.createRecipe = async (req, res) => {
 
 module.exports.findRecipe = async (req, res) => {
     try {
-        const { name, ingredients, price, restaurant_id } = req.body
-        if (!name)
+        const name  = req.params
+        if(Object.keys(name).length==0)
             return res.status(400).json({ message: `at least one field are missing` })
 
-        const foundRecipe = await Recipe.findOne({ body: { name: name, ingredients: ingredients, price:price, restaurant_id: restaurant_id } })
+        const foundRecipe = await Recipe.findOne({ body: { name: name } })
+
         if (!foundRecipe)
             return res.status(400).json({ message: `Recipe ${name} wasn't found`, found: false })
 
@@ -60,10 +65,11 @@ module.exports.findRecipe = async (req, res) => {
 
 module.exports.getRecipeById = async (req, res) => {
     try {
-        const { id } = req.params
-        if (!id) {
+        const  id = req.params
+        if (Object.keys(id).length==0) {
             return res.status(400).json({ message: 'Id is not defined, cannot find any recipe' })
         }
+        
         const existingRecipe = await Recipe.findOne({ _id: id })
 
         if (!existingRecipe) {

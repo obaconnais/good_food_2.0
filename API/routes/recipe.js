@@ -11,11 +11,11 @@ router.use((req, res, next) => {
 /**
  * route to get all Recipes
  */
-router.get('', recipeCtrl.getAllRecipes)
+router.get('/restaurant_id/:restaurant_id', recipeCtrl.getAllRecipes)
 /**
  * route to get recipe with the name
  */
-router.get('/name', recipeCtrl.findRecipe)
+router.get('/name/:name', recipeCtrl.findRecipe)
 /**
  * route to get recipe with the Id
  */
