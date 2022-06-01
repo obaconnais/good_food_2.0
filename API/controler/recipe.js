@@ -7,21 +7,21 @@ module.exports.getAllRecipes = async (req, res) => {
         let foundRecipes = []
         let found = []
         let result = []
-        if (!restaurant_id)
-            console.log("test")
+
         if (Object.keys(restaurant_id).length != 0) {
             foundRecipes = await Recipe.where('restaurant_id').in([restaurant_id])
             console.log("found recipe: " + foundRecipes)
             found = await Recipe.find({ restaurant_id: [] })
             console.log("found" + found)
             result = [...foundRecipes, ...found]
+            console.log("result: " + result)
         }
         else {
             result = await Recipe.find({ restaurant_id: [] })
         }
         if (result.length == 0)
             return res.status(204).json({ message: `Recipe not found` })
-        console.log(result)
+        
         return res.status(200).json({ data: result })
     } catch (err) {
         console.log(err)
