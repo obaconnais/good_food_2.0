@@ -1,12 +1,29 @@
 <body id="body" >
-  <div  class="row itemsBlock">
-    <div *ngFor="let recipe of recipes.data" class="col-md">
-      <div>
-          {{recipe.name}}
-      </div>
-      <div>
-          {{recipe.ingredients}}
+  <h4 class="header_title">
+      <p class="title_name1">Available recipes for </p>
+      <p class="title_boulet"> • </p>
+      <p class="title_name2"> {{test.name}}</p>
+      <p class="title_boulet"> • </p>
+  </h4>
+  <div class="container">
+    <div class="row gy-3">
+      <div class="d-flex col-lg-3" *ngFor="let recipe of recipes.data">
+          <div class="card shadow p-3 bg white rounded">
+            <img class="card-img-top" src="../assets/recipes/{{recipe.image_name}}">
+            <div class="card-body">
+              <h5 class="card-title">
+                  {{recipe.name}}
+              </h5>
+              <ul>
+                <li *ngFor="let ingredient of recipe.ingredients">
+                  {{ingredient}}
+                </li>
+              </ul>
+              <button id="addButton">Add to cart</button>
+              <div id="price">{{recipe.price}} €</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 </body>

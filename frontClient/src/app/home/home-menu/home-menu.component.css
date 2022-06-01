@@ -1,8 +1,56 @@
 #body{
+  position: fixed;
+  top:10%;
+  border-width: 3px;
   height: 80%;
+  width: 100%;
+  overflow: scroll;
+  padding: 3%;
 }
 
-#wrapper{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+#addButton{
+  position: absolute;
+  bottom: 3%;
+  right:30%;
+  border-radius: 20px;
+  background-color: teal;
+  font-size: 85%;
+  color: white;
+}
+
+#price{
+  position: absolute;
+  bottom: 10%;
+  left:42%;
+  color: red;
+  font-weight:bold;
+}
+
+.card-title{
+  text-align: center;
+}
+
+.header_title{
+  text-align: center;
+}
+
+.container{
+  padding:2%;
+}
+
+.title_name1{
+  display: inline;
+  text-align: center;
+}
+
+.title_name2{
+  display: inline;
+  color: teal;
+  font-family:'Snell Roundhand', cursive;
+  font-size:150%;
+}
+
+.title_boulet{
+  display: inline;
+  color:orange;
 }

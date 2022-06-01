@@ -40,7 +40,8 @@ export class HomeMenuComponent implements OnInit {
   ngOnInit(): void {
     this.messageService.getMessage().subscribe(
       data => {
-        this.restaurant=data
+
+        this.restaurant=this.test
         console.log(this.restaurant._id)
         this.recipeService.getRecipes(this.restaurant._id).subscribe(
           data => this.recipes = data

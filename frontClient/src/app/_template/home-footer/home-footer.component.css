@@ -1,6 +1,6 @@
 .navbar{
   background-color: black;
-  height: 10%;
+  height: 100%;
   font-family:'Great Vibes', cursive;
   color:silver;
 }
@@ -39,4 +39,11 @@
 #footer_for{
   position:fixed;
   left:57%
+}
+
+.footer{
+  position: fixed;
+  bottom: 0px;
+  height:10%;
+  width: 100%;
 }
