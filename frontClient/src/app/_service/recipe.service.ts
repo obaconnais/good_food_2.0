@@ -10,7 +10,7 @@ export class RecipeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getRecipes():Observable<IRecipes>{
-    return this.httpClient.get<IRecipes>('http://localhost:5001/recipe')
+  getRecipes(restId: string):Observable<IRecipes>{
+    return this.httpClient.get<IRecipes>(`http://localhost:5001/recipe/restaurant_id/${restId}`)
   }
 }
