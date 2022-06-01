@@ -9,10 +9,24 @@ import { TokenService } from '../../_service/token.service';
 export class HomeHeaderComponent implements OnInit {
   isLogged: boolean | undefined;
 
+
+
   constructor() { }
 
   ngOnInit(): void {
-    this.isLogged = TokenService.isLogged()
+    this.isLogged = true
+    // this.isLogged = TokenService.isLogged()
+    console.log(this.isLogged)
   }
 
 }
+
+// (function () {
+//   var app = angular.module("app", []).controller("ctrl", function ($scope) {
+//     $scope.value = 10;
+//     $scope.$watch(
+//       function () { return TokenService.isLogged(); },
+//       function () { console.log("value changed"); }
+//     );
+//   }
+// })();

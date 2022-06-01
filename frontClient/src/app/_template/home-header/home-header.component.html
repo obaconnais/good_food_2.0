@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row bd-navbar">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <a class="navbar-brand" href="#" routerLink="body">
       <img src="../assets/images/logo.png" width="80" height="80" alt="">
@@ -15,15 +15,17 @@
       </li>
     </ul>
   </div>
-  <div *ngIf="!isLogged; then signIn else accountMenu"></div>
+  <div *ngIf="!isLogged; then signIn else accountMenu" class="p-5"></div>
   <ng-template #signIn><button class="signIn" routerLink="/login">Sign in</button></ng-template>
   <ng-template #accountMenu>
-    <div ngbDropdown class="d-inline-block">
-      <button type="button" class="btn btn-outline-primary" id="dropdown1" ngbDropdownToggle>Account</button>
+    <div ngbDropdown class="d-inline-block" display="dynamic" placement="bottom-end">
+      <button type="button" class="btn btn-outline-primary" id="dropdown" ngbDropdownToggle>Account</button>
       <div ngbDropdownMenu aria-labelledby="dropdown1">
-        <button ngbDropdownItem>My account</button>
-        <button ngbDropdownItem>My commands</button>
-        <button ngbDropdownItem>Logout</button>
+        <button ngbDropdownItem href="#" routerLink="myaccount">My account</button>
+        <button ngbDropdownItem href="#" routerLink="mycommands">My commands</button>
+        <button ngbDropdownItem href="#" routerLink="promotions">Promotions</button>
+        <div class="dropdown-divider"></div>
+        <button ngbDropdownItem href="#" routerLink="logout">Logout</button>
       </div>
     </div>
   </ng-template>
