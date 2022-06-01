@@ -10,6 +10,7 @@ import { RecipeService } from 'src/app/_service/recipe.service';
   styleUrls: ['./home-menu.component.css']
 })
 export class HomeMenuComponent implements OnInit {
+  image= "../assets/images/cuisine.jpeg"
   restaurant:IRestaurant = {
     _id:"",
     name:"",
@@ -42,7 +43,6 @@ export class HomeMenuComponent implements OnInit {
       data => {
 
         this.restaurant=this.test
-        console.log(this.restaurant._id)
         this.recipeService.getRecipes(this.restaurant._id).subscribe(
           data => this.recipes = data
           ,

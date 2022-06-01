@@ -11,7 +11,7 @@
 #addButton{
   position: absolute;
   bottom: 3%;
-  right:30%;
+  right: 35%;
   border-radius: 20px;
   background-color: teal;
   font-size: 85%;
@@ -21,7 +21,7 @@
 #price{
   position: absolute;
   bottom: 10%;
-  left:42%;
+  left:45%;
   color: red;
   font-weight:bold;
 }
@@ -32,6 +32,14 @@
 
 .header_title{
   text-align: center;
+  border-radius: 15px;
+
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  z-index: 5;
+  margin: auto;
+  height: 15%;
+  width: 50%;
 }
 
 .container{
@@ -39,18 +47,33 @@
 }
 
 .title_name1{
+  top:50%;
   display: inline;
   text-align: center;
+  color:white;
+  font-size: 150%;
 }
 
 .title_name2{
   display: inline;
   color: teal;
   font-family:'Snell Roundhand', cursive;
-  font-size:150%;
+  font-size:170%;
+  font-weight: bold;
 }
 
 .title_boulet{
   display: inline;
   color:orange;
+}
+
+.imageRecipe{
+  width: 100%;
+  height:20%;
+}
+
+.cont_title{
+  position:fixed;
+  left: 20%;
+  top:20%;
 }
