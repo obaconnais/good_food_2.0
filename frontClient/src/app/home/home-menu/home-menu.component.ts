@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IRecipes } from 'src/app/_interface/recipe';
 import { IRestaurant } from 'src/app/_interface/restaurant';
 import { InterComponentCommunicationsService } from 'src/app/_service/inter-component-communications.service';
 import { RecipeService } from 'src/app/_service/recipe.service';
@@ -27,6 +28,9 @@ export class HomeMenuComponent implements OnInit {
     franchisedGroup:"",
     schedule:{}
   }
+  recipes:IRecipes =  {
+    data: []
+  }
 
   constructor(
     public messageService:InterComponentCommunicationsService,
@@ -39,8 +43,9 @@ export class HomeMenuComponent implements OnInit {
         this.restaurant=data
         console.log(this.restaurant._id)
         this.recipeService.getRecipes(this.restaurant._id).subscribe(
-          data => console.log("data: " + data),
-          err => console.log(err) 
+          data => this.recipes = data
+          ,
+          err => console.log(err)
         )
       },
       err => {

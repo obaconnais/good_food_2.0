@@ -6,5 +6,5 @@ export interface IRecipe {
 }
 
 export interface IRecipes{
-  recipes:[IRecipe]
+  data:IRecipe[]
 }

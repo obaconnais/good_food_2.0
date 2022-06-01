@@ -1,2 +1,12 @@
 <body id="body" >
+  <div  class="row itemsBlock">
+    <div *ngFor="let recipe of recipes.data" class="col-md">
+      <div>
+          {{recipe.name}}
+      </div>
+      <div>
+          {{recipe.ingredients}}
+      </div>
+    </div>
+  </div>
 </body>
