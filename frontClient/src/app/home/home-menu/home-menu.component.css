@@ -65,6 +65,7 @@
 .title_boulet{
   display: inline;
   color:orange;
+  font-size: 150%;
 }
 
 .imageRecipe{
@@ -76,4 +77,19 @@
   position:fixed;
   left: 20%;
   top:20%;
+}
+
+.ingredients{
+  text-align: center;
+  position: relative;
+  margin-left:0%;
+  margin-bottom: 20%;
+  font-style: italic;
+}
+
+.p{
+  display: inline;
+}
+ul{
+  list-style-type: none;
 }
