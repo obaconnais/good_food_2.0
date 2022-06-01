@@ -33,13 +33,12 @@
 .header_title{
   text-align: center;
   border-radius: 15px;
-
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   z-index: 5;
   margin: auto;
   height: 15%;
-  width: 50%;
+  width: 70%;
 }
 
 .container{
