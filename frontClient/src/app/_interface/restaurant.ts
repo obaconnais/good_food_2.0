@@ -1,11 +1,18 @@
 export interface IRestaurant {
-  id:string,
+  _id:string,
   name:string,
-  address:{"street":'',"postCode":'',"city":'',"country":''},
+  address:IAdresse
   phone:string,
   mail:string,
   franchisedGroup:string,
   schedule:object;
+}
+
+export interface IAdresse{
+  street: string,
+  postCode: string,
+  city: string,
+  country:string
 }
 
 export interface IRestaurants{
