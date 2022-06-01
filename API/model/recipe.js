@@ -19,6 +19,10 @@ const recipeShema = new Schema(
             type: [String],
             required: [true, 'Required field'],
         },
+        image_name: {
+            type: String,
+            required: [true, 'Required field'],
+        },
     }
 )
 
