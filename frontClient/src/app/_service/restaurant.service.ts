@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HomeBodyComponent } from '../home/home-body/home-body.component';
 import { IRestaurants } from '../_interface/restaurant';
 
 @Injectable({
@@ -9,8 +8,7 @@ import { IRestaurants } from '../_interface/restaurant';
 })
 export class RestaurantService {
 
-  constructor(private http: HttpClient) {
-   }
+  constructor(private http: HttpClient) {}
 
   getRestaurant():Observable<IRestaurants>{
     return this.http.get<IRestaurants>('http://localhost:5001/restaurant/all')
