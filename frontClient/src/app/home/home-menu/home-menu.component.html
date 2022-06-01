@@ -1,9 +1,11 @@
-<body id="body" >
+<body id="body" [ngStyle]="{'background': 'url('+image+') no-repeat'}">
   <h4 class="header_title">
-      <p class="title_name1">Available recipes for </p>
-      <p class="title_boulet"> • </p>
-      <p class="title_name2"> {{test.name}}</p>
-      <p class="title_boulet"> • </p>
+    <div class="cont_title">
+      <p class="title_name1"> Menu for </p>
+      <p class="title_boulet"> •    </p>
+      <p class="title_name2">   {{restaurant.name}}  </p>
+      <p class="title_boulet">     •</p>
+    </div>
   </h4>
   <div class="container">
     <div class="row gy-3">
@@ -14,13 +16,16 @@
               <h5 class="card-title">
                   {{recipe.name}}
               </h5>
-              <ul>
-                <li *ngFor="let ingredient of recipe.ingredients">
-                  {{ingredient}}
-                </li>
-              </ul>
-              <button id="addButton">Add to cart</button>
-              <div id="price">{{recipe.price}} €</div>
+              <div class="ingredients" >
+                  <div class="p" *ngFor="let ingredient of recipe.ingredients">
+                    <p class="p">{{ingredient}}</p>
+                    <p class="p" *ngIf="recipe.ingredients.indexOf(ingredient)!= recipe.ingredients.length-1">, </p>
+                  </div>
+              </div>
+              <div class="button_price">
+                <button id="addButton">Add to cart</button>
+                <div id="price">{{recipe.price}} €</div>
+              </div>
             </div>
           </div>
         </div>

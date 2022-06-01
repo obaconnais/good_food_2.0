@@ -17,7 +17,7 @@
 
 #header{
   position: fixed;
-  right: 8%;
+  right: 5%;
   top: 30%;
   font-size: 300%;
   font-family:'Snell Roundhand', cursive;
@@ -60,4 +60,14 @@
   width: 15%;
   height: 3.5%;
   border-radius: 10px;
+}
+
+.title_boulet{
+  display: inline;
+  color:orange;
+  font-size: 80%;
+}
+
+.title_title{
+  display: inline;
 }
