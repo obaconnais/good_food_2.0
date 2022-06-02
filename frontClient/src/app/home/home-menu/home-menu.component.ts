@@ -10,6 +10,7 @@ import { RecipeService } from 'src/app/_service/recipe.service';
   styleUrls: ['./home-menu.component.css']
 })
 export class HomeMenuComponent implements OnInit {
+  image= "../assets/images/cuisine.jpeg"
   restaurant:IRestaurant = {
     _id:"",
     name:"",
@@ -19,15 +20,7 @@ export class HomeMenuComponent implements OnInit {
     franchisedGroup:"",
     schedule:{}
   }
-  test:IRestaurant = {
-    _id:"628bd294ebd84a3f859914b8",
-    name:"le mulet fantastique",
-    address:{street:'26 rue de l\'abattoir',postCode:'31000',city:'Toulouse',country:'France'},
-    phone:"+33549124390",
-    mail:"lemulet.fantastique@good-food.net",
-    franchisedGroup:"",
-    schedule:{}
-  }
+
   recipes:IRecipes =  {
     data: []
   }
@@ -41,8 +34,7 @@ export class HomeMenuComponent implements OnInit {
     this.messageService.getMessage().subscribe(
       data => {
 
-        this.restaurant=this.test
-        console.log(this.restaurant._id)
+        this.restaurant=data
         this.recipeService.getRecipes(this.restaurant._id).subscribe(
           data => this.recipes = data
           ,

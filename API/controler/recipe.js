@@ -3,18 +3,14 @@ const Recipe = require("../model/recipe")
 module.exports.getAllRecipes = async (req, res) => {
     try {
         const restaurant_id = req.params.restaurant_id
-        console.log(restaurant_id)
         let foundRecipes = []
         let found = []
         let result = []
 
         if (Object.keys(restaurant_id).length != 0) {
             foundRecipes = await Recipe.where('restaurant_id').in([restaurant_id])
-            console.log("found recipe: " + foundRecipes)
             found = await Recipe.find({ restaurant_id: [] })
-            console.log("found" + found)
             result = [...foundRecipes, ...found]
-            console.log("result: " + result)
         }
         else {
             result = await Recipe.find({ restaurant_id: [] })
