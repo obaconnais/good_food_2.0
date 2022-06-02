@@ -6,6 +6,9 @@ import { HomeFranchiseComponent } from './home-franchise/home-franchise.componen
 import { HomeMenuComponent } from './home-menu/home-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CartComponent } from './home-cart/home-cart.component';
+import { MyAccountComponent } from './home-myaccount/home-myaccount.component';
+import { MyCommandsComponent } from './home-mycommands/home-mycommands.component';
+import { PromotionsComponent } from './home-promotions/home-promotions.component';
 
 const routes: Routes = [
   {
@@ -27,6 +30,15 @@ const routes: Routes = [
       },
       {
         path: "cart", component: CartComponent
+      },
+      {
+        path: "myaccount", component: MyAccountComponent
+      },
+      {
+        path: "promotions", component: PromotionsComponent
+      },
+      {
+        path: "mycommands", component: MyCommandsComponent
       }
     ]
   },

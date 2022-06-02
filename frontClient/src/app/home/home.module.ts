@@ -11,9 +11,9 @@ import { HomeMenuComponent } from './home-menu/home-menu.component';
 import { HomeAboutusComponent } from './home-aboutus/home-aboutus.component';
 import { FormsModule } from '@angular/forms';
 import { CartComponent } from './home-cart/home-cart.component';
-import { HomeMyaccountComponent } from './home-myaccount/home-myaccount.component';
-import { HomePromotionsComponent } from './home-promotions/home-promotions.component';
-import { HomeMycommandsComponent } from './home-mycommands/home-mycommands.component';
+import { MyAccountComponent } from './home-myaccount/home-myaccount.component';
+import { MyCommandsComponent } from './home-mycommands/home-mycommands.component';
+import { PromotionsComponent } from './home-promotions/home-promotions.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +25,9 @@ import { HomeMycommandsComponent } from './home-mycommands/home-mycommands.compo
     HomeMenuComponent,
     HomeAboutusComponent,
     CartComponent,
-    HomeMyaccountComponent,
-    HomePromotionsComponent,
-    HomeMycommandsComponent
+    MyAccountComponent,
+    MyCommandsComponent,
+    PromotionsComponent,
   ],
   imports: [
     CommonModule,
