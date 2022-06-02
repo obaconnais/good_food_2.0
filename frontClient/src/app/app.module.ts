@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginTemplateComponent } from './_template/login-template/login-template.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-modal.component';
 
 
@@ -21,6 +22,7 @@ import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-m
     RetaurantModalComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -29,7 +31,7 @@ import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-m
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent],
-  schemas:[ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class AppModule { }
