@@ -1,0 +1,99 @@
+[
+  {
+    "_id": {
+      "$oid": "627ad2c3547c55d6a23c678a"
+    },
+    "name": "Pizza orientale",
+    "ingredients": [
+      "Chorizzo",
+      "Merguez"
+    ],
+    "restaurant_id": [],
+    "price": 12,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "627c2d155d9ba56b3494bfa8"
+    },
+    "name": "Pizza 4 fromages",
+    "ingredients": [
+      "Camembert",
+      "Chèvre",
+      "Raclette",
+      "Bleu"
+    ],
+    "restaurant_id": [],
+    "price": 12,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "62814b0f1978d2f405222778"
+    },
+    "name": "Pates carbonara",
+    "ingredients": [
+      "Pates",
+      "Carbonara"
+    ],
+    "restaurant_id": [],
+    "price": 13,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "62814c153d71cd4ee7eb7a7e"
+    },
+    "name": "Pates bolognaise",
+    "ingredients": [
+      "Pates",
+      "bolognaise"
+    ],
+    "restaurant_id": [],
+    "price": 13,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "62814d1f7e965cb9e586ec75"
+    },
+    "name": "Pates lardon",
+    "ingredients": [
+      "Pates",
+      "Lardon"
+    ],
+    "restaurant_id": [],
+    "price": 13,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "62814dcc85754c97d9d1b86f"
+    },
+    "name": "Pates beurre",
+    "ingredients": [
+      "Pates",
+      "Beuure"
+    ],
+    "restaurant_id": [
+      "50"
+    ],
+    "price": 13,
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6282aa414d3068b35efa340b"
+    },
+    "name": "tototo",
+    "ingredients": [
+      "totototo",
+      "tututuut"
+    ],
+    "restaurant_id": [
+      "42"
+    ],
+    "price": 45,
+    "__v": 0
+  }
+]

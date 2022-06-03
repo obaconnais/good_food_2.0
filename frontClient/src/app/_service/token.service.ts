@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Router} from '@angular/router'
+import { Router } from '@angular/router'
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
+  static isLogged(): boolean | undefined {
+    throw new Error('Method not implemented.');
+  }
   constructor(private router: Router) { }
 
-  saveToken(token: string):void{
-    localStorage.setItem('token',token)
+  saveToken(token: string): void {
+    localStorage.setItem('token', token)
     this.router.navigate(['home'])
   }
 
-  isLogged():boolean{
+  isLogged(): boolean {
     const token = localStorage.getItem('token')
     return !!token
   }
 
-  clearToken():void{
+  clearToken(): void {
     localStorage.removeItem('token')
   }
 
-  getToken(){
+  getToken() {
     const token = localStorage.getItem('token')
     return !!token ? token : null
   }
