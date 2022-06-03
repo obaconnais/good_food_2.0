@@ -10,6 +10,7 @@ import { LoginTemplateComponent } from './_template/login-template/login-templat
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-modal.component';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-m
     FormsModule,
     HttpClientModule,
     NgbModule,
+    StoreModule.forRoot({})
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent],
