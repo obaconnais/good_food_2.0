@@ -1,19 +1,46 @@
-<div class="header">
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <a class="navbar-brand" href="#" routerLink="body">
-        <img src="../assets/images/logo.png" width="80" height="80" alt="">
-      </a>
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" routerLink="franchise">franchise<span class="sr-only"></span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#" routerLink="aboutus">about us<span class="sr-only"></span></a>
-        </li>
-      </ul>
-    </div>
-    <button class="signIn" routerLink="/login">Sign in</button>
-  </nav>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row bd-navbar">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <a class="navbar-brand" href="#" routerLink="body">
+      <img src="../assets/images/logo.png" width="80" height="80" alt="">
+    </a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" routerLink="franchise">franchise<span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#" routerLink="aboutus">about us<span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">special-offers<span class="sr-only"></span></a>
+      </li>
+    </ul>
+  </div>
 
+  <div *ngIf="restaurant_id" class="p-2">
+    <button id="restaurant" type="button" class="btn btn-outline" title="Clic here to change the selected restaurant"
+      data-bs-toggle="tooltip" routerLink="/home">
+      <i class="bi bi-building"> Restaurant : {{restaurant_name}}</i>
+    </button>
+  </div>
+  <div *ngIf="!isLogged; then signIn else accountMenu" class="p-2"></div>
+  <ng-template #signIn><button class="signIn" routerLink="/login">Sign in</button></ng-template>
+  <ng-template #accountMenu>
+    <div ngbDropdown class="d-inline-block" display="dynamic" placement="bottom-end">
+      <button type="button" class="btn btn-outline-primary" id="dropdown" ngbDropdownToggle><i
+          class="bi bi-person-circle"></i> Account</button>
+      <div ngbDropdownMenu aria-labelledby="dropdown1">
+        <button ngbDropdownItem href="#" routerLink="myaccount"><i class="bi bi-person-fill"></i> My account</button>
+        <button ngbDropdownItem href="#" routerLink="mycommands"><i class="bi bi-bag-check-fill"></i> My
+          commands</button>
+        <button ngbDropdownItem href="#" routerLink="promotions"><i class="bi bi-cash-coin"></i> Promotions</button>
+        <div class="dropdown-divider"></div>
+        <button ngbDropdownItem href="#" routerLink="logout"><i class="bi bi-box-arrow-right"></i> Logout</button>
+      </div>
+    </div>
+  </ng-template>
+  <div class="p-2">
+    <button type="button" id="cart" matBadge="7" class="btn btn-outline" routerLink="cart">
+      Cart <i class="bi bi-cart"></i>
+    </button>
+  </div>
+</nav>
