@@ -17,9 +17,9 @@
   </div>
 
   <div *ngIf="restaurant_id" class="p-2">
-    <button id="restaurant" type="button" class="btn btn-link" title="Clic here to change the selected restaurant"
+    <button id="restaurant" type="button" class="btn btn-outline" title="Clic here to change the selected restaurant"
       data-bs-toggle="tooltip" routerLink="/home">
-      <i class="bi bi-house"> Restaurant : restaurant.name</i>
+      <i class="bi bi-building"> Restaurant : {{restaurant_name}}</i>
     </button>
   </div>
   <div *ngIf="!isLogged; then signIn else accountMenu" class="p-2"></div>
