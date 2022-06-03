@@ -16,13 +16,11 @@
     </ul>
   </div>
 
-  <div class="p-2">
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Open this select menu</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
+  <div *ngIf="restaurant_id" class="p-2">
+    <button id="restaurant" type="button" class="btn btn-link" title="Clic here to change the selected restaurant"
+      data-bs-toggle="tooltip" routerLink="/home">
+      <i class="bi bi-house"> Restaurant : restaurant.name</i>
+    </button>
   </div>
   <div *ngIf="!isLogged; then signIn else accountMenu" class="p-2"></div>
   <ng-template #signIn><button class="signIn" routerLink="/login">Sign in</button></ng-template>

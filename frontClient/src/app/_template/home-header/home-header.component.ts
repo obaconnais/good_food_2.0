@@ -8,6 +8,7 @@ import { TokenService } from '../../_service/token.service';
 })
 export class HomeHeaderComponent implements OnInit {
   isLogged: boolean | undefined;
+  restaurant_id: string | undefined
 
 
 
@@ -15,6 +16,7 @@ export class HomeHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLogged = true
+    this.restaurant_id = "toto"
     // this.isLogged = TokenService.isLogged()
     console.log(this.isLogged)
   }
