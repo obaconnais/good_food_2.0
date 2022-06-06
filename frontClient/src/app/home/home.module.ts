@@ -14,6 +14,8 @@ import { CartComponent } from './home-cart/home-cart.component';
 import { MyAccountComponent } from './home-myaccount/home-myaccount.component';
 import { MyCommandsComponent } from './home-mycommands/home-mycommands.component';
 import { PromotionsComponent } from './home-promotions/home-promotions.component';
+import { StoreModule } from '@ngrx/store';
+import { HomeContactUsComponent } from './home-contact-us/home-contact-us.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +30,14 @@ import { PromotionsComponent } from './home-promotions/home-promotions.component
     MyAccountComponent,
     MyCommandsComponent,
     PromotionsComponent,
+    HomeContactUsComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     NgbModule,
     FormsModule
-  ],
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule { }

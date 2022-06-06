@@ -9,6 +9,7 @@ import { CartComponent } from './home-cart/home-cart.component';
 import { MyAccountComponent } from './home-myaccount/home-myaccount.component';
 import { MyCommandsComponent } from './home-mycommands/home-mycommands.component';
 import { PromotionsComponent } from './home-promotions/home-promotions.component';
+import { HomeContactUsComponent } from './home-contact-us/home-contact-us.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,9 @@ const routes: Routes = [
       },
       {
         path: "mycommands", component: MyCommandsComponent
+      },
+      {
+        path: "contactus", component: HomeContactUsComponent
       }
     ]
   },
