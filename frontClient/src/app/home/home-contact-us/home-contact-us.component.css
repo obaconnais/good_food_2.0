@@ -32,7 +32,7 @@
 .title_name1{
   top:50%;
   text-align: center;
-  color:white;
+  color:whitesmoke;
   font-size: 150%;
 }
 
@@ -52,7 +52,7 @@
   border-radius: 15px;
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
-  height: 40%;
+  height: 35%;
   width: 50%;
   z-index: 5;
 }
