@@ -10,7 +10,9 @@ const commandShema = new Schema(
         products: [],
         price: Number,
         currency: String,
-        state: String
+        state: String,
+        user_id: String
+
     }
 )
 

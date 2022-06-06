@@ -9,17 +9,17 @@ const command = require("../model/command")
  */
 module.exports.createCommand = async (req, res) => {
     try {
-        const { kind, restaurant, paymentMethod, date, products, price, currency, state } = req.body
+        const { kind, restaurant, paymentMethod, date, products, price, currency, state, user_id } = req.body
         // console.log(kind, restaurant, paymentMethod, date, products, price, currency,state)
-        if (!kind || !restaurant || !paymentMethod || !date || !products || !price || !currency || !state)
+        if (!kind || !restaurant || !paymentMethod || !date || !products || !price || !currency || !state || !user_id)
             return res.status(400).json({ message: `at least on field are missing` })
 
-        const existingCommand = await command.findOne({ kind: kind, restaurant: restaurant, paymentMethod: paymentMethod, date: date, products: products, price: price, currency: currency, state: state })
+        const existingCommand = await command.findOne({ kind: kind, restaurant: restaurant, paymentMethod: paymentMethod, date: date, products: products, price: price, currency: currency, state: state, user_id: user_id })
 
         if (existingCommand)
             return res.status(400).json({ message: `the command with number ${existingCommand._id} already exist` })
         else {
-            await command.create({ kind, restaurant, paymentMethod, date, products, price, currency, state })
+            await command.create({ kind, restaurant, paymentMethod, date, products, price, currency, state, user_id })
             return res.status(201).json({ message: `command created` })
         }
     } catch (err) {
@@ -53,8 +53,8 @@ module.exports.getCommand = async (req, res) => {
 //@toFix develop many test code/ not done actually
 module.exports.getCommandId = async (req, res) => {
     try {
-        const { kind, restaurant, paymentMethod, date, products, price, currency, state } = req.body
-        let doc = await command.findOne({ kind, restaurant, paymentMethod, date, products, price, currency, state })
+        const { kind, restaurant, paymentMethod, date, products, price, currency, state, user_id } = req.body
+        let doc = await command.findOne({ kind, restaurant, paymentMethod, date, products, price, currency, state, user_id })
         if (!doc)
             return res.status(400).json({ message: 'Command not found' })
         return res.status(200).json({ data: doc._id })
@@ -96,7 +96,7 @@ module.exports.deleteCommand = async (req, res) => {
  */
 module.exports.setCommand = async (req, res) => {
     try {
-        const { _id, kind, restaurant, paymentMethod, date, products, price, currency, state } = req.body
+        const { _id, kind, restaurant, paymentMethod, date, products, price, currency, state, user_id } = req.body
         let findCommand = await command.findOne({ _id: _id })
         if (!findCommand)
             return res.status(400).json("command not found")
@@ -116,6 +116,8 @@ module.exports.setCommand = async (req, res) => {
             findCommand.currency = currency
         if (state)
             findCommand.state = state
+        if (user_id)
+            findCommand.user_id = user_id
 
         await findCommand.save()
         return res.status(200).json('Command setted successfully')
