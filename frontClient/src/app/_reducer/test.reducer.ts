@@ -1,14 +1,15 @@
 import { createReducer, on  } from "@ngrx/store";
-import { testAction } from "../_actions/test.action";
-import { IRecipe } from "../_interface/recipe";
-
-export const initialState:ReadonlyArray<IRecipe>=[]
+import { AddRecipe } from "../_actions/test.action";
 
 
-const _RecipeReduceur = createReducer(
+export const initialState = [{}]
+
+
+
+export const _RecipeReduceur = createReducer(
   initialState,
-  on(testAction,(state, {allRecipe})=>{
-    return [...allRecipe]
+  on(AddRecipe,(state, {allRecipe})=>{
+    return [...state,...allRecipe.data]
   })
 )
 
