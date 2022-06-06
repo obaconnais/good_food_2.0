@@ -1,0 +1,70 @@
+.logo{
+  position: fixed;
+  top: 15%;
+  left: 41%;
+}
+
+#body{
+  position: fixed;
+  top:10%;
+  border-width: 3px;
+  height: 80%;
+  width: 100%;
+  overflow: scroll;
+  padding: 3%;
+}
+
+.title_boulet{
+  display: inline;
+  color:orange;
+  font-size: 100%;
+}
+
+.title_name2{
+  position:fixed;
+  left:7%;
+  padding:7%;
+  color:white;
+  font-size:100%;
+  font-weight: bold;
+}
+
+.title_name1{
+  top:50%;
+  text-align: center;
+  color:white;
+  font-size: 150%;
+}
+
+.header_title{
+  text-align: center;
+  margin: auto;
+  padding: 2%;
+  top: 40%;
+  height: 10%;
+  width: 70%;
+}
+
+.form{
+  position: fixed;
+  top:45%;
+  left: 23%;
+  border-radius: 15px;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  height: 40%;
+  width: 50%;
+  z-index: 5;
+}
+
+.mail{
+  font-size: 100%;
+  color: blue;
+  text-decoration:underline;
+}
+
+.tph{
+  font-size: 100%;
+  color: white;
+  font-size: 100%;
+}
