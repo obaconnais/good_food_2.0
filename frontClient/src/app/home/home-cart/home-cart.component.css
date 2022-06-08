@@ -1,0 +1,28 @@
+.image{
+  position: relative;
+  left:0%;
+  height: 90%;
+  width: auto;
+}
+
+.body{
+  height: 89%;
+  width:40%;
+  background-color: whitesmoke;
+}
+
+.command{
+  position: fixed;
+  right:40%;
+  top:20%;
+  border: 3px;
+}
+
+.header_command{
+  position:inherit;
+  text-align: center;
+  position: relative;
+  top:10%;
+  left: 100%;
+  color: teal;
+}

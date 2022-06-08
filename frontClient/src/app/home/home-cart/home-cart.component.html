@@ -1,2 +1,15 @@
-<p>home-cart works!</p>
-<button (click)="onClick()">test</button>
+<body class="body" >
+  <img class="image" src="../assets/images/assiette_tomate.jpeg">
+  <div class="command">
+    <h4 class="header_command">
+      Your cart
+    </h4>
+    <ul>
+      <li *ngFor="let recipe of test">
+        <div>{{recipe.name}}</div>
+        <div>{{recipe.ingredients}}</div>
+        <div>{{recipe.price}}</div>
+      </li>
+    </ul>
+  </div>
+</body>

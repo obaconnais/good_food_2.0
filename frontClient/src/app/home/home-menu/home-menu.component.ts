@@ -6,8 +6,6 @@ import { InterComponentCommunicationsService } from 'src/app/_service/inter-comp
 import { RecipeService } from 'src/app/_service/recipe.service';
 import { Observable } from 'rxjs';
 import { AddRecipe } from 'src/app/_actions/test.action';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'leaflet';
 
 @Component({
   selector: 'app-home-menu',
