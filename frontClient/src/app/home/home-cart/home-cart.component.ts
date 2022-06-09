@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { IRecipe } from 'src/app/_interface/recipe';
-import { recipeCollection } from 'src/app/_selector/test.selector';
+import { Observable } from 'rxjs';
+import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
 
 @Component({
   selector: 'app-home-cart',
@@ -9,16 +9,23 @@ import { recipeCollection } from 'src/app/_selector/test.selector';
   styleUrls: ['./home-cart.component.css']
 })
 export class CartComponent implements OnInit {
+  recipes$:Observable<IRecipes>
+
+  test:any
+
+  image = "../assets/images/good_food.jpeg"
+
+  Total:Number =0;
   constructor(
-    private store: Store<{ recipe: IRecipe[] }>,
-  ) { }
+    private store: Store<{ recipe: IRecipes }>,
+  ) {
+    this.recipes$ = this.store.select((state)=>state.recipe)
+    this.recipes$.subscribe(res=>this.test=res)
+   }
 
   ngOnInit(): void {
-
   }
 
-  onClick():void{
-    let produit$ = this.store.pipe(select(recipeCollection))
-    console.log(produit$)
-  }
 }
+
+// *ngIf="test.indexOf(recipe)!=0"

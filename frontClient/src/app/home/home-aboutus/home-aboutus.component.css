@@ -10,7 +10,7 @@
 }
 
 #presentation{
-  margin: auto;
+  padding: 1%;
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   z-index: 5;
@@ -19,7 +19,7 @@
   top: 42%;
   left:17%;
   width:63%;
-  height: 33%;
+  height: 38%;
   color: white;
   text-align: center;
   background-color:rgba(255, 255, 255, 0.382);
