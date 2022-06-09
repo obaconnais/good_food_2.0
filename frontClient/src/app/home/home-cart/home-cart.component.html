@@ -1,15 +1,22 @@
 <body class="body" >
-  <img class="image" src="../assets/images/assiette_tomate.jpeg">
+  <div class="container_img">
+    <img class="image" src="../assets/images/assiette_tomate.jpeg">
+  </div>
   <div class="command">
     <h4 class="header_command">
-      Your cart
+      My cart
     </h4>
     <ul>
       <li *ngFor="let recipe of test">
-        <div>{{recipe.name}}</div>
-        <div>{{recipe.ingredients}}</div>
-        <div>{{recipe.price}}</div>
+        <div class="container_product" *ngIf="test.indexOf(recipe)!=0">
+          <p class="recipe_name">{{recipe.name}}</p>
+          <p class="recipe_price">{{recipe.price}} €</p>
+          <button class="button">delete</button>
+        </div>
       </li>
     </ul>
+    <div class="total">
+      Total: {{Total}} €
+    </div>
   </div>
 </body>
