@@ -4,19 +4,29 @@
   </div>
   <div class="command">
     <h4 class="header_command">
-      My cart
+      Your cart
     </h4>
+    <div class="noRecipe" [ngStyle]="{'background': 'url('+image+') no-repeat'}" *ngIf="test.length == 1">
+      <p class="noRecipe_text">
+        IS EMPTY !
+      </p>
+    </div>
     <ul>
       <li *ngFor="let recipe of test">
         <div class="container_product" *ngIf="test.indexOf(recipe)!=0">
           <p class="recipe_name">{{recipe.name}}</p>
+          <div class="pagination">.............................................................</div>
           <p class="recipe_price">{{recipe.price}} €</p>
           <button class="button">delete</button>
         </div>
       </li>
     </ul>
-    <div class="total">
-      Total: {{Total}} €
+    <div class="total_container">
+      <input placeholder="promo code" type="text" class="input">
+      <p class="total_text">
+        Total: {{Total}} €
+      </p>
+      <button class="total_button">Order now</button>
     </div>
   </div>
 </body>
