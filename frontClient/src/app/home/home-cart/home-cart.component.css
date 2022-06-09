@@ -126,11 +126,11 @@ ul{
 }
 
 .noRecipe_text{
-  position: absolute;
-  color: orange;
-  font-size: 300%;
-  top:15%;
-  left:30%;
-  font-style:italic;
-  font-weight: bold;
+    position: absolute;
+    color: orange;
+    font-size: 100%;
+    top:3%;
+    left:57%;
+    font-style:italic;
+    font-weight: bold;
 }

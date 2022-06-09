@@ -5,11 +5,11 @@
   <div class="command">
     <h4 class="header_command">
       Your cart
+      <p *ngIf="test.length == 1" class="noRecipe_text">
+        is empty !
+      </p>
     </h4>
     <div class="noRecipe" [ngStyle]="{'background': 'url('+image+') no-repeat'}" *ngIf="test.length == 1">
-      <p class="noRecipe_text">
-        IS EMPTY !
-      </p>
     </div>
     <ul>
       <li *ngFor="let recipe of test">
