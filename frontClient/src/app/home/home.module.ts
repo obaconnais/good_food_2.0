@@ -16,6 +16,7 @@ import { MyCommandsComponent } from './home-mycommands/home-mycommands.component
 import { PromotionsComponent } from './home-promotions/home-promotions.component';
 import { StoreModule } from '@ngrx/store';
 import { HomeContactUsComponent } from './home-contact-us/home-contact-us.component';
+import { recipeReducer, _RecipeReduceur } from '../_reducer/test.reducer';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HomeContactUsComponent } from './home-contact-us/home-contact-us.compon
     CommonModule,
     HomeRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot({recipe: _RecipeReduceur})
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,6 +1,5 @@
 import { createSelector } from '@ngrx/store';
 import { IRecipe } from '../_interface/recipe';
-
 import { AppState } from '../_interface/app.state'
 
 export const recipeSelector = (state: AppState) => state.recipe;

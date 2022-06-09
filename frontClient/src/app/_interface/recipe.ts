@@ -8,5 +8,5 @@ export interface IRecipe {
 }
 
 export interface IRecipes{
-  data:IRecipe[]
+  data:IRecipe[],
 }

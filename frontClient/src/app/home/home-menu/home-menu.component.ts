@@ -4,9 +4,8 @@ import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
 import { IRestaurant } from 'src/app/_interface/restaurant';
 import { InterComponentCommunicationsService } from 'src/app/_service/inter-component-communications.service';
 import { RecipeService } from 'src/app/_service/recipe.service';
-import { testAction } from 'src/app/_actions/test.action';
-import { select } from '@ngrx/store';
-import { recipe } from 'src/app/_selector/test.selector';
+import { Observable } from 'rxjs';
+import { AddRecipe } from 'src/app/_actions/test.action';
 
 @Component({
   selector: 'app-home-menu',
@@ -28,20 +27,23 @@ export class HomeMenuComponent implements OnInit {
   recipes:IRecipes =  {
     data: []
   }
-
-  albumIds$ = this.store.pipe(select(recipe))
+  // data mocked for store test
+  recipes$:Observable<IRecipes>
 
   constructor(
     public messageService:InterComponentCommunicationsService,
     public recipeService:RecipeService,
-    private store: Store<{ recipe: IRecipe[] }>,
-  ) { }
+    private store: Store<{ recipe: IRecipes }>,
+  ) {
+      this.recipes$ =  this.store.select((state)=>state.recipe)
+   }
 
   ngOnInit(): void {
+    //bring the selected restaurant from body
     this.messageService.getMessage().subscribe(
       data => {
-
         this.restaurant=data
+        //bring all the recipes from back
         this.recipeService.getRecipes(this.restaurant._id).subscribe(
           data => this.recipes = data
           ,
@@ -55,9 +57,6 @@ export class HomeMenuComponent implements OnInit {
   }
 
   onClick(recipe: IRecipe):void{
-    let array:IRecipe[] = []
-    array.push(recipe)
-    console.log(array)
-    this.store.dispatch(testAction({allRecipe: array}))
+    this.store.dispatch(AddRecipe({allRecipe:{data:[recipe]}}))
   }
 }
