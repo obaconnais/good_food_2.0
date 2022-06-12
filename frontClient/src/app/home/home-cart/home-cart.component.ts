@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AddRecipe, DecrementRecipe, DeleteRecipe } from 'src/app/_actions/test.action';
 import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
 
 @Component({
@@ -19,23 +20,56 @@ export class CartComponent implements OnInit {
 
   Total:Number = 0;
 
+  keys:IRecipe[] =[]
+
   constructor(
     private store: Store<{ recipe: IRecipes }>,
   ) {
     this.recipes$ = this.store.select((state)=>state.recipe)
     this.recipes$.subscribe(res=>{
       this.test=res
-
+      this.Total=0
+      let tempMap:Map<IRecipe,{nombre:Number, price:string}> = new Map()
       for(let i=1;i<this.test.length;i++){
-        this.Total = this.test[i].price
-        let temp = this.recipes.get(this.test[i].name)?.nombre
-        temp ? this.recipes.set(this.test[i].name,{nombre:Number(temp)+1, price:this.test[i].price}) : this.recipes.set(this.test[i].name,{nombre:1, price:this.test[i].price})
+        this.Total += this.test[i].price
+        let temp = tempMap.get(this.test[i])
+        if(!temp)
+          tempMap.set(this.test[i],{nombre:1, price:this.test[i].price})
+        else{
+          tempMap.set(this.test[i],{nombre:Number(temp.nombre)+1, price:this.test[i].price})
+        }
       }
+      this.recipes=tempMap
+      console.log(this.recipes)
     })
    }
 
   ngOnInit(): void {
-
+    this.keys = this.getKeys()
   }
 
+  getKeys():IRecipe[]{
+    let iterator = this.recipes.keys()
+    let array:IRecipe[] =[]
+    this.recipes.forEach(()=>{
+      array.push(iterator.next().value)
+    })
+    return array
+  }
+
+  //increment the store and display
+  increment(rec:IRecipe):void{
+    let allR:IRecipes = {data:[rec]}
+    this.store.dispatch(AddRecipe({allRecipe:allR}))
+  }
+
+  //decrement the store and display
+  decrement(rec:IRecipe):void{
+    this.store.dispatch(DecrementRecipe({recipe:rec}))
+  }
+
+  //delete all recipe in the store
+  delete(rec:IRecipe):void{
+    this.store.dispatch(DeleteRecipe({recipe:rec}))
+  }
 }

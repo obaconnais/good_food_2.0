@@ -12,21 +12,21 @@
     <div class="noRecipe" [ngStyle]="{'background': 'url('+image+') no-repeat'}" *ngIf="test.length == 1">
     </div>
     <ul>
-      <li *ngFor="let recipe of recipes.keys()">
-        <div class="container_product" *ngIf="test.indexOf(recipe)!=0">
+      <li *ngFor="let recipe of keys">
+        <div class="container_product" *ngIf="recipes.get(recipe)">
           <div class="number_liste">
             <div class="buttonleft_container">
-              <button class="buttonManage"> - </button>
+              <button (click)="decrement(recipe)" class="buttonManage"> - </button>
             </div>
             <div class="textManage">{{recipes.get(recipe)?.nombre}}</div>
-            <div class="buttonright_container">
-              <button class="buttonManage"> + </button>
+            <div  class="buttonright_container">
+              <button (click)="increment(recipe)" class="buttonManage"> + </button>
             </div>
           </div>
-          <div class="recipe_name">{{recipe}}</div>
+          <div class="recipe_name">{{recipe.name}}</div>
           <div class="pagination">....................................................................</div>
-          <div class="recipe_price">{{recipes.get(recipe)?.price}} €</div>
-          <button class="button">delete</button>
+          <div class="recipe_price">{{recipe.price}} €</div>
+          <button (click)="delete(recipe)" class="button">delete</button>
         </div>
       </li>
     </ul>
