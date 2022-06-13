@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { RetaurantModalComponent } from './retaurant-modal.component';
 
@@ -8,7 +9,9 @@ describe('RetaurantModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RetaurantModalComponent ]
+      declarations: [ RetaurantModalComponent ],
+      imports:[NgbModule],
+      providers:[NgbActiveModal,NgbModal]
     })
     .compileComponents();
   });

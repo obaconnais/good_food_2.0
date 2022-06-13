@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginTemplateComponent } from './login-template.component';
 
 describe('LoginTemplateComponent', () => {
@@ -8,7 +8,7 @@ describe('LoginTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginTemplateComponent ]
+      declarations: [LoginTemplateComponent]
     })
     .compileComponents();
   });

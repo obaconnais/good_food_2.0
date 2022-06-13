@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AddRecipe, DecrementRecipe, DeleteRecipe } from 'src/app/_actions/test.action';
@@ -14,6 +15,8 @@ export class CartComponent implements OnInit {
 
   test:any
 
+  testLength:any
+
   recipes:Map<IRecipe,{nombre: Number, price:string}> = new Map()
 
   image = "../assets/images/good_food.jpeg"
@@ -28,6 +31,7 @@ export class CartComponent implements OnInit {
     this.recipes$ = this.store.select((state)=>state.recipe)
     this.recipes$.subscribe(res=>{
       this.test=res
+      this.testLength=this.test.length
       this.Total=0
       let tempMap:Map<IRecipe,{nombre:Number, price:string}> = new Map()
       for(let i=1;i<this.test.length;i++){

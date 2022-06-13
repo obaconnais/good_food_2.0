@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeFranchiseComponent } from './home-franchise.component';
@@ -8,7 +9,9 @@ describe('HomeFranchiseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeFranchiseComponent ]
+      declarations: [ HomeFranchiseComponent ],
+      imports:[HttpClientTestingModule],
+      providers:[HomeFranchiseComponent]
     })
     .compileComponents();
   });
