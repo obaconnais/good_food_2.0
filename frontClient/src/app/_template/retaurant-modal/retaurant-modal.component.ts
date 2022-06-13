@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
+import { UpdateStore } from 'src/app/_actions/test.action';
 import { IRestaurant } from 'src/app/_interface/restaurant';
 import { InterComponentCommunicationsService } from 'src/app/_service/inter-component-communications.service';
 
@@ -19,7 +21,8 @@ export class RetaurantModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     public modalService: NgbModal,
-    public messageService: InterComponentCommunicationsService
+    public messageService: InterComponentCommunicationsService,
+    public store:Store<{restaurant:string}>
   ) { }
 
   ngOnInit(): void {
@@ -28,5 +31,6 @@ export class RetaurantModalComponent implements OnInit {
   onClick(restaurant:IRestaurant):void{
     this.activeModal.close('Close click')
     this.messageService.sendMessage(restaurant)
+    this.store.dispatch(UpdateStore({restaurant: restaurant.name}))
   }
 }

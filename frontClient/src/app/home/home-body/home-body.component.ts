@@ -6,6 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginTemplateComponent } from 'src/app/_template/login-template/login-template.component';
 import { ICountry } from 'src/app/_interface/country';
 import { RetaurantModalComponent } from 'src/app/_template/retaurant-modal/retaurant-modal.component';
+import { Store } from '@ngrx/store';
+import { UpdateStore } from 'src/app/_actions/test.action';
 
 @Component({
   selector: 'app-home-body',

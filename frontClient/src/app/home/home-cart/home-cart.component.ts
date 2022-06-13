@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
   keys:IRecipe[] =[]
 
   constructor(
-    private store: Store<{ recipe: IRecipes }>,
+    private store: Store<{ recipe: IRecipes }>
   ) {
     this.recipes$ = this.store.select((state)=>state.recipe)
     this.recipes$.subscribe(res=>{
