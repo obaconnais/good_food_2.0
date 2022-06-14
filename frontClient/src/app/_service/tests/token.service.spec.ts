@@ -18,4 +18,12 @@ describe('TokenService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should be save and get the Token', () => {
+    let token = "token"
+    service.saveToken(token)
+    expect(service.getToken()).toBe("token")
+  });
+
+
 });
