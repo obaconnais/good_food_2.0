@@ -23,7 +23,7 @@ describe('AuthService', () => {
 
   afterEach(() => {
     httpMock.verify();
-});
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -36,9 +36,12 @@ describe('AuthService', () => {
     }
     let acces_token:IToken = {acces_token:'12345AZERazer'}
 
-    service.login(credential).subscribe(_token=>{
-      expect(_token).toEqual(acces_token)
-    })
+    service.login(credential).subscribe(
+      _token=>{
+        expect(_token).toEqual(acces_token)
+      },
+      err=>console.log(err)
+    )
 
     const req = httpMock.expectOne('http://localhost:5001/auth')
     req.flush({acces_token:'12345AZERazer'})
