@@ -44,7 +44,6 @@ export class CartComponent implements OnInit {
         }
       }
       this.recipes=tempMap
-      console.log(this.recipes)
     })
    }
 

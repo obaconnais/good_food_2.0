@@ -1,13 +1,12 @@
 import { ComponentFixture, TestBed, } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Store } from '@ngrx/store';
-import { provideMockStore, MockStore, MockState } from '@ngrx/store/testing';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
 import { HomeFooterComponent } from 'src/app/_template/home-footer/home-footer.component';
 import { HomeHeaderComponent } from 'src/app/_template/home-header/home-header.component';
 import { CartComponent } from './home-cart.component';
-
+import { MemoizedSelector } from '@ngrx/store';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -21,10 +20,9 @@ describe('CartComponent', () => {
       image_name:'image_name'
   }
   let recipes:IRecipes={data:[recipe]}
-  let initialState:IRecipes = recipes
+  let initialState:{recipe: IRecipes} = {recipe:recipes}
   let store:MockStore
 
-  // let store:MockStore<IRecipes>=new MockStore()
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CartComponent, HomeHeaderComponent, HomeFooterComponent ],
@@ -33,7 +31,7 @@ describe('CartComponent', () => {
         RouterTestingModule.withRoutes([])
       ],
       providers:[
-        {provide: Store, useValue:provideMockStore({initialState})}
+        provideMockStore({initialState})
       ]
     })
       .compileComponents();
