@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PromotionsComponent } from './home-promotions.component';
 
@@ -8,7 +10,11 @@ describe('HomePromotionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PromotionsComponent ]
+      declarations: [ PromotionsComponent ],
+      imports:[
+        RouterTestingModule.withRoutes([]),
+        RouterModule
+      ],
     })
     .compileComponents();
   });

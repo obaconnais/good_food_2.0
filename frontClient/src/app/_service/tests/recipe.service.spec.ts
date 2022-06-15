@@ -3,6 +3,10 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { RecipeService } from '../recipe.service';
 import { IRecipes } from 'src/app/_interface/recipe';
+import { HomeFooterComponent } from 'src/app/_template/home-footer/home-footer.component';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RecipeService', () => {
   let service: RecipeService;
@@ -10,7 +14,13 @@ describe('RecipeService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule],
+      declarations:[HomeFooterComponent],
+      imports:[
+        HttpClientTestingModule,
+        FormsModule,
+        RouterModule,
+        RouterTestingModule.withRoutes([])
+      ],
       providers:[RecipeService]
     });
     service = TestBed.inject(RecipeService);

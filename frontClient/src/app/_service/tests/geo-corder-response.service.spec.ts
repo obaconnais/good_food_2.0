@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
 import { GeoCorderResponseService } from '../geo-corder-response.service';
 import { ICountry } from 'src/app/_interface/country';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 describe('GeoCorderResponseService', () => {
   let service: GeoCorderResponseService;
@@ -12,7 +13,12 @@ describe('GeoCorderResponseService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        FormsModule,
+        // RouterTestingModule.withRoutes([]),
+        RouterModule
+       ],
       providers: [GeoCorderResponseService]
     });
     service = TestBed.inject(GeoCorderResponseService);

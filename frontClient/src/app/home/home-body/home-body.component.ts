@@ -6,19 +6,22 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginTemplateComponent } from 'src/app/_template/login-template/login-template.component';
 import { ICountry } from 'src/app/_interface/country';
 import { RetaurantModalComponent } from 'src/app/_template/retaurant-modal/retaurant-modal.component';
-import { Store } from '@ngrx/store';
-import { UpdateStore } from 'src/app/_actions/test.action';
 
 @Component({
   selector: 'app-home-body',
   templateUrl: './home-body.component.html',
   styleUrls: ['./home-body.component.css']
 })
+
 export class HomeBodyComponent implements OnInit {
   constructor(
+    //useful for Carousel
     private ngbConfig: NgbCarouselConfig,
+    //useful to get information about restaurant
     private restaurants:RestaurantService,
+    //useful to convert and get any information about position
     private geoService:GeoCorderResponseService,
+    //useful to open the chosen feature modal
     private modalService: NgbModal,
     ) {
     //mask the barr in the carrousel
@@ -27,18 +30,19 @@ export class HomeBodyComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  //variable to store post code fill in by the user
+  //variable to store zipcode fill in by the user
   postCode:string='';
   //variable to store country where user are
   country:string=''
   //variable to store all countries
   countries:ICountry[]=this.geoService.getCountries()
-
+  //array to store all url of carousel pictures
   images = ["../assets/images/tartare.jpeg", "../assets/images/pickles.jpeg", "../assets/images/gateau.jpeg"]
 
   onClick(){
       let test = parseInt(this.postCode)
       let countryCode = this.geoService.getCountryCode(this.country)
+      //if zipCode fill in by user are empty or different from a number
       if(!this.postCode || !test){
         const modalRef = this.modalService.open(LoginTemplateComponent,{centered:true})
         modalRef.componentInstance.my_modal_content="zip code is required, please fill in it"
@@ -73,5 +77,9 @@ export class HomeBodyComponent implements OnInit {
           })
         })
       }
+  }
+
+  getNgb(){
+    return this.modalService
   }
 }

@@ -1,7 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HomeFooterComponent } from '../_template/home-footer/home-footer.component';
 
 import { LoginComponent } from './login.component';
 
@@ -12,8 +15,12 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      imports:[RouterTestingModule.withRoutes([]),HttpClientTestingModule],
+      declarations: [ LoginComponent, HomeFooterComponent ],
+      imports:[
+        RouterTestingModule.withRoutes([]),
+        HttpClientTestingModule,
+        FormsModule
+      ],
     })
     .compileComponents();
   });

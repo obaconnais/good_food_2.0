@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { RestaurantService } from '../restaurant.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { IRestaurant, IRestaurants } from 'src/app/_interface/restaurant';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RestaurantService', () => {
   let service: RestaurantService;
@@ -9,7 +10,9 @@ describe('RestaurantService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule],
+      imports:[
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([]) ],
       providers:[RestaurantService]
     });
     service = TestBed.inject(RestaurantService);

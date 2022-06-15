@@ -21,12 +21,5 @@ export class HomeHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLogged = true
-    this.restaurant_id = "123456"
-    this.restaurant_name = "Restaurant name"
-    console.log(this.isLogged)
-    this.restaurant_store.subscribe(res=>{
-      console.log("restaurant name")
-      console.log(res)
-    })
   }
 }

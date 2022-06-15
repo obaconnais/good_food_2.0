@@ -28,6 +28,12 @@ export class RetaurantModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Click on the button, it close the modal
+   * Send the restaurant to Menu component
+   * update the store with the restaurant name chosen
+   * parameter: the restaurnant chosen
+   */
   onClick(restaurant:IRestaurant):void{
     this.activeModal.close('Close click')
     this.messageService.sendMessage(restaurant)
