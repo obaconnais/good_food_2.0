@@ -11,27 +11,30 @@ import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
   styleUrls: ['./home-cart.component.css']
 })
 export class CartComponent implements OnInit {
-  recipes$:Observable<IRecipes>
+  protected recipes$:Observable<IRecipes>
 
-  test:any
+  protected test:any
 
-  testLength:any
+  protected testLength:any
 
-  recipes:Map<IRecipe,{nombre: Number, price:string}> = new Map()
+  protected recipes:Map<IRecipe,{nombre: Number, price:string}> = new Map()
 
-  image = "../assets/images/good_food.jpeg"
+  protected image = "../assets/images/good_food.jpeg"
 
-  Total:Number = 0;
+  protected Total:Number = 0;
 
-  keys:IRecipe[] =[]
+  protected keys:IRecipe[] =[]
 
   constructor(
     private store: Store<{ recipe: IRecipes }>
   ) {
     this.recipes$ = this.store.select((state)=>state.recipe)
+   }
+
+  ngOnInit(): void {
     this.recipes$.subscribe(res=>{
       this.test=res
-      this.testLength=this.test.length
+      this.testLength=this.getLength(this.test)
       this.Total=0
       let tempMap:Map<IRecipe,{nombre:Number, price:string}> = new Map()
       for(let i=1;i<this.test.length;i++){
@@ -45,9 +48,6 @@ export class CartComponent implements OnInit {
       }
       this.recipes=tempMap
     })
-   }
-
-  ngOnInit(): void {
     this.keys = this.getKeys()
   }
 
@@ -74,5 +74,9 @@ export class CartComponent implements OnInit {
   //delete all recipe in the store
   delete(rec:IRecipe):void{
     this.store.dispatch(DeleteRecipe({recipe:rec}))
+  }
+
+  getLength(array:[IRecipe]):Number{
+    return array.length
   }
 }

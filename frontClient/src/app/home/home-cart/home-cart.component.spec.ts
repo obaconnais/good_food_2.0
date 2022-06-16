@@ -6,7 +6,6 @@ import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
 import { HomeFooterComponent } from 'src/app/_template/home-footer/home-footer.component';
 import { HomeHeaderComponent } from 'src/app/_template/home-header/home-header.component';
 import { CartComponent } from './home-cart.component';
-import { MemoizedSelector } from '@ngrx/store';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -19,8 +18,8 @@ describe('CartComponent', () => {
       restaurant_id:['unid'],
       image_name:'image_name'
   }
-  let recipes:IRecipes={data:[recipe]}
-  let initialState:{recipe: IRecipes} = {recipe:recipes}
+  let Mockrecipes:IRecipes={data:[recipe]}
+  let initialState:{recipe: IRecipes} = {recipe:Mockrecipes}
   let store:MockStore
 
   beforeEach(async () => {
@@ -47,4 +46,5 @@ describe('CartComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

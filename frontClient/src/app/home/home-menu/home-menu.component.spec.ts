@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { IRecipes } from 'src/app/_interface/recipe';
+import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
 import { HomeMenuComponent } from './home-menu.component';
 
 describe('HomeMenuComponent', () => {
@@ -31,5 +31,21 @@ describe('HomeMenuComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch on store', () => {
+    let recipe:IRecipe = {
+      _id:"23456",
+      name:'blaf',
+      ingredients:['bla'],
+      price:12,
+      restaurant_id:['234'],
+      image_name:'dzeaf'
+    }
+
+    spyOn(store,'dispatch').and.callThrough()
+    component.onClick(recipe)
+    expect(store.dispatch).toHaveBeenCalled()
+
   });
 });

@@ -25,4 +25,13 @@ describe('HomeContactUsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should getImg return url', () => {
+    expect(component.getImg()).toBe("../assets/images/cuisine.jpeg")
+  });
+
+  it('should setImg return new url', () => {
+    component.setImg("blabla")
+    expect(component.getImg()).toBe("blabla")
+  });
 });
