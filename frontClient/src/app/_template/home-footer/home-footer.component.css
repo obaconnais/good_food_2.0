@@ -1,7 +1,6 @@
 .navbar{
   background-color: black;
   height: 100%;
-  font-family:'Great Vibes', cursive;
   color:silver;
 }
 
@@ -13,9 +12,14 @@
   position: relative;
   top: 0%;
   left: 15%;
-  font-family:'Great Vibes', cursive;
   color:silver;
   text-decoration: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .container a{
@@ -25,20 +29,19 @@
 }
 
 #footer_one{
-  position:fixed;
-  left:37%
+  order: 1;
 }
 #footer_two{
-  position:fixed;
-  left:43%
+  order: 2;
 }
 #footer_three{
-  position:fixed;
-  left:50%
+  order: 3;
 }
-#footer_for{
-  position:fixed;
-  left:57%
+#footer_four{
+  order: 4;
+}
+#footer_five{
+  order: 5;
 }
 
 .footer{

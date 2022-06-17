@@ -1,7 +1,6 @@
 #downCloseButton{
     color:white;
     border-radius: 50px;
-    font-family:'Great Vibes', cursive;
     font-size: 100%;
     background: teal;
     text-decoration: none;
@@ -9,7 +8,6 @@
 
 #modalHeader{
   background-color:teal;
-  font-family:'Great Vibes', cursive;
   text-align: center;
   color: white;
 }

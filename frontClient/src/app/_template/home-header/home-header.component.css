@@ -12,12 +12,6 @@
   left: 7%;
 }
 
-.nav-link {
-  font-family: 'Great Vibes', cursive;
-  color: silver;
-  font-size: 140%;
-}
-
 .signIn {
   position: fixed;
   left: 90%;
@@ -25,7 +19,6 @@
   width: 7%;
   color: silver;
   border-radius: 50px;
-  font-family: 'Great Vibes', cursive;
   font-size: 100%;
   background: none;
   text-decoration: none;
@@ -33,7 +26,7 @@
 
 #logo {
   width: auto;
-  height: 2%;
+  height: auto;
 }
 
 #dropdown {
@@ -60,5 +53,5 @@
   position: fixed;
   top: 0px;
   width: 100%;
-  height: 100%;
+  height: 10%;
 }
