@@ -1,50 +1,53 @@
-.company_name{
-  font-family:'Great Vibes', cursive;
-  color: silver;
-  font-size: 200%;
-  position: fixed;
-  left: 65%;
-  top: 20%;
+html {
+  color: white;
+}
+
+.main {
+  height: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 5vw;
+}
+
+.welcome_message {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .frontext{
-  color: silver;
+  font-size: 30px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.company_name{
   font-size: 50px;
-  font-family:'Great Vibes', cursive;
-  position: fixed;
-  left: 33%;
-  top: 12%;
+  font-weight: 500;
 }
 
 .question{
-  color: silver;
   font-weight: bold;
-  font-family:'Great Vibes', cursive;
   font-weight: inherit;
-  position: fixed;
-  top: 35%;
-  left: 43%;
   font-size: 40px;
 }
 
-.login{
-  background: none;
-  color: silver;
-  font-size: 200%;
-  font-family:'Great Vibes', cursive;
-  position: fixed;
-  top: 55%;
-  left: 18%;
-  text-decoration: none;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:3vw;
+  width: 90%;
+  margin-bottom: 25vh;
 }
 
-.home{
+nav a{
   background: none;
-  color: silver;
   font-size: 200%;
-  font-family:'Great Vibes', cursive;
-  position: fixed;
-  top: 55%;
-  left: 65%;
   text-decoration: none;
+  color: inherit;
 }

@@ -1,11 +1,9 @@
-<div [ngStyle]="{'background': 'url('+image+') no-repeat', 'background-size': '100%', 'height':'100%'}">
-  <div class ="company_name">
-    ... By Good-Food 2.0
+<div class="main" [ngStyle]="{'background': 'url('+image+') no-repeat', 'background-size': 'cover'}">
+  <div class="welcome_message">
+    <span class ="company_name">Good Food 2.0</span>
+    <span class="frontext">Best product for better experience</span>
   </div>
-  <div class="frontext">
-    Best product for better experience
-  </div>
-  <div class="question">Already taste it?</div>
+  <div class="question">Ready to taste it?</div>
   <nav>
     <a class="login" routerLink="/login" routerLinkActive="active">Yes, connect to my account</a>
     <a class="home" routerLink="/home" routerLinkActive="active"> No, begin my new experience</a>
