@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ master, qualif, feature/github_actions ] 
+    branches: [ master, qualif, "feature/github_actions" ] 
 jobs:
   build:
     runs-on: ubuntu-latest
