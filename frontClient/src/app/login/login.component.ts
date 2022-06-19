@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
           'font-style': 'italic',
           'text-align': 'center'
         }
+        this.user.password=''
+        this.user.mail=''
       }
     )
   }

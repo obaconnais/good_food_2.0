@@ -45,6 +45,35 @@ describe('CartComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  })
 
+  it('getKey() should return array of keys',() => {
+    component.setRecipes([recipe],1,"12")
+    let array = component.getKeys()
+    expect(array).toEqual([recipe])
+  })
+
+  it('increment should dispatch on store',() => {
+    spyOn(store,'dispatch').and.callThrough()
+    component.increment(recipe)
+    expect(store.dispatch).toHaveBeenCalled()
+  })
+
+  it('increment should dispatch on store',() => {
+    spyOn(store,'dispatch').and.callThrough()
+    component.increment(recipe)
+    expect(store.dispatch).toHaveBeenCalled()
+  })
+
+  it('decrement should dispatch on store',() => {
+    spyOn(store,'dispatch').and.callThrough()
+    component.decrement(recipe)
+    expect(store.dispatch).toHaveBeenCalled()
+  })
+
+  it('delete should dispatch on store',() => {
+    spyOn(store,'dispatch').and.callThrough()
+    component.delete(recipe)
+    expect(store.dispatch).toHaveBeenCalled()
+  })
 });

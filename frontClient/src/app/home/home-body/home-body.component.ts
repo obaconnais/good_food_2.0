@@ -31,13 +31,13 @@ export class HomeBodyComponent implements OnInit {
   ngOnInit(): void {
   }
   //variable to store zipcode fill in by the user
-  protected postCode:string='';
+  postCode:string='';
   //variable to store country where user are
-  protected country:string=''
+  country:string=''
   //variable to store all countries
-  protected countries:ICountry[]=this.geoService.getCountries()
+  countries:ICountry[]=this.geoService.getCountries()
   //array to store all url of carousel pictures
-  protected images = ["../assets/images/tartare.jpeg", "../assets/images/pickles.jpeg", "../assets/images/gateau.jpeg"]
+  images = ["../assets/images/tartare.jpeg", "../assets/images/pickles.jpeg", "../assets/images/gateau.jpeg"]
 
   onClick(){
       let test = parseInt(this.postCode)

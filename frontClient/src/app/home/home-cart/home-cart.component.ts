@@ -11,19 +11,19 @@ import { IRecipe, IRecipes } from 'src/app/_interface/recipe';
   styleUrls: ['./home-cart.component.css']
 })
 export class CartComponent implements OnInit {
-  protected recipes$:Observable<IRecipes>
+  recipes$:Observable<IRecipes>
 
-  protected test:any
+  test:any
 
-  protected testLength:any
+  testLength:any
 
-  protected recipes:Map<IRecipe,{nombre: Number, price:string}> = new Map()
+  recipes:Map<IRecipe,{nombre: Number, price:string}> = new Map()
 
-  protected image = "../assets/images/good_food.jpeg"
+  image = "../assets/images/good_food.jpeg"
 
-  protected Total:Number = 0;
+  Total:Number = 0;
 
-  protected keys:IRecipe[] =[]
+  keys:IRecipe[] =[]
 
   constructor(
     private store: Store<{ recipe: IRecipes }>
@@ -78,5 +78,12 @@ export class CartComponent implements OnInit {
 
   getLength(array:[IRecipe]):Number{
     return array.length
+  }
+
+  //use for mocking
+  setRecipes(array:IRecipe[],value:Number, price:string):void{
+    array.forEach(elt=>{
+      this.recipes.set(elt,{nombre:value,price:price})
+    })
   }
 }
