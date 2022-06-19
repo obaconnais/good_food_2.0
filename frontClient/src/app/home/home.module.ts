@@ -17,6 +17,7 @@ import { PromotionsComponent } from './home-promotions/home-promotions.component
 import { StoreModule } from '@ngrx/store';
 import { HomeContactUsComponent } from './home-contact-us/home-contact-us.component';
 import { recipeReducer, _RecipeReduceur, _RestaurantReducer } from '../_reducer/test.reducer';
+import { HomeFAQComponent } from './home-faq/home-faq.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { recipeReducer, _RecipeReduceur, _RestaurantReducer } from '../_reducer/
     MyCommandsComponent,
     PromotionsComponent,
     HomeContactUsComponent,
+    HomeFAQComponent,
   ],
   imports: [
     CommonModule,
