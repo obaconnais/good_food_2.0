@@ -19,22 +19,22 @@ jobs:
         npm run test
       env:
         NODE_ENV: development
-    # - name: GithubPackages Login
-    #   uses: docker/login-action@v1.10.0
-    #   with:
-    #       registry: ghcr.io
-    #       username: ${{ github.actor }}
-    #       password: ${{ secrets.GITHUB_TOKEN }}
-    # - name: Extract metadata (tags, labels) for Docker
-    #   id: meta
-    #   uses: docker/metadata-action@v3
-    #   with:
-    #     images: ghcr.io/${{ github.repository }}
-    # - name: Build and push Docker images
-    #   if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/qualif'
-    #   uses: docker/build-push-action@v2
-    #   with:
-    #     context: .
-    #     push: true
-    #     tags: ${{ steps.meta.outputs.tags }}
-    #     labels: ${{ steps.meta.outputs.labels }}
+    - name: GithubPackages Login
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ghcr.io/${{ github.repository }}
+    - name: Build and push Docker images
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/qualif' || github.ref == 'refs/heads/feature/github_actions'
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
