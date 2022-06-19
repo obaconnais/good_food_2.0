@@ -51,5 +51,6 @@ describe('user want to connect, check authentication', () => {
     cy.get("button").click()
     //check if path is correct
     cy.url().should('include','/home')
+    cy.get('button[id=dropdown]').should('have.text',' Account')
   })
 })

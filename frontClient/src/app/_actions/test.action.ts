@@ -21,3 +21,8 @@ export const UpdateStore = createAction(
   "[Menu Component] updateStore",
   props<{restaurant:string}>()
 )
+
+export const UpdateIsLogged = createAction(
+  "[Menu Login] UpdateIsLogged",
+  props<{isLogged:boolean}>()
+)

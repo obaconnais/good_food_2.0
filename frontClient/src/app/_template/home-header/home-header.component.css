@@ -20,7 +20,7 @@
 
 .signIn {
   position: fixed;
-  left: 90%;
+  left: 84%;
   height: 5%;
   width: 7%;
   color: silver;
@@ -29,11 +29,6 @@
   font-size: 100%;
   background: none;
   text-decoration: none;
-}
-
-#logo {
-  width: auto;
-  height: 2%;
 }
 
 #dropdown {

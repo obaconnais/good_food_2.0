@@ -32,8 +32,9 @@ describe('user want to connect, check authentication', () => {
 
   it('check FAQ Page',()=>{
     cy.get('div[id=footer_one]').click()
+    cy.url().should('include', 'http://localhost:4200/home/faq')
     cy.get('img[id="logo"]').should('have.css','width')
-    // cy.get('button[class=signIn').should('have.text','Sign in')
+    cy.get('button[class=signIn').should('have.text','Sign in')
     cy.get('div[id=footer_one]').should('have.text', 'FAQ')
     cy.get('div[id=footer_two]').should('have.text', 'Franchise')
     cy.get('div[id=footer_three]').should('have.text', 'Contact us')

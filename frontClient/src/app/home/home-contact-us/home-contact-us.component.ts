@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-contact-us.component.css']
 })
 export class HomeContactUsComponent implements OnInit {
-  private image= "../assets/images/cuisine.jpeg"
+  protected image= "../assets/images/cuisine.jpeg"
   constructor() { }
 
   ngOnInit(): void {
