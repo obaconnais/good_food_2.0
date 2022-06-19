@@ -37,7 +37,7 @@ describe('user want to connect, check authentication', () => {
 
   it('check connect click with wrong data',()=>{
     cy.get(".input1").type('wrong data')
-    cy.get(".input2").type('(wrong password')
+    cy.get(".input2").type('wrong password')
     cy.get("button").click()
     cy.get('h4').should('have.text','Authentication failed')
     cy.get('p').should('have.text','login/password wrong!')
@@ -46,7 +46,7 @@ describe('user want to connect, check authentication', () => {
   })
 
   it('check connect click with correct data',()=>{
-    cy.get(".input1").type('fm.Voltaire@testwrong pa.com')
+    cy.get(".input1").type('fm.Voltaire@test.com')
     cy.get(".input2").type('test')
     cy.get("button").click()
     //check if path is correct

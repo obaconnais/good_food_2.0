@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   onClick(): void {
     this.authServ.login(this.user).subscribe(
       data => {
-        console.log(data)
         this.tokenServ.saveToken(data.acces_token)
       },
       err => {
