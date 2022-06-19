@@ -19,15 +19,14 @@
 }
 
 .signIn {
-  position: fixed;
+  position:sticky;
   left: 84%;
-  height: 5%;
   width: 7%;
-  color: silver;
-  border-radius: 50px;
-  font-family: 'Great Vibes', cursive;
+  height:60%;
+  color: white;
+  border-radius: 5px;
   font-size: 100%;
-  background: none;
+  background: teal;
   text-decoration: none;
 }
 
