@@ -1,4 +1,4 @@
-describe('user want to watcth FAQ', () => {
+describe('user want to display information about franchise', () => {
 
   it('check welcome page', () => {
     //check elements in the page
@@ -15,7 +15,6 @@ describe('user want to watcth FAQ', () => {
     cy.get('.login').click()
     //check if the url is correct
     cy.url().should('include', '/login')
-
   })
 
   it('check login page content', ()=>{
@@ -35,7 +34,6 @@ describe('user want to watcth FAQ', () => {
     cy.get('button[id=dropdown]').should('have.text',' Account')
   })
 
-
   it('check home page',()=>{
     cy.get('img[id="logo"]').should('have.css','width')
     // cy.get('button[class=signIn').should('have.text','Sign in')
@@ -51,15 +49,16 @@ describe('user want to watcth FAQ', () => {
     cy.get('img').should('have.length', '4')
   })
 
-  it('check FAQ Page',()=>{
-    cy.get('div[id=footer_one]').click()
-    cy.url().should('include', 'http://localhost:4200/home/faq')
+  it('check Franchise Page',()=>{
+    cy.get('div[id=footer_two]').click()
+    cy.url().should('include','http://localhost:4200/home/franchise')
     cy.get('img[id="logo"]').should('have.css','width')
     cy.get('button[id=dropdown]').should('have.text',' Account')
     cy.get('div[id=footer_one]').should('have.text', 'FAQ')
     cy.get('div[id=footer_two]').should('have.text', 'Franchise')
     cy.get('div[id=footer_three]').should('have.text', 'Contact us')
     cy.get('div[id=footer_for]').should('have.text', 'About us')
+    cy.get('img').should('have.length','24')
   })
 
 })

@@ -1,4 +1,4 @@
-describe('user want to connect, check authentication', () => {
+describe('user want to watch all informations about contactus', () => {
 
   it('check welcome page', () => {
     //check elements in the page

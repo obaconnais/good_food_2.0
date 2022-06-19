@@ -12,11 +12,11 @@
     <div class="noRecipe" [ngStyle]="{'background': 'url('+image+') no-repeat'}" *ngIf="testLength == 1">
     </div>
     <ul>
-      <li *ngFor="let recipe of keys">
+      <li class="li" *ngFor="let recipe of keys">
         <div id="container" class="container_product" *ngIf="recipes.get(recipe)">
           <div class="number_liste">
             <div class="buttonleft_container">
-              <button (click)="decrement(recipe)" class="buttonManage"> - </button>
+              <button id="-" (click)="decrement(recipe)" class="buttonManage"> - </button>
             </div>
             <div class="textManage">{{recipes.get(recipe)?.nombre}}</div>
             <div  class="buttonright_container">

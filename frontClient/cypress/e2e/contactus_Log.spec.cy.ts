@@ -1,4 +1,4 @@
-describe('user want to watcth FAQ', () => {
+describe('user want to watch all informations about contactus', () => {
 
   it('check welcome page', () => {
     //check elements in the page
@@ -35,7 +35,6 @@ describe('user want to watcth FAQ', () => {
     cy.get('button[id=dropdown]').should('have.text',' Account')
   })
 
-
   it('check home page',()=>{
     cy.get('img[id="logo"]').should('have.css','width')
     // cy.get('button[class=signIn').should('have.text','Sign in')
@@ -52,14 +51,19 @@ describe('user want to watcth FAQ', () => {
   })
 
   it('check FAQ Page',()=>{
-    cy.get('div[id=footer_one]').click()
-    cy.url().should('include', 'http://localhost:4200/home/faq')
-    cy.get('img[id="logo"]').should('have.css','width')
-    cy.get('button[id=dropdown]').should('have.text',' Account')
+    cy.get('div[id=footer_three]').click()
+    cy.url().should('include','http://localhost:4200/home/contactus')
+      cy.get('img[id="logo"]').should('have.css','width')
     cy.get('div[id=footer_one]').should('have.text', 'FAQ')
     cy.get('div[id=footer_two]').should('have.text', 'Franchise')
     cy.get('div[id=footer_three]').should('have.text', 'Contact us')
     cy.get('div[id=footer_for]').should('have.text', 'About us')
+    cy.get('p[id="title_mail"]').should('have.text','Mail:')
+    cy.get('p[id="mail"]').should('have.text','good.food@gmail.com')
+    cy.get('p[id="title_phone"]').should('have.text','Phone:')
+    cy.get('p[id="phone"]').should('have.text','+33 1.70.12.24.35')
+    cy.get('p[id="title_address"]').should('have.text','Address:')
+    cy.get('p[id="address"]').should('have.text',' 24 avenue du bon moment 75000 PARIS')
   })
 
 })

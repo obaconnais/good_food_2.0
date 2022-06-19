@@ -1,4 +1,4 @@
-describe('user want to connect, check authentication', () => {
+describe('user want to watch all information about aboutus', () => {
 
   it('check welcome page', () => {
     //check elements in the page
@@ -30,7 +30,7 @@ describe('user want to connect, check authentication', () => {
     cy.get('img').should('have.length', '4')
   })
 
-  it('check Franchise Page',()=>{
+  it('check aboutus Page',()=>{
     cy.get('div[id=footer_for]').click()
     cy.url().should('include','http://localhost:4200/home/aboutus')
     cy.get('img[id="logo"]').should('have.css','width')

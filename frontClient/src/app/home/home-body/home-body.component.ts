@@ -66,6 +66,7 @@ export class HomeBodyComponent implements OnInit {
               modalRef.componentInstance.my_modal_content= "Sorry, no restaurant in this area"
               modalRef.componentInstance.my_modal_title="No new experience available !"
               modalRef.componentInstance.my_modal_failed =false
+              this.postCode=''
             }
             else{
               const modalRef = this.getNgb().open(RetaurantModalComponent,{centered:true})

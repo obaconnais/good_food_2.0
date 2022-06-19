@@ -35,7 +35,6 @@ describe('user want to watcth FAQ', () => {
     cy.get('button[id=dropdown]').should('have.text',' Account')
   })
 
-
   it('check home page',()=>{
     cy.get('img[id="logo"]').should('have.css','width')
     // cy.get('button[class=signIn').should('have.text','Sign in')

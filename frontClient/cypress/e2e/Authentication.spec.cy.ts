@@ -14,8 +14,7 @@ describe('user want to connect, check authentication', () => {
     //nav on login page
     cy.get('.login').click()
     //check if the url is correct
-    cy.url().should('include', '/login')
-
+    cy.url().should('include', 'http://localhost:4200/login')
   })
 
   it('check login page content', ()=>{
@@ -43,6 +42,13 @@ describe('user want to connect, check authentication', () => {
     cy.get('p').should('have.text','login/password wrong!')
     cy.get('button[id="downCloseButton"]').should('have.text','Close')
     cy.get('button[id="downCloseButton"]').click()
+  })
+
+  it('check home button',()=>{
+    cy.get('.BackHome').click()
+    cy.url().should('include', 'http://localhost:4200/home')
+    cy.get('button[class=signIn').click()
+    cy.url().should('include', 'http://localhost:4200/login')
   })
 
   it('check connect click with correct data',()=>{
