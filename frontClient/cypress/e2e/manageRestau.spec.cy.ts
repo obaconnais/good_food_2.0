@@ -72,7 +72,7 @@ describe('user want to display information about franchise', () => {
     cy.get('select').select('Luxembourg')
     cy.get('input').type("1450")
     cy.get('button[id="valid"]').click()
-    cy.wait(25000)
+    cy.wait(20000)
     cy.get('h4[class="modal-title"]').should('have.text',"Wich restaurant do you prefer? ")
     cy.get('a[id="nav"]').should('have.length','1')
     cy.get('button[id="downCloseButton"]').should('have.text','Close')
