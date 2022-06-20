@@ -1,41 +1,41 @@
 name: Docker Image CI/CD API
 
 on:
-  push:
-    branches: [ master, qualif, "feature/github_actions" ]
-  jobs:
-    build:
-      name: Build Docker container image
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
-        # - name: Set up NodeJS
-        #   uses: actions/setup-node@v3
-        #   with:
-        #     node-version: 16
-        # - name: Test
-        #   run: |
-        #     npm install jest
-        #     npm install dotenv
-        #     npm install
-        #     npm run test
-        - name: GithubPackages Login
-          uses: docker/login-action@v1.10.0
-          with:
-              registry: ghcr.io
-              username: ${{ github.actor }}
-              password: ${{ secrets.GITHUB_TOKEN }}
-        - name: Extract metadata (tags, labels) for Docker
-          id: meta
-          uses: docker/metadata-action@v3
-          with:
-            images: ghcr.io/${{ github.repository }}
-        - name: Build and push Docker images
-          # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/qualif'
-          uses: docker/build-push-action@v2
-          with:
-            context: ./API
-            push: true
-            tags: ${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
+  push
+    # branches: [ master, qualif, "feature/github_actions" ]
+  # jobs:
+  build:
+    name: Build Docker container image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # - name: Set up NodeJS
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      # - name: Test
+      #   run: |
+      #     npm install jest
+      #     npm install dotenv
+      #     npm install
+      #     npm run test
+      - name: GithubPackages Login
+        uses: docker/login-action@v1.10.0
+        with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/${{ github.repository }}
+      - name: Build and push Docker images
+        # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/qualif'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./API
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
