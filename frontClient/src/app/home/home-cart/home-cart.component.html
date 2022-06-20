@@ -3,24 +3,24 @@
     <img class="image" src="../assets/images/assiette_tomate.jpeg">
   </div>
   <div class="command">
-    <h4 class="header_command">
+    <h4 id="header" class="header_command">
       Your cart
-      <p *ngIf="test.length == 1" class="noRecipe_text">
+      <p *ngIf="testLength == 1" class="noRecipe_text">
         is empty !
       </p>
     </h4>
-    <div class="noRecipe" [ngStyle]="{'background': 'url('+image+') no-repeat'}" *ngIf="test.length == 1">
+    <div class="noRecipe" [ngStyle]="{'background': 'url('+image+') no-repeat'}" *ngIf="testLength == 1">
     </div>
     <ul>
-      <li *ngFor="let recipe of keys">
-        <div class="container_product" *ngIf="recipes.get(recipe)">
+      <li class="li" *ngFor="let recipe of keys">
+        <div id="container" class="container_product" *ngIf="recipes.get(recipe)">
           <div class="number_liste">
             <div class="buttonleft_container">
-              <button (click)="decrement(recipe)" class="buttonManage"> - </button>
+              <button id="-" (click)="decrement(recipe)" class="buttonManage"> - </button>
             </div>
             <div class="textManage">{{recipes.get(recipe)?.nombre}}</div>
             <div  class="buttonright_container">
-              <button (click)="increment(recipe)" class="buttonManage"> + </button>
+              <button id="+" (click)="increment(recipe)" class="buttonManage"> + </button>
             </div>
           </div>
           <div class="recipe_name">{{recipe.name}}</div>

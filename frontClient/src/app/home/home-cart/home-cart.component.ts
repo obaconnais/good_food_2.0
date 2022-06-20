@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AddRecipe, DecrementRecipe, DeleteRecipe } from 'src/app/_actions/test.action';
@@ -14,6 +15,8 @@ export class CartComponent implements OnInit {
 
   test:any
 
+  testLength:any
+
   recipes:Map<IRecipe,{nombre: Number, price:string}> = new Map()
 
   image = "../assets/images/good_food.jpeg"
@@ -23,11 +26,15 @@ export class CartComponent implements OnInit {
   keys:IRecipe[] =[]
 
   constructor(
-    private store: Store<{ recipe: IRecipes }>,
+    private store: Store<{ recipe: IRecipes }>
   ) {
     this.recipes$ = this.store.select((state)=>state.recipe)
+   }
+
+  ngOnInit(): void {
     this.recipes$.subscribe(res=>{
       this.test=res
+      this.testLength=this.getLength(this.test)
       this.Total=0
       let tempMap:Map<IRecipe,{nombre:Number, price:string}> = new Map()
       for(let i=1;i<this.test.length;i++){
@@ -40,11 +47,7 @@ export class CartComponent implements OnInit {
         }
       }
       this.recipes=tempMap
-      console.log(this.recipes)
     })
-   }
-
-  ngOnInit(): void {
     this.keys = this.getKeys()
   }
 
@@ -71,5 +74,16 @@ export class CartComponent implements OnInit {
   //delete all recipe in the store
   delete(rec:IRecipe):void{
     this.store.dispatch(DeleteRecipe({recipe:rec}))
+  }
+
+  getLength(array:[IRecipe]):Number{
+    return array.length
+  }
+
+  //use for mocking
+  setRecipes(array:IRecipe[],value:Number, price:string):void{
+    array.forEach(elt=>{
+      this.recipes.set(elt,{nombre:value,price:price})
+    })
   }
 }

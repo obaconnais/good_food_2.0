@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-contact-us.component.css']
 })
 export class HomeContactUsComponent implements OnInit {
-  image= "../assets/images/cuisine.jpeg"
+  protected image= "../assets/images/cuisine.jpeg"
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  getImg():string{
+    return this.image
+  }
+
+  setImg(newUrl:string):void{
+    this.image = newUrl
+  }
 }

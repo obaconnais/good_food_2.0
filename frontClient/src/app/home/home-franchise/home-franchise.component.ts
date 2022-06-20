@@ -17,7 +17,7 @@ export class HomeFranchiseComponent implements OnInit {
 
 
   ngOnInit(): void{
-    //get addresse from database and convert it into coordinate
+    //get address from database and convert it into coordinate
     this.restaurants.getRestaurant().subscribe(rest=>{
       rest.data.forEach(restaurant=>{
         let add = restaurant.address

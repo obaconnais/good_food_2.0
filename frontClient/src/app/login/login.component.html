@@ -1,21 +1,22 @@
-<div id=login [ngStyle]="{'background': 'url('+image+') no-repeat', 'background-size': 'cover', 'height':'100%'}">
+<div id=login [ngStyle]="{'background': 'url('+image+') no-repeat', 'background-size': '100%', 'height':'100%'}">
   <nav routerLink="/home">
     <a class="imgpos">
       <img class="image" src="../../assets/images/left_arrow.png">
-      <span class="BackHome">Home</span>
+    </a>
+    <a>
+      <div class="BackHome">Home</div>
     </a>
   </nav>
-  <div id="signin_div">
-    <div class="signIn">Sign In</div>
-    <input  class="input"
-            placeholder="Login"
+    <div class = "signIn">Sign In</div>
+    <input  class = "input1"
+            placeholder= "enter your login"
             [(ngModel)]="user.mail">
-    <input  class="input"
-            placeholder="Password"
+    <input  class = "input2"
+            placeholder="enter your password"
+            type="password"
             [(ngModel)]="user.password">
-    <button class="submit"
-            (click)="onClick()">
+    <button class = "submit"
+          (click)="onClick()">
             Connect
     </button>
-  </div>
 </div>
