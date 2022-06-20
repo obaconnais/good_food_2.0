@@ -12,6 +12,12 @@
   left: 7%;
 }
 
+.nav-link {
+  font-family: 'Great Vibes', cursive;
+  color: silver;
+  font-size: 140%;
+}
+
 .signIn {
   position:sticky;
   left: 84%;
@@ -19,7 +25,6 @@
   height:60%;
   color: white;
   border-radius: 5px;
-
   font-size: 100%;
   background: teal;
   text-decoration: none;
@@ -51,4 +56,3 @@
   width: 100%;
   height: 100%;
 }
-
