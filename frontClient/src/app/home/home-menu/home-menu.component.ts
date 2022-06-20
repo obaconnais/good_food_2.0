@@ -56,6 +56,7 @@ export class HomeMenuComponent implements OnInit {
     )
   }
 
+  //when click on add, update the store
   onClick(recipe: IRecipe):void{
     this.store.dispatch(AddRecipe({allRecipe:{data:[recipe]}}))
   }

@@ -253,8 +253,13 @@ export class GeoCorderResponseService {
     {name: 'Zambia', code: 'ZM'},
     {name: 'Zimbabwe', code: 'ZW'}
   ]
-  constructor(private http:HttpClient) { }
 
+  constructor(private http:HttpClient) { }
+  /**
+   * transforme an address into GeoCode
+   * param: adress to tranform
+   * returns: Observable
+   */
   //usefull for transform address into geoCode
   getLocation(add:string):Observable<any>{
     const url = `http://api.positionstack.com/v1/forward?access_key=${environment.apikey}&query=${add}`;
@@ -263,14 +268,14 @@ export class GeoCorderResponseService {
 
   /**
   * usefull to get all post Code around a location
-  * postCode is the the poste which is the center of research
-  * dist is the distance to searc around
-  * country is the country where the postCode
-  * return an Observable
+  * zip code is the the poste which is the center of research
+  * dist is the distance to search around
+  * country is the country where the postCode, must be in ISO3166 alpha 2
+  * return an Observable<any>
   */
   getAroundPostCode(postCode: string, dist:string, country:string):Observable<any>{
     let APIKey = '37f7d350-d6e5-11ec-a838-b3ee535e3951'
-    const url = `https://app.zipcodebase.com/api/v1/radius?apikey=${APIKey}&code=${postCode}&radius=${dist}&country=${country}`
+    const url =  `https://app.zipcodebase.com/api/v1/radius?apikey=${APIKey}&code=${postCode}&radius=${dist}&country=${country}`
     return this.http.get<any>(url)
   }
 
@@ -282,11 +287,12 @@ export class GeoCorderResponseService {
   getCountryCode(country:string):string{
     let code:string = 'Country not exist'
     this.constryCode.forEach(elt=>{
-       if(elt.name === country)
+       if(elt.name.toUpperCase() === country.toUpperCase())
         code = elt.code
     })
     return code
   }
+
   /**
    * usefull to get all the countries
    * return a table of ICountry

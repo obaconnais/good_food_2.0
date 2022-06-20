@@ -1,5 +1,7 @@
+import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../../_service/token.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home-header',
@@ -7,16 +9,21 @@ import { TokenService } from '../../_service/token.service';
   styleUrls: ['./home-header.component.css']
 })
 export class HomeHeaderComponent implements OnInit {
-  isLogged: boolean | undefined;
+  isLogged$:Observable<boolean>
+  _isLogged:boolean = false
   restaurant_id: string | undefined
   restaurant_name: string | undefined
+  restaurant_store:Observable<string>
 
-  constructor() { }
+  constructor(
+    store:Store<{restaurant:string}>,
+    store2:Store<{isLogged:boolean}>
+  ){
+    this.restaurant_store = store.select((state)=>state.restaurant)
+    this.isLogged$ = store2.select((state)=>state.isLogged)
+  }
 
   ngOnInit(): void {
-    this.isLogged = true
-    this.restaurant_id = "123456"
-    this.restaurant_name = "Restaurant name"
-    console.log(this.isLogged)
+    this.isLogged$.subscribe(res=>this._isLogged=res)
   }
 }

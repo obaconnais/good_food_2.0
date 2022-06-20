@@ -2,7 +2,7 @@
   <h4 class="modal-title">{{my_modal_title}}</h4>
 </div>
 <div class="modal-body"  >
-  <p [ngStyle]="my_modal_style">{{my_modal_content}}</p>
+  <p id="popup_content" [ngStyle]="my_modal_style">{{my_modal_content}}</p>
 </div>
 <div class="modal-footer">
   <button id=downCloseButton type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>

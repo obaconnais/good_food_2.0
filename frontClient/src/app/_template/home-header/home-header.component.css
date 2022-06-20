@@ -13,20 +13,16 @@
 }
 
 .signIn {
-  position: fixed;
-  left: 90%;
-  height: 5%;
+  position:sticky;
+  left: 84%;
   width: 7%;
-  color: silver;
-  border-radius: 50px;
-  font-size: 100%;
-  background: none;
-  text-decoration: none;
-}
+  height:60%;
+  color: white;
+  border-radius: 5px;
 
-#logo {
-  width: auto;
-  height: auto;
+  font-size: 100%;
+  background: teal;
+  text-decoration: none;
 }
 
 #dropdown {
@@ -53,5 +49,6 @@
   position: fixed;
   top: 0px;
   width: 100%;
-  height: 10%;
+  height: 100%;
 }
+

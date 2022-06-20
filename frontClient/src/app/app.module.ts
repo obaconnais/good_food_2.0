@@ -11,6 +11,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-modal.component';
+import { StoreModule } from '@ngrx/store';
+import { LoggedReducer, _RecipeReduceur, _RestaurantReducer } from './_reducer/test.reducer';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { RetaurantModalComponent } from './_template/retaurant-modal/retaurant-m
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    StoreModule.forRoot({recipe: _RecipeReduceur, restaurant: _RestaurantReducer, isLogged: LoggedReducer})
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent],

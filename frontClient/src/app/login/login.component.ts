@@ -3,6 +3,8 @@ import { TokenService } from '../_service/token.service';
 import { AuthService } from '../_service/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginTemplateComponent } from '../_template/login-template/login-template.component';
+import { Store } from '@ngrx/store';
+import { UpdateIsLogged } from '../_actions/test.action';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private tokenServ: TokenService,
     private authServ: AuthService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private store:Store<{isLogged:boolean}>
   ) { }
 
   ngOnInit(): void {
@@ -31,8 +34,8 @@ export class LoginComponent implements OnInit {
   onClick(): void {
     this.authServ.login(this.user).subscribe(
       data => {
-        console.log(data)
         this.tokenServ.saveToken(data.acces_token)
+        this.store.dispatch(UpdateIsLogged({isLogged:true}))
       },
       err => {
         /**
@@ -54,6 +57,8 @@ export class LoginComponent implements OnInit {
           'font-style': 'italic',
           'text-align': 'center'
         }
+        this.user.password=''
+        this.user.mail=''
       }
     )
   }

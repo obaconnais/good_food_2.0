@@ -1,17 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row bd-navbar">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <a class="navbar-brand" href="#" routerLink="body">
-      <img src="../assets/images/logo.png" width="80" height="80" alt="">
+      <img id="logo" src="../assets/images/logo.png" width="80" height="80" alt="">
     </a>
   </div>
 
-  <div *ngIf="restaurant_id" class="p-2">
-    <button id="restaurant" type="button" class="btn btn-outline" title="Clic here to change the selected restaurant"
-      data-bs-toggle="tooltip" routerLink="/home">
-      <i class="bi bi-building"> Restaurant : {{restaurant_name}}</i>
-    </button>
+  <div *ngIf="restaurant_store | async" class="p-2">
+    <nav id="restaurant"
+         type="button"
+         class="btn btn-outline"
+         title="Clic here to change the selected restaurant"
+         data-bs-toggle="tooltip" routerLink="/home"
+         routerLink="menu"
+         >
+
+      <i id="i_restaurant" class="bi bi-building"> Restaurant : {{restaurant_store | async}}</i>
+    </nav>
   </div>
-  <div *ngIf="!isLogged; then signIn else accountMenu" class="p-2"></div>
+  <div *ngIf="!_isLogged then signIn else accountMenu " class="p-2"></div>
   <ng-template #signIn><button class="signIn" routerLink="/login">Sign in</button></ng-template>
   <ng-template #accountMenu>
     <div ngbDropdown class="d-inline-block" display="dynamic" placement="bottom-end">

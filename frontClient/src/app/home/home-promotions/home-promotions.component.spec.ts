@@ -1,20 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { HomePromotionsComponent } from './home-promotions.component';
+import { PromotionsComponent } from './home-promotions.component';
 
 describe('HomePromotionsComponent', () => {
-  let component: HomePromotionsComponent;
-  let fixture: ComponentFixture<HomePromotionsComponent>;
+  let component: PromotionsComponent;
+  let fixture: ComponentFixture<PromotionsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomePromotionsComponent ]
+      declarations: [ PromotionsComponent ],
+      imports:[
+        RouterTestingModule.withRoutes([]),
+        RouterModule
+      ],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomePromotionsComponent);
+    fixture = TestBed.createComponent(PromotionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

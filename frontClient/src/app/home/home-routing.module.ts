@@ -10,6 +10,7 @@ import { MyAccountComponent } from './home-myaccount/home-myaccount.component';
 import { MyCommandsComponent } from './home-mycommands/home-mycommands.component';
 import { PromotionsComponent } from './home-promotions/home-promotions.component';
 import { HomeContactUsComponent } from './home-contact-us/home-contact-us.component';
+import { HomeFAQComponent } from './home-faq/home-faq.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,9 @@ const routes: Routes = [
       },
       {
         path: "contactus", component: HomeContactUsComponent
+      },
+      {
+        path: "faq", component: HomeFAQComponent
       }
     ]
   },
