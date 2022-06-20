@@ -23,14 +23,13 @@ on:
         uses: docker/login-action@v1.10.0
         with:
             registry: ghcr.io
-
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/${{ github.repository }}_api
       - name: Build and push Docker images
         # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/qualif'
         uses: docker/build-push-action@v2
