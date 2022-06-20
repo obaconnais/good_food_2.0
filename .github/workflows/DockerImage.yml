@@ -35,5 +35,5 @@ jobs:
         with:
           context: ./API
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }} _API
+          tags: ${{ steps.meta.outputs.tags }}/API
+          labels: ${{ steps.meta.outputs.labels }}
