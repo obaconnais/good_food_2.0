@@ -2,7 +2,7 @@ name: Docker Image CI/CD API
 
 on:
   push:
-    branches: [ master, qualif, "feature/github_actions" ] 
+    branches: [ master, qualif, "feature/github_actions" ]
   jobs:
     build:
       name: Build Docker container image
