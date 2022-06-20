@@ -29,7 +29,7 @@ on:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/${{ github.repository }}_api
+          images: ghcr.io/${{ github.repository }}
       - name: Build and push Docker images
         # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/qualif'
         uses: docker/build-push-action@v2
