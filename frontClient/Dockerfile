@@ -4,7 +4,6 @@ ENV NODE_ENV=production
 
 COPY . .
 
-RUN npm install dotenv
 RUN npm install
-EXPOSE 5001
-CMD ["npm", "run", "start"]
+EXPOSE 4200
+CMD ["npm", "run", "build"]
