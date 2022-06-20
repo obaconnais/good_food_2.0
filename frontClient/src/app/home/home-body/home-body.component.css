@@ -1,65 +1,77 @@
-#carousel{
-  position: fixed;
-  top:10%;
-  width:61%;
-}
-
 #img{
-  height:auto;
-  width:100%;
+  height: auto;
+  width: 100%;
+  max-height: 100%;
 }
 
 #body{
-  position: fixed;
   background-color:white;
   height: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+#carousel{
+  order: 1;
+  width:60%;
+  min-width: 841px;
+}
+
+#search_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+  width: 40%;
+  min-width: 440px;
 }
 
 #header{
-  position: fixed;
-  right: 5%;
-  top: 30%;
   font-size: 300%;
   font-family:'Snell Roundhand', cursive;
   font-weight: bold;
   color: teal;
+  text-align: center;
+  margin-bottom: 6vh;
+  margin-top: -17vh;
+}
+
+#header, #header p {
+  white-space: nowrap;
 }
 
 #form{
-  position: fixed;
-  top: 40%;
-  right: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 #postCode{
-  position: fixed;
-  top: 50%;
-  right: 10%;
-  width: 15%;
+  border: 1px solid #5e5e5e;
+}
+
+#country, #postCode{
+  width: 20vw;
+  height: 5vh;
   border-radius: 10px;
+  padding: 0 15px;
+  margin: 1vh 0;
+  min-width: 200px;
 }
 
 #valid{
-  position:fixed;
-  top:60%;
-  right: 13%;
-  height: 5%;
-  width: 9%;
-  color:silver;
+  height: 5vh;
+  width: 9vw;
+  color:white;
   border-radius: 50px;
-  font-family:'Great Vibes', cursive;
   font-size: 100%;
   background: black;
   text-decoration: none;
-}
-
-#country{
-  position: fixed;
-  top: 45%;
-  right: 10%;
-  width: 15%;
-  height: 3.5%;
-  border-radius: 10px;
+  margin: 1vh 0;
+  min-width: 90px;
 }
 
 .title_boulet{
